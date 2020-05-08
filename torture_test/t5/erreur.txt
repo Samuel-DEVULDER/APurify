@@ -1,0 +1,15 @@
+ mvpsf_pure
+**** APurify started on Mon Mar 18 22:55:10 1996
+
+**** APURIFY ERROR ! [$00333db4(4) R-- (_main, PC=$003eeff0 HUNK=$0
+OFFSET=$350)] accessed between:
+     -22897    [$00339728(264)     RWS (segment Module CLI)]
+     +3357109  [$00000000(1024)    --S (Basic 680x0 vectors)]
+Usage :
+        mvpsf_pure directory
+
+**** APURIFY WARNING ! Closing library without deallocation of the following
+block(s):
+     - [$0038afd8(20)    RW- (_main)]
+
+**** APurify ended on Mon Mar 18 22:55:12 1996

@@ -1,0 +1,206 @@
+/*RX
+ * $VER: APurify.ged 0.6 (19.10.96) AREXX Script to use APurify with GoldEd.
+ * 
+ * Usage: SetEnv APEXEC "rx <path>apurify.ged $HITNO $SOURCE $LINE $CALLCHAIN"
+ *
+ * Don't forget to set a log file too (SetEnv APLOG <logfile>).
+ *
+ * 26/11/96: Adaptation for golded 4.0
+ * 20/06/99: Added "'DIR NEW' pragma('D')" to make GOLDED use the same directory
+ *           as the APurified executable.
+ *
+ * й by Samuel Devulder
+ */
+
+APSKIPCOUNT="APSCnt"                /* ENV: variable used in skip mode */
+OPTIONS RESULTS                             /* enable return codes     */
+OPTIONS FAILAT 6                            /* ignore warnings         */
+SIGNAL ON SYNTAX                            /* ensure clean exit       */
+SIGNAL ON BREAK_C
+SIGNAL ON BREAK_D
+
+PARSE ARG HITNO SOURCE LINE CALLCHAIN 
+
+/***********************************************************************/
+
+if (HITNO = 0) THEN DO                   /* APurify started            */
+   CALL myUnSetEnv(APSKIPCOUNT)
+   CALL SETCLIP('APURIFYSTATUS','APurify started on 'DATE() TIME()'')
+   EXIT 0
+END; else if (HITNO = -1) THEN DO        /* APurify stopped            */
+   CALL SETCLIP('APURIFYSTATUS')
+END; else DO                             /* If in skip mode, then exit */
+   SkipPt  = myGetEnv(APSKIPCOUNT)
+   IF (SkipPt~="") THEN DO
+      if (SkipPt >= HITNO) THEN EXIT 0
+      ELSE CALL myUnSetEnv(APSKIPCOUNT)
+   END
+END
+
+/***********************************************************************/
+
+if (LEFT(ADDRESS(), 6) ~= "GOLDED") THEN DO /* not started by GoldEd ? */
+   IF ~SHOW('P','GOLDED.1') THEN DO
+      IF SOURCE~="" THEN ADDRESS COMMAND 'GOLDED:ED' SOURCE
+      ELSE ADDRESS COMMAND 'GOLDED:ED'
+   END
+   ADDRESS 'GOLDED.1'
+END
+
+'UNLOCK'
+/* lock GUI, gain access   */
+'QUERY VERSION VAR RESULT'
+IF RESULT >= 4000 THEN 
+   'LOCK CURRENT RELEASE=4' 
+ELSE DO
+   'LOCK CURRENT'
+END
+
+/***********************************************************************/
+
+if (HITNO = -1) THEN DO                     /* APurify stopped         */
+   CALL myUnSetEnv(APSKIPCOUNT)
+   log = myGetEnv("APLOG")
+   IF log~="" THEN DO             /* Open log window if logfile exists */
+      'QUERY VERSION'
+      IF RESULT>4000 THEN HEIGHT=96; ELSE HEIGHT=80
+      'QUERY ORDINAL VAR ORD'
+      'QUERY SCREENH VAR SCH'
+      'WINDOW HEIGHT='SCH-HEIGHT-11' Y='HEIGHT+11
+      'WINDOW Y=11 HEIGHT='HEIGHT' USE 'log' FORCE'
+      'OPEN AGAIN'
+      'WINDOW RECOVER'
+      'REQUEST STAY STATUS="APurify LOG"'
+      'GOTO BOTTOM'
+      'FIND STRING="APURIFY ERROR !" WILD=FALSE PREV'
+      'QUERY TOPLINE VAR=TOPL'
+      'QUERY LINE VAR=CURL'
+      'GOTO BOF'
+      DO i = TOPL+1 TO CURL-1 
+	 'DOWN'
+      END
+      'GOTO LINE' CURL
+      'WINDOW ORDINAL='ORD
+   END
+   'REQUEST STAY STATUS="APurify stopped on '||DATE() TIME()||'"'
+   CALL QUIT 0
+END
+
+/***********************************************************************/
+
+/* APurify running */
+'QUERY ANYTEXT'
+IF RESULT=FALSE THEN DO
+   'DIR NEW' pragma('D')
+   'OPEN SMART' SOURCE
+END
+ELSE 'WINDOW USE ' SOURCE ' FORCE'
+
+RESULT=GETCLIP('APURIFYSTATUS')
+IF RESULT~="" THEN DO
+   'REQUEST STAY STATUS="'RESULT'"'
+   CALL SETCLIP('APURIFYSTATUS')
+END
+
+IF LINE~=0 THEN DO
+   'GOTO UNFOLD=TRUE LINE' LINE 
+   'GOTO INDENT'
+   'MARK LINE SET BEGIN END'
+END; ELSE 'REQUEST STATUS="APurify Warning: No line information !"'
+
+/* find depth of call chain */
+DPTH = (LENGTH(CALLCHAIN) - LENGTH(COMPRESS(CALLCHAIN,'л')))/2
+
+/* build call chain tree */
+CALLCHAIN = DPTH||CALLCHAIN
+LEN       = length(DPTH)
+DPTH      = DPTH - 1
+CTR       = 0
+IDX       = INDEX(CALLCHAIN,"лл")
+DO WHILE (IDX ~= 0)
+  S = ""
+  DO i = length(DPTH)+1 TO LEN; S = S' '; END
+  CALLCHAIN = LEFT(CALLCHAIN,IDX-1)'|         'S||DPTH||,
+	      SUBSTR(CALLCHAIN,IDX+2)
+  IDX  = INDEX(CALLCHAIN,"лл")
+  CTR  = CTR + 1
+  DPTH = DPTH - 1
+  IF ((IDX ~= 0) & (CTR >= 9)) THEN DO
+     S = "";DO i = length(DPTH)+1 TO LEN; S = S' '; END
+     CALLCHAIN = LEFT(CALLCHAIN,IDX-1)'|         'S||DPTH' ...'
+     DPTH = DPTH - 1
+     IDX  = 0   
+  END
+END
+
+/* build the body of the requester */
+BDY =                  'SOURCE : ' || SOURCE 
+
+IF LINE~=0 THEN
+   BDY = BDY || '|' || 'LINE   : ' || LINE
+ELSE
+   BDY = BDY || '|' || 'LINE   : ' || 'Not Available'
+
+BDY =    BDY || '|' || 'HIT#   : ' || HITNO
+BDY =    BDY || '|' || 'CALLS  : ' || CALLCHAIN
+
+/* display it */
+'REQUEST TITLE="APurify Request: ╗╗ Stop program ? лл" BODY="'||,
+	       BDY ||'" BUTTON="_Yes|_Skip|_no"'
+
+/* process result */
+IF RESULT==1 THEN                           /* stop program            */
+   CALL QUIT 5
+ELSE IF RESULT==0 THEN                      /* continue program        */
+   CALL QUIT 0
+ELSE IF RESULT==2 THEN DO                   /* skip next hits          */
+   'REQUEST TITLE="How many hits to skip ?" BODY="(Check *"ENV:'||,
+		  APSKIPCOUNT||'*")" OLD=1 MIN=1 MAX=10000 LONG'
+   IF RC=0 THEN CALL mySetEnv(APSKIPCOUNT,HITNO + RESULT)
+END
+
+CALL QUIT 0
+
+/***********************************************************************/
+
+QUIT:
+   'UNLOCK'                              /* VERY important: unlock GUI */
+EXIT 0+ARG(1)
+
+/***********************************************************************/
+
+BREAK_C:
+BREAK_D:
+   SAY "*** Break received !"
+CALL QUIT 5
+
+/***********************************************************************/
+
+SYNTAX:
+   SAY "Sorry, error line" SIGL ":" ERRORTEXT(RC) ":-("
+CALL QUIT 5
+
+/***********************************************************************/
+
+myGetEnv: PROCEDURE          /* when will ARexx supply GetEnv/SetEnv ? */
+   PARSE ARG name
+   IF open(TEMPFILE,"ENV:"||name,'r') THEN DO
+	gives = readln(TEMPFILE)
+	CALL close TEMPFILE
+   END; ELSE gives = ""
+RETURN gives
+
+/***********************************************************************/
+
+mySetEnv: PROCEDURE
+   PARSE ARG name,content
+   ADDRESS COMMAND "SetEnv" name content
+RETURN
+
+/***********************************************************************/
+
+myUnSetEnv: PROCEDURE
+   PARSE ARG name
+   ADDRESS COMMAND "UnSetEnv" name
+RETURN
+

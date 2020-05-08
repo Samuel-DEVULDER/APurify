@@ -1,0 +1,202 @@
+**** APurify started on Thu Jul 11 23:08:58 1996
+Malloc(1036,0)=002b0db8 par _main
+Malloc(12,0)=00263f58 par _main
+Malloc(164,65537)=0028e7d8 par _main
+Malloc(64,65537)=0028eae8 par _main
+Malloc(64,65537)=0028f158 par _main
+Malloc(160,65536)=0028fe58 par _main
+Malloc(278,0)=00290088 par _main
+Malloc(100,1)=00290380 par _main
+Malloc(12,65536)=0026f1b0 par _main
+Malloc(320,65536)=00290958 par _main
+Malloc(278,0)=002b19e8 par _main
+Malloc(16,65536)=0026f1d8 par _main
+Malloc(28,2)=00005470 par _main
+Malloc(28,2)=00005490 par _main
+Malloc(16,65536)=0026f218 par _main
+Malloc(126,2)=00018198 par _main
+Malloc(126,2)=00018218 par _main
+Free(002b19e8,278) par _main
+Free(00290980,40) par _main
+
+**** APURIFY ERROR ! No memory block is matching 00290980-002909a7
+This happend while calling FreeMem() in _main
+Block is after [$00290958(320)     RW- (_main)]
+Block is before [$002aedb8(8192)   RWS (standard stack frame of task)]
+Free(002909a8,40) par _main
+
+**** APURIFY ERROR ! No memory block is matching 002909a8-002909cf
+This happend while calling FreeMem() in _main
+Block is after [$00290958(320)     RW- (_main)]
+Block is before [$002aedb8(8192)   RWS (standard stack frame of task)]
+Free(002909d0,40) par _main
+
+**** APURIFY ERROR ! No memory block is matching 002909d0-002909f7
+This happend while calling FreeMem() in _main
+Block is after [$00290958(320)     RW- (_main)]
+Block is before [$002aedb8(8192)   RWS (standard stack frame of task)]
+Free(002909f8,40) par _main
+
+**** APURIFY ERROR ! No memory block is matching 002909f8-00290a1f
+This happend while calling FreeMem() in _main
+Block is after [$00290958(320)     RW- (_main)]
+Block is before [$002aedb8(8192)   RWS (standard stack frame of task)]
+Free(00290a20,40) par _main
+
+**** APURIFY ERROR ! No memory block is matching 00290a20-00290a47
+This happend while calling FreeMem() in _main
+Block is after [$00290958(320)     RW- (_main)]
+Block is before [$002aedb8(8192)   RWS (standard stack frame of task)]
+Free(00290a48,40) par _main
+
+**** APURIFY ERROR ! No memory block is matching 00290a48-00290a6f
+This happend while calling FreeMem() in _main
+Block is after [$00290958(320)     RW- (_main)]
+Block is before [$002aedb8(8192)   RWS (standard stack frame of task)]
+Free(00005470,28) par _main
+Free(00005490,28) par _main
+Free(0026f1d8,16) par _main
+Free(00018198,126) par _main
+Free(00018218,126) par _main
+Free(0026f218,16) par _main
+Malloc(40,65536)=0028f280 par _main
+Malloc(40,65536)=002b1d78 par _main
+Malloc(40,65536)=002b2090 par _main
+Malloc(40,65536)=002b26d8 par _main
+Free(002c2390,40) par _main
+
+**** APURIFY ERROR ! No memory block is matching 002c2390-002c23b7
+This happend while calling FreeMem() in _main
+Block is after [$002b26d8(40) RW- (_main)]
+Block is before [$002c2c78(23676)  RWS (segment Module CLI)]
+Free(00290088,278) par _main
+Malloc(40,65536)=002900c8 par _main
+Free(002b2090,40) par _main
+Malloc(34,65537)=002b3940 par _main
+Malloc(34,65537)=002b3ab0 par _main
+Free(00263f58,12) par _main
+Free(002b3ab0,34) par _main
+Free(002b3940,34) par _main
+Free(0026f1b0,12) par _main
+Malloc(16,65536)=00263f58 par _main
+Malloc(16,65536)=0026f1b0 par _main
+Free(00290958,40) par _main
+
+**** APURIFY ERROR ! No memory block is matching 00290958-0029097f
+This happend while calling FreeMem() in _main
+Block is after [$00290380(100)     RW- (_main)]
+Block is before [$00290958(320)    RW- (_main)]
+Free(00290a70,40) par _main
+
+**** APURIFY ERROR ! No memory block is matching 00290a70-00290a97
+This happend while calling FreeMem() in _main
+Block is after [$00290958(320)     RW- (_main)]
+Block is before [$002aedb8(8192)   RWS (standard stack frame of task)]
+Free(00225810,40) par _main
+
+**** APURIFY ERROR ! No memory block is matching 00225810-00225837
+This happend while calling FreeMem() in _main
+Block is after [$00000000(1024)    --S (Basic 680x0 vectors)]
+Block is before [$00262600(14)     RWS (allocation during startup)]
+Free(00290380,100) par _main
+Free(0028d8f8,40) par _main
+
+**** APURIFY ERROR ! No memory block is matching 0028d8f8-0028d91f
+This happend while calling FreeMem() in _main
+Block is after [$0026f2f8(18) RWS (allocation during startup)]
+Block is before [$0028e7d8(164)    RW- (_main)]
+Free(002900c8,40) par _main
+Free(0028fe58,160) par _main
+Malloc(12,65536)=0026f218 par _main
+Malloc(16,65536)=0026f2b8 par _main
+Malloc(16,65536)=0026fa60 par _main
+Malloc(16,65536)=00273148 par _main
+Malloc(16,65536)=0028d808 par _main
+Malloc(16,65536)=0028db68 par _main
+Malloc(16,65536)=0028dcd8 par _main
+Malloc(16,65536)=0028e2a8 par _main
+Malloc(16,65536)=0028ec68 par _main
+Malloc(12,65536)=0028ed08 par _main
+Malloc(12,65536)=0028f2a8 par _main
+Malloc(12,65536)=0028f538 par _main
+Malloc(16,65536)=00290730 par _main
+Malloc(16,65536)=00290c28 par _main
+Malloc(16,65536)=00290d70 par _main
+Malloc(16,65536)=002a9470 par _main
+Malloc(16,65536)=002a9718 par _main
+Malloc(16,65536)=002b1a80 par _main
+Malloc(16,65536)=002b2080 par _main
+Malloc(16,65536)=002b3750 par _main
+Malloc(16,65536)=002b39f8 par _main
+Free(002b3750,16) par _main
+Free(002b2080,16) par _main
+Free(002b1a80,16) par _main
+Free(002a9718,16) par _main
+Free(002a9470,16) par _main
+Free(00290d70,16) par _main
+Free(00290c28,16) par _main
+Free(00290730,16) par _main
+Malloc(16,65536)=00290358 par _main
+Free(002b39f8,16) par _main
+Free(0028f538,12) par _main
+Free(0028ec68,16) par _main
+Free(0028e2a8,16) par _main
+Free(0028dcd8,16) par _main
+Free(0028db68,16) par _main
+Free(0028d808,16) par _main
+Free(00273148,16) par _main
+Free(0026fa60,16) par _main
+Free(0026f2b8,16) par _main
+Free(0028f2a8,12) par _main
+Malloc(12,65536)=0026f2b8 par _main
+Malloc(12,65536)=0026fa60 par _main
+Free(0026fa60,12) par _main
+Free(0026f2b8,12) par _main
+Malloc(40,65536)=002ce0b8 par _main
+Free(00290358,16) par _main
+Free(0026f218,12) par _main
+Free(0028ed08,12) par _main
+Free(002ce0b8,40) par _main
+Malloc(12,65536)=0026f218 par _main
+Malloc(16,65536)=0026f2b8 par _main
+Malloc(12,65536)=0026fa60 par _main
+Malloc(12,65536)=00273148 par _main
+Malloc(12,65536)=0028d808 par _main
+Malloc(16,65536)=0028db68 par _main
+Malloc(16,65536)=0028dcd8 par _main
+Free(0028db68,16) par _main
+Malloc(16,65536)=0028db68 par _main
+Free(0028dcd8,16) par _main
+Free(0028d808,12) par _main
+Free(0026f2b8,16) par _main
+Free(00273148,12) par _main
+Malloc(12,65536)=0026f2b8 par _main
+Malloc(12,65536)=00273148 par _main
+Free(00273148,12) par _main
+Free(0026f2b8,12) par _main
+Malloc(40,65536)=002d04b8 par _main
+Free(0028db68,16) par _main
+Free(0026f218,12) par _main
+Free(0026fa60,12) par _main
+Free(00263f58,16) par _main
+Free(002d04b8,40) par _main
+Free(0028eae8,64) par _main
+Free(0028f158,64) par _main
+Free(0028dc58,56) par _main
+
+**** APURIFY ERROR ! No memory block is matching 0028dc58-0028dc8f
+This happend while calling FreeMem() in _main
+Block is after [$0026f2f8(18) RWS (allocation during startup)]
+Block is before [$0028e7d8(164)    RW- (_main)]
+Free(0028e7d8,164) par _main
+
+**** APURIFY WARNING ! Closing library without deallocation of the following
+block(s):
+     - [$0026f1b0(16)    RW- (_main)]
+     - [$0028f280(40)    RW- (_main)]
+     - [$00290958(320)   RW- (_main)]
+     - [$002b0db8(1036)  RW- (_main)]
+     - [$002b1d78(40)    RW- (_main)]
+     - [$002b26d8(40)    RW- (_main)]
+
+**** APurify ended on Thu Jul 11 23:09:04 1996

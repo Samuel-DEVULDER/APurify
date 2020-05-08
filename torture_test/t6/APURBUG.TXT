@@ -1,0 +1,119 @@
+From xavier.billault@ramses.fdn.org Wed Jul 10 13:11 MET 1996
+Date: 09 Jul 96 23:20:15 +0200
+From: xavier.billault@ramses.fdn.org (Xavier Billault)
+To: devulder@calvin.info.unicaen.fr
+Subject: Re: PB avec Apurify
+
+Salut Samuel,
+
+ J'ai trouve un GROS bug (enfin il me semble) de APurify1.4.
+
+ Il semblerait qu'un programme "purifie" par APurify ne puisse
+ plus ouvrir de fenetre sans plantage (blocage total de l'amiga
+ mais sans Guru).
+
+ Cela ne se passe que lorsque le programme en question a une sortie
+ "stdout" de definie. Si on execute le programme 'truc' avec la ligne
+ de commandes truc >NIL: cela fonctionne mais se bloque quand on quitte
+ le programme truc. Par contre, si on le lance avec la ligne de
+ commandes 'truc', cela plante des qu'il veut ouvrir une fenetre.
+
+ J'ai fait un petit essai avec un petit programme qui affiche l'heure
+ et cela se produit exactement comme decrit ci dessus (compile avec
+ gcc 2.7.0 et apf1.4):
+
+ Voila le source :
+#include <proto/exec.h>
+#include <proto/intuition.h>
+#include <proto/dos.h>
+
+#include <stdio.h>
+#include <string.h>
+#include <stdlib.h>
+
+void itoa(char *rep,ULONG u)
+{
+	BYTE i=2;
+
+	while ((i--) || u)
+	{
+		rep[i] = '0' + u%10L;
+		u /=10L;
+	}
+}
+
+void Failat(char * s)
+{
+	BPTR con;
+	if (con = Open("CON:0/10/400/50/Clock Requester .../AUTO/CLOSE/WAIT/INACTIVE",MODE_NEWFILE))
+		FPrintf(con,s);
+}
+
+void main(void)
+{
+	struct Library *DosBase,*IntuitionBase;
+	struct NewWindow newwindow=
+	{
+		549,0,100,11,
+		0,1,
+		IDCMP_CLOSEWINDOW,
+		WFLG_CLOSEGADGET | WFLG_DRAGBAR | WFLG_SMART_REFRESH,
+		NULL,NULL,
+		"00:00:00",
+		NULL,
+		NULL,
+		0,0,0,0,
+		WBENCHSCREEN
+	};
+	struct Window *window;
+	struct IntuiMessage *message;
+	char *title;
+	UBYTE cont = 1;
+	ULONG micros,seconds;
+	char hours[2],mins[2],secs[2];
+
+
+	if (DosBase = OpenLibrary("dos.library",36L))
+	{
+		if (IntuitionBase = OpenLibrary("intuition.library",36L))
+		{
+			if (window = OpenWindow(&newwindow))
+			{
+				title = window->Title;
+				while ((message = (struct IntuiMessage *)(GetMsg(window->UserPort))) || cont)
+				{
+					if (message)
+					{
+						ReplyMsg((struct Message *)message);
+						cont=0;
+					}
+					Delay(50);
+					CurrentTime(&seconds,&micros);
+					itoa(hours,((seconds / 3600L)%24L));
+					itoa(mins,((seconds / 60L)%60L));
+					itoa(secs,(seconds%60L));
+					title[0]=hours[0];
+					title[1]=hours[1];
+					title[3]=mins[0];
+					title[4]=mins[1];
+					title[6]=secs[0];
+					title[7]=secs[1];
+					RefreshWindowFrame(window);
+				}
+				CloseWindow(window);
+			}
+			else Failat("Can't open window Sorry !!!\n");
+			CloseLibrary(IntuitionBase);
+		}
+		CloseLibrary(DosBase);
+	}
+}                                                                 
+
+ Voila, si tu as besoin de renseignements supplementaires n'hesite pas.
+
+ A+
+
+
+
+Xavier - GoldFist point ********* -
+

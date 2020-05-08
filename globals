@@ -1,0 +1,41 @@
+#
+# globals definitions for makefile
+#
+MAINDIR 	= 
+#Work:dev/c/progs/APurify/
+VERSION 	= 1.6
+
+MITPDIR		= $(MAINDIR)mit-parser/
+MOTPDIR		= $(MAINDIR)mot-parser/
+APFDIR		= $(MAINDIR)frontend/
+
+LDIR		= $(MAINDIR)lib/
+TDIR		= $(MAINDIR)test/
+UDIR		= $(MAINDIR)utils/
+BDIR		= $(MAINDIR)bin/
+DDIR		= $(MAINDIR)distrib/
+ODIR		= $(MAINDIR)doc/
+
+#
+# mit-parser modules
+#
+MITPMODS = code_section inst jbsr main tokenize label movem \
+globals iscomment lstack utils args process stabd
+
+#
+# mot-parser modules
+#
+MOTPMODS = code_section inst jbsr main tokenize label movem \
+globals iscomment lstack xref process utils args branch \
+sasbugs sourcelevel
+
+#
+# library module
+#
+LMODS = APfuncs
+
+#
+# front-end module
+#
+APFMODS = args main globals sas dcc pdc gcc utils
+

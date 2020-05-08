@@ -1,0 +1,59 @@
+From amiuni.tynet.sub.org!Boris@prox.tynet.sub.org Tue Apr  2 04:07 MET 1996
+Date: Sat, 30 Mar 1996 13:07:56 +0100
+From: "Boris Folgmann" <Boris@prox.tynet.sub.org>
+To: "Samuel Devulder" <devulder@calvin.info.unicaen.fr>
+Subject: Re: New APurify arrived
+
+Hi Samuel!
+
+> You'll find the updates that has this bug fixed in an other mail
+
+I tested with this:
+
+void main(void)
+{
+	int i;
+
+	PutStr("[32m  ");
+
+	for (i = 0; i < 16; i++)
+		Printf("  %lx ", i);
+
+	PutStr("[31m\n");
+
+	for (i = 0; i < 256; i++)
+	{
+		if (0 == (i % 16))
+			Printf("[32m%lx [31m", i / 16);
+
+		if (((i >= 32) && i < 128) || (i >= 160))
+			Printf("  %lc ", i);
+		else
+			Printf("    ");
+
+		if (0 == ((i + 1) % 16))
+			Printf("\n");
+	}
+}
+
+(Escape codes aren't important)
+
+But with apf sc asciitab.c I get a totally wrong output.
+Is it right that you always use DEF=__regargs PARM=STACK,
+because I changed it in my scoptions without effect.
+
+How can I compile programs without startup-code?
+__XCEXIT seems to be needed by apurify.
+
+See you,
+            Boris
+
+--
+                            PROXITY SOFTWORKS
+           PGP: 82 84 70 38 26 5E 50 5A 9C DB CA CA 62 0A 31 52
+ Boris Folgmann <boris@prox.tynet.sub.org> <prx@studbox.uni-stuttgart.de>
+<http://www.informatik.uni-stuttgart.de/fachschaft/adressen/bsfolgma.html>
+
+      <ftp://ftp.uni-paderborn.de/pub/aminet/util/wb/ProxWatch12.lha>
+
+

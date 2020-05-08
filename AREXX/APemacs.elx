@@ -1,0 +1,270 @@
+/*RX
+ * $VER: APemacs.elx 0.5 (19.10.96) AREXX Script to use APurify with Emacs.
+ * 
+ * Usage: SetEnv APEXEC "rx <path>APemacs.elx $HITNO $SOURCE $LINE $CALLCHAIN"
+ *
+ * Don't forget to set a log file too (SetEnv APLOG <logfile>).
+ *
+ * й by Samuel Devulder
+ */
+
+APSKIPCOUNT="APSCnt"                /* ENV: variable used in skip mode */
+OPTIONS RESULTS                             /* enable return codes     */
+OPTIONS FAILAT 6                            /* ignore warnings         */
+SIGNAL ON SYNTAX                            /* ensure clean exit       */
+SIGNAL ON BREAK_C
+SIGNAL ON BREAK_D
+
+PARSE ARG HITNO SOURCE LINE CALLCHAIN
+
+/****************************************************************************/
+
+IF (HITNO = 0) THEN DO                        /* APurify started            */
+   CALL myUnSetEnv(APSKIPCOUNT)
+   SETCLIP('APURIFYSTATUS','APurify started on 'DATE() TIME()'')
+   EXIT 0
+END; ELSE IF (HITNO = -1) THEN DO             /* APurify stopped            */
+   IF GETCLIP('APURIFYSTATUS')~="" THEN DO
+      SETCLIP('APURIFYSTATUS')
+   END
+END; ELSE DO                                  /* If in skip mode, then exit */
+   SkipPt  = myGetEnv(APSKIPCOUNT)
+   IF (SkipPt~="") THEN DO
+      IF (SkipPt >= HITNO) THEN EXIT 0
+      ELSE CALL myUnSetEnv(APSKIPCOUNT)
+   END
+END
+
+/****************************************************************************/
+
+IF ~SHOW('P','EMACS1') THEN DO /* address emacs */
+      IF SOURCE~="" THEN ADDRESS COMMAND 'Emacs' SOURCE
+      ELSE ADDRESS COMMAND 'Emacs'
+END
+ADDRESS 'EMACS1'
+
+/****************************************************************************/
+
+IF (HITNO = -1) THEN DO /* apurify stopped */
+   CALL myUnSetEnv(APSKIPCOUNT)
+   log = myGetEnv("APLOG")
+   '(amiga-activate-window)'
+   IF log~="" THEN DO                  /* Open log window if logfile exists */
+      '(delete-other-windows)'
+      '(message "If nothing happens, please type '"'yes'"' in this window, please!")'
+      '(find-file-other-window "'log'")'
+      '(shrink-window 3)'
+      '(end-of-buffer)'
+      '(search-backward "APURIFY ERROR !")'
+      '(other-window -1)'
+   END
+   CALL SetStatus('APurify stopped on 'DATE() TIME())
+   CALL QUIT 0
+END;
+
+/****************************************************************************/
+
+/* apurify running */
+'(find-file "'PRAGMA('D')'/'SOURCE'")'
+IF LINE~=0 THEN DO
+   '(goto-line ' LINE ')' 
+   '(beginning-of-line)'
+   '(forward-to-indentation 0)'
+END; ELSE CALL SetStatus('No line information!')
+
+IF GETCLIP('APURIFYSTATUS')~="" THEN DO
+   STATUS = GETCLIP('APURIFYSTATUS')
+   SETCLIP('APURIFYSTATUS')
+   CALL SetStatus(STATUS)
+END
+
+/* find depth of call chain */
+DPTH = (LENGTH(CALLCHAIN) - LENGTH(COMPRESS(CALLCHAIN,'л')))/2
+
+/* build call chain tree */
+CALLCHAIN = DPTH||CALLCHAIN
+LEN       = length(DPTH)
+DPTH      = DPTH - 1
+CTR       = 0
+IDX       = INDEX(CALLCHAIN,"лл")
+DO WHILE (IDX ~= 0)
+   S = ""
+   DO i = length(DPTH)+1 TO LEN; S = S||' '; END
+   CALLCHAIN = LEFT(CALLCHAIN,IDX-1)'|          'S||DPTH||,
+               SUBSTR(CALLCHAIN,IDX+2)
+   IDX  = INDEX(CALLCHAIN,"лл")
+   CTR  = CTR + 1
+   DPTH = DPTH - 1
+   IF ((IDX ~= 0) & (CTR >= 9)) THEN DO
+      S = "";DO i = length(DPTH)+1 TO LEN; S = S||' '; END
+      CALLCHAIN = LEFT(CALLCHAIN,IDX-1)'|          'S||DPTH||' ...'
+      DPTH = DPTH - 1
+      IDX  = 0   
+   END
+END
+
+/* build the body of the requester */
+BDY =                  ' SOURCE : ' || SOURCE
+
+IF LINE~=0 THEN
+   BDY = BDY || '|' || ' LINE   : ' || LINE
+ELSE
+   BDY = BDY || '|' || ' LINE   : ' || 'Not Available'
+
+BDY =    BDY || '|' || ' HIT#   : ' || HITNO
+BDY =    BDY || '|' || ' CALLS  : ' || CALLCHAIN
+
+RESULT=Request("APurify Request: ╗╗ Stop program ? лл",,
+               BDY,,
+               "[_Yes]   _Skip   <_No>")
+
+/* process result */
+IF RESULT==1 THEN                           /* stop program            */
+   CALL QUIT 5
+else IF RESULT==0 THEN                      /* continue program        */
+   CALL QUIT 0
+else IF RESULT==2 THEN DO                   /* skip next hits          */
+   RESULT=NumRequest("Enter a number:",,
+                     'How many hits to skip ? (Check "ENV:'APSKIPCOUNT'")',,
+                     1)
+   if (RC=0)&(RESULT>0)&(RESULT<10000) THEN
+      CALL mySetEnv(APSKIPCOUNT,HITNO + RESULT)
+END
+
+CALL QUIT 0
+
+/****************************************************************************/
+
+QUIT:
+EXIT ARG(1)+0
+
+/****************************************************************************/
+
+BREAK_C:
+BREAK_D:
+   SAY "*** Break received !"
+CALL QUIT 5
+
+/****************************************************************************/
+
+SYNTAX:
+   SAY "Sorry, error line" SIGL ":" ERRORTEXT(RC) ":-("
+CALL QUIT 5
+
+/****************************************************************************/
+
+myGetEnv: PROCEDURE           /* when will ARexx supply GetEnv/SetEnv ? */
+   PARSE ARG name
+   IF open(TEMPFILE,"ENV:"||name,'r') THEN DO
+        gives = readln(TEMPFILE)
+        CALL close TEMPFILE
+   END; ELSE gives = ""
+RETURN gives
+
+/****************************************************************************/
+
+mySetEnv: PROCEDURE
+   PARSE ARG name,content
+   ADDRESS COMMAND "SetEnv" name content
+RETURN
+
+/****************************************************************************/
+
+myUnSetEnv: PROCEDURE
+   PARSE ARG name
+   ADDRESS COMMAND "UnSetEnv" name
+RETURN
+
+/****************************************************************************/
+
+SetStatus: PROCEDURE
+   PARSE ARG status
+   '(message "'status'")'
+RETURN
+
+/****************************************************************************/
+
+Request: PROCEDURE   /* poor man's requester */
+   PARSE ARG title, body, ans
+
+   RH  = 5 + length(body) - length(compress(body,'|'))
+   RW  = 1
+   ODX = 0
+   IDX = INDEX(body,'|')
+   DO while (IDX ~= 0)
+      ODX = IDX-ODX
+      if ODX>RW then RW=ODX
+      ODX = IDX
+      IDX = INDEX(body, '|', IDX+1)
+   END
+   ODX = 1+length(BODY)-ODX
+   if ODX>RW then RW=ODX
+
+   ans = translate(ans," ","|")
+   txt = ans
+   IDX = INDEX(txt,'_');I=0
+   PAT = ""
+   do while(IDX ~= 0)
+      PAT = PAT||SUBSTR(TXT,IDX+1,1)
+      txt = LEFT(txt,IDX-1)'9b'x'4m'SUBSTR(TXT,IDX+1,1)'9b'x'24m'SUBSTR(TXT,IDX+2)
+      I   = I+7
+      IDX = INDEX(txt,'_')
+   end
+
+   IF ~open(Win,'KRAW:0/0/'8+RW*8'/'11+RH*8'/'title,
+                '/FONT topaz.8/CLOSE/NOSIZE/PLAIN','rw') THEN
+   IF ~open(Win,'RAW:0/0/'8+RW*8'/'11+RH*8'/'title,
+                '/CLOSE/NOSIZE','rw') THEN RETURN
+   call writeln(Win,'0a9b'x'302070'x'9b'x'41;32;>1m'||,
+                translate(body,'0a'x,'|'))
+   call writeln(Win,'')
+   call writech(Win,'9b'x'32;43m'||center(txt,RW+I))
+
+   ch=readch(Win);
+   if (ch=='0a'x)|(ch=='0d'x) then ch=left(PAT,1)
+   if (ch=='1b'x)|(ch=='9b'x) then ch=right(PAT,1)
+   do while(INDEX(UPPER(PAT),UPPER(ch)) = 0)
+      writech(Win,'07'x)
+      ch=readch(Win)
+      if (ch=='0a'x)|(ch=='0d'x) then ch=left(PAT,1)
+      if (ch=='1b'x)|(ch=='9b'x) then ch=right(PAT,1)
+   end
+   call Close(Win)
+   RESULT=INDEX(UPPER(PAT),UPPER(ch))
+   if RESULT==length(PAT) then RESULT=0
+RETURN RESULT
+
+/****************************************************************************/
+
+NumRequest: PROCEDURE   /* poor man's requester */
+   PARSE ARG title, body, defans
+
+   RH  = 5 + length(body) - length(compress(body,'|'))
+   RW  = 1
+   ODX = 0
+   IDX = INDEX(body,'|')
+   DO while (IDX ~= 0)
+      ODX = IDX-ODX
+      if ODX>RW then RW=ODX
+      ODX = IDX
+      IDX = INDEX(body, '|', IDX+1)
+   END
+   ODX = 1+length(BODY)-ODX
+   if ODX>RW then RW=ODX
+
+   IF ~open(Win,'KCON:0/0/'8+RW*8'/'11+RH*8'/'title' (def='defans')',
+                '/FONT topaz.8/CLOSE/NOSIZE/PLAIN','rw') THEN
+   IF ~open(Win,'CON:0/0/'8+RW*8'/'11+RH*8'/'title' (def='defans')',
+                '/CLOSE/NOSIZE','rw') THEN RETURN
+   call writeln(Win,'0a9b'x'41;32;>1m'||translate(body,'0a'x,'|'))
+   call writeln(Win,'')
+   call writech(Win,'09b'x||trunc(RW/2)-1||'C')
+
+   ch=readln(Win)
+   call Close(Win)
+   RC=0
+   if ch="" then ch=defans
+   if datatype(ch)='NUM' then RESULT=ch
+   else RC=5
+RETURN RESULT
+

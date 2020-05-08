@@ -1,0 +1,141 @@
+			    APF (APurify Frontend)
+			    ---------------------
+
+			    (c) by Samuel DEVULDER
+				   feb. 1996
+
+		       Samuel.Devulder@info.unicaen.fr
+
+DESCRIPTION:
+-----------
+	This is a frontend program that will make for you  all	the  boring
+    stuff APurify needs. It  will  find  the  compiler	you  use,  generate
+    asm-files, parse them with the good parser (MIT or Motorola syntax) and
+    link everything with the correct library ! It will now be easier to use
+    APurify. It currently supports GCC, PDC, DCC and SAS/C compilers.
+
+
+INSTALLATION:
+------------
+	To  install  APF,  you	must  first  install   MIT-APurify   and/or
+   MOT-APurify (read  MIT-APurify.doc  and  MOT-APurify.doc  respectively).
+   Then you just have to put APF (located in the bin/ directory)  somewhere
+   in your path.
+
+	Then to easily use APurify with one of your project, you just  have
+   to add APF before your compilation  command	line.  Everything  will  be
+   done  automaticaly  by  APF.  For  example  if  you	compile  by   using
+   this command line (in the CLI or in a makefile):
+
+			    cc prog.c -o prog
+
+    Then, you just have to prepend APF, that gives
+
+			    APF cc prog.c -o prog
+
+    The resulting program "prog" will now  detect  all  illegal  access  to
+    memory. If your makefile is well written, you can even  try  to  simply
+    do something like: make "CC=APF cc"  (if  your compiler is cc of course
+    :-).  It is as easy as A-B-C !
+
+
+SYNOPSIS:
+--------
+    usage: APF [-revinfo] [options] <command line>
+
+    Where options can be:
+
+	 ?		 : To display this usage
+	 -v		 : Use verbose mode
+	 -sl		 : Use source-level information
+	 -mitparser path : Specifies parser for mit syntax
+	 -motparser path : Specifies parser for mot syntax
+	 -gcclib library : Specifies apurify library for gcc
+	 -pdclib library : Specifies apurify library for pdc
+	 -dcclib library : Specifies apurify library for dcc
+	 -saslib library : Specifies apurify library for sas
+
+    Options must be placed before your compiler name in the  command  line.
+    You can pre-define them with  the  environment  variable  APF_OPT.	For
+    example, if you do:
+
+	CLI> SetEnv APF_OPT "-mot-parser BIN:APurify"
+
+    Then, when "-mot-parser BIN:APurify" will  automatically  be  added  to
+    the command line and APF will use BIN:APurify as  its  motorola  syntax
+    parser. The space between an option and its argument can be ommited.
+
+    -revinfo	This displays informations about APF  (name, size and  date
+		of  modules  and  number  of  compilation  done  for   that
+		version).
+
+    -v		With this  option,  APF will  display its  commands  before
+		executing them.
+
+    -sl 	This  argument	enable	APF  to   make	 the   parser	use
+		source-level information. If you select  this  option,	the
+		APurify'ed program will try to display the line  number  as
+		well as the source file where the faultly code is.
+
+    -mitparser arg
+		This sets the parser  called  by  APF  for  compilers  with
+		MIT syntax asm-files (ie.  GCC).  The  default  is  set  to
+		MIT-APurify.
+
+    -motparser arg
+		This sets the parser  called  by  APF  for  compilers  with
+		MOTOROLA syntax asm files (ie. all  compilers  except GCC).
+		The default is set to MOT-APurify.
+
+    -gcclib arg This specifies the linktime-library keyword that APF should
+		use to link your  program  if  the  compiler  is  gcc.	The
+		default is -lAPur-gcc. Don't forget  the  '-l'  before  the
+		library name.
+
+    -pdclib arg This specifies the linktime-library keyword that APF should
+		use to link your  program  if  the  compiler  is  PDC.	The
+		default is -lAPur-pdc. Don't forget  the  '-l'  before  the
+		library name.
+
+    -dcclib arg This specifies the linktime-library keyword that APF should
+		use to link your  program  if  the  compiler  is  DCC.	The
+		default is -lAPur-dcc. Don't forget  the  '-l'  before  the
+		library name.
+
+    -saslib arg This specifies the linktime-library keyword that APF should
+		use to link your program if  the  compiler  is	SAS/C.	The
+		default is LIB=APur-sas.lib. Don't forget the  LIB  keyword
+		before the library name.
+
+    ?		Obvious options.
+
+
+WHAT DOES APF DO ?
+------------------
+	First APF analyse your command line  and  determines  the  compiler
+    that is invoqued, the sourcefile and  the  destination.  It  will  then
+    determine the nature of the source and destination (C file,  asm  file,
+    object file, executable). Be sure to put a single C or  asm  sourcefile
+    on your command line. If there are multiple C or asm sources,  APF	may
+    be confused. Hopefully APF can accept multiples objects files.
+
+	If the source is a C file, APF will  call  the	compiler  and  will
+    define APURIFY. Thanks to that, your program will know  when  it'll  be
+    compiled in an APurify environment. Thus, using #ifdef APURIFY, you can
+    call APurify specific functions such as AP_Req() or  AP_Verbose()  (see
+    MIT-APurify.doc or MOT-APurify.doc).
+
+	During the compilation, APF will call  MIT-APurify  or	MOT-APurify
+    (eventually  redefined  with  '-mitparser'  or  '-motparser')  on   the
+    temporary generated asm file.
+
+	Finally, in the linking phase APF will	add  the  APurify  library,
+    producing and executable that will tests its memory access.
+
+	If you wish to see how APF work,  you  can  try  to  use  the  '-v'
+    option.
+
+
+LEGAL PART:
+----------
+	Well, see MIT-APurify.doc or MOT-APurify.doc.

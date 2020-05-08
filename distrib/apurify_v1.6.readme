@@ -1,0 +1,92 @@
+Short:	  Enforcer-like tool without MMU. V1.6
+Author:   devulder@info.unicaen.fr	(Samuel DEVULDER)
+Uploader: devulder@info.unicaen.fr	(Samuel DEVULDER)
+Type:	  dev/debug
+
+				APurify
+				-------
+
+A program that detects illegal memory access of your programs. It needs asm
+sourcefile (or reverse-engineering generated sourcefile) and insert code to
+check memory access.
+
+It consists  of  a  source  parser  (bin/M?T-APurify),  a  linking  library
+(lib/#?APur-#?.#?) and a frontend (bin/APF) to  call  the  parser  and  the
+linker automatically.
+
+This archive contains files for APurify v1.6. There are different  versions
+of APurify for GCC, PDC, DICE and SAS/C. To install it, you  just  have  to
+execute the APurify-Install script. It will install everything for you	and
+will even generate a remover script if you want to remove APurify from your
+system. If you want to install it by hand, please read the documentation.
+
+For the documentation, consult doc/MIT-APurify.doc for the GCC compiler and
+doc/MOT-APurify.doc for other compilers. If you want to use  the  frontend,
+read doc/APF.doc. I strongly encourage you to use it. It is simpler to	use
+it than making everything by hand.
+
+The source is available from author and is not included in that archive (it
+requires around 5.5Mb on my harddisk when compiled :-).
+
+New in this release (see doc/History):
+
+- V1.6: (june 99)
+	+ added support for ixemul stdin/stdout/stderr since these are 
+	  allocated before APurify is started.
+	+ added support for env:APscreen to direct lowlevel requesters
+	  onto special screens (eg. GOLDED.1). (Suggestion made by Christian
+          Herblot).
+	+ modified AREXX/APgolded.ged so that golded uses the same current
+	  directory as the APurified executable (Bug reported by C. Herblot).
+
+Happy debugging !
+
+		Sam.
+
+*** Contents ***
+
+LhA V1.50r - Copyright (c) 1991,92 Stefan Boberg. Not for commercial use.
+Registered to Colas Nahaboo
+Listing of archive 'distrib/apurify_v1.6.lha':
+Original  Packed Ratio    Date     Time    Name
+-------- ------- ----- --------- --------  -------------
+     904     349 61.3% 04-Jul-99 19:37:42  APurify.info
+   19104    4356 77.1% 04-Jul-99 19:37:40  APurify/APurify-Install
+     521     296 43.1% 04-Jul-99 19:37:40  APurify/APurify-Install.info
+    8284    2442 70.5% 04-Jul-99 19:37:34  APurify/AREXX/APed.rx
+    8023    2485 69.0% 04-Jul-99 19:37:34  APurify/AREXX/APemacs.elx
+    5988    2154 64.0% 04-Jul-99 19:37:34  APurify/AREXX/APgolded.ged
+     904     348 61.5% 04-Jul-99 19:37:50  APurify/Bin.info
+   24204   12514 48.2% 04-Jul-99 19:37:34  APurify/Bin/APF
+   25004   13764 44.9% 04-Jul-99 19:37:34  APurify/Bin/MIT-APurify
+   31496   17043 45.8% 04-Jul-99 19:37:34  APurify/Bin/MOT-APurify
+     904     355 60.7% 04-Jul-99 19:37:50  APurify/Doc.info
+    5413    2120 60.8% 04-Jul-99 19:37:38  APurify/Doc/APF.doc
+    1011     462 54.3% 04-Jul-99 19:37:36  APurify/Doc/APF.doc.info
+    1802     962 46.6% 04-Jul-99 19:37:38  APurify/Doc/apurify_v1.6.readme
+    1011     464 54.1% 04-Jul-99 19:37:38  APurify/Doc/Apurify_v1.6.readme.info
+    4820    2421 49.7% 04-Jul-99 19:37:38  APurify/Doc/History
+    1011     461 54.4% 04-Jul-99 19:37:38  APurify/Doc/History.info
+   30677   12372 59.6% 04-Jul-99 19:37:38  APurify/Doc/MIT-APurify.doc
+    1011     463 54.2% 04-Jul-99 19:37:38  APurify/Doc/MIT-Apurify.doc.info
+   34881   13851 60.2% 04-Jul-99 19:37:38  APurify/Doc/MOT-APurify.doc
+    1011     459 54.5% 04-Jul-99 19:37:36  APurify/Doc/MOT-Apurify.doc.info
+    5005    2288 54.2% 04-Jul-99 19:37:38  APurify/Doc/Scripts.doc
+    1011     462 54.3% 04-Jul-99 19:37:38  APurify/Doc/Scripts.doc.info
+     904     352 61.0% 04-Jul-99 19:37:50  APurify/Lib.info
+   17976    8748 51.3% 04-Jul-99 19:37:36  APurify/Lib/APur-dcc.lib
+     176      97 44.8% 04-Jul-99 19:37:36  APurify/Lib/APur-pdc.dir
+   23588    9965 57.7% 04-Jul-99 19:37:36  APurify/Lib/APur-pdc.lib
+   62656   28395 54.6% 04-Jul-99 19:37:36  APurify/Lib/APur-sas.lib
+   84532   36143 57.2% 04-Jul-99 19:37:36  APurify/Lib/libAPur-gcc.a
+    1802     962 46.6% 04-Jul-99 19:37:38  APurify/README
+    1011     462 54.3% 04-Jul-99 19:37:38  APurify/README.info
+    4970    1532 69.1% 04-Jul-99 19:37:40  APurify/Test/test.c
+   31976   17053 46.6% 04-Jul-99 19:37:40  APurify/Test/test.dcc
+  109060   50750 53.4% 04-Jul-99 19:37:42  APurify/Test/test.gcc
+   48144   20689 57.0% 04-Jul-99 19:37:40  APurify/Test/test.pdc
+   37000   20900 43.5% 04-Jul-99 19:37:42  APurify/Test/test.sas
+-------- ------- ----- --------- --------
+  637795  288939 54.6% 04-Jul-99 19:38:28   36 files
+
+Operation successful.

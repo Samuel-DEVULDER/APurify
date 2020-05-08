@@ -1,0 +1,157 @@
+#
+# Makefile: how to make apurify on amiga with PDC
+#
+
+.INCLUDE	globals
+
+#
+# system stuff
+#
+CFLAGS		= -g
+CC		= ccx -Wc-b
+LHA		= lha 
+LHAARG		= -r -e r
+AR              = Join TO 
+CP		= copy
+# don't use c:ECHO since it can't have long arguments:
+ECHO		= bin/echo 
+
+#
+# apurify stuff
+#
+OBJSDIR		= pdc-objs/
+MITAPURIFY	= $(BDIR)Mit-APurify.pdc
+MOTAPURIFY	= $(BDIR)Mot-APurify.pdc
+APF		= $(BDIR)APF.pdc
+APLIB		= $(LDIR)APur-pdc.lib
+TEST		= $(TDIR)test.pdc
+MKREV		= $(BDIR)mkrev.pdc
+RM		= $(BDIR)rm.pdc
+
+#
+# make all execs
+#
+all: $(MOTAPURIFY) $(MITAPURIFY) $(TEST) $(APF)
+
+#
+# toto
+#
+toto: lib/APfuncs.c tmp/toto.c
+	$(CC) $(CFLAGS) tmp/toto.c -o tmp/toto
+	tmp/toto
+
+#
+# clear temporary objects (.o, .a)
+#
+clean: mot-parse_clean mit-parse_clean lib_clean apf_clean
+
+#
+# make archive for distribution
+#
+distrib: $(MITAPURIFY) $(MOTAPURIFY) $(APLIB) $(TDIR)test.c $(TEST) $(ODIR)
+	$(LHA) $(LHAARG) $(DISTRIB) $(MITAPURIFY) $(MOTAPURIFY) $(APLIB) $(TDIR)test.c $(TEST) $(ODIR)
+
+#
+# utils: a rm that accepts more args than amigados delete and a revision
+# manager
+#
+$(RM): $(UDIR)rm.c
+	$(CC) $(CFLAGS) $< -o $@
+
+$(MKREV): $(UDIR)mkrev.c
+	$(CC) $(CFLAGS) $< -o $@
+
+#
+# mit-parser
+#
+MITPSRCS = $(MITPMODS:%=$(MITPDIR)%.c)
+MITPOBJS = $(MITPMODS:%=$(MITPDIR)$(OBJSDIR)%.o)
+
+MITREVSRC = $(MITPDIR)rev.c
+MITREVOBJ = $(MITPDIR)$(OBJSDIR)rev.o
+
+$(MITAPURIFY): $(MITPOBJS) $(MKREV)
+	-$(MKREV) $(MITREVSRC) $(MITPOBJS)
+	$(CC) $(CFLAGS) -c -o  $(MITREVOBJ) $(MITREVSRC) -DVNUM="$(VERSION)"
+	$(CC) $(CFLAGS) -o $@ $(MITPOBJS) $(MITREVOBJ)
+
+$(MITPDIR)$(OBJSDIR)%.o: $(MITPDIR)%.c
+	$(CC) $(CFLAGS) -I$(MITPDIR) -c -o $@ $<
+
+mit-parse_clean: $(RM)
+	-$(RM) $(MITPOBJS) $(MITREVOBJ)
+
+#
+# mot-parser
+#
+MOTPSRCS = $(MOTPMODS:%=$(MOTPDIR)%.c)
+MOTPOBJS = $(MOTPMODS:%=$(MOTPDIR)$(OBJSDIR)%.o)
+
+MOTREVSRC = $(MOTPDIR)rev.c
+MOTREVOBJ = $(MOTPDIR)$(OBJSDIR)rev.o
+
+$(MOTAPURIFY): $(MOTPOBJS) $(MKREV)
+	-$(MKREV) $(MOTREVSRC) $(MOTPOBJS)
+	$(CC) $(CFLAGS) -c -o $(MOTREVOBJ) $(MOTREVSRC) -DVNUM="$(VERSION)"
+	$(CC) $(CFLAGS) -o $@ $(MOTPOBJS) $(MOTREVOBJ)
+#	assign O: $(MOTPDIR)$(OBJSDIR)
+#	$(CC) $(CFLAGS) -o $@ $(MOTPMODS:%=O:%.o) $(MOTREVOBJ)
+#	assign O: remove
+	$(CP) $@ bin/MOT-APurify
+
+$(MOTPDIR)$(OBJSDIR)%.o: $(MOTPDIR)%.c
+	$(CC) $(CFLAGS) -I$(MOTPDIR) -c -o $@ $<
+
+mot-parse_clean: $(RM)
+	-$(RM) $(MOTPOBJS) $(MOTREVOBJ)
+
+#
+# runtime library
+#
+LMODS += APmalloc APserv-pdc
+
+LOBJS = $(LMODS:%=$(LDIR)$(OBJSDIR)%.o)
+
+$(APLIB): $(LOBJS)
+	$(AR) $@ $(LOBJS)
+	$(CP) $@ pdc:lib
+	$(CP) $(@:%.lib=%.dir) pdc:lib
+
+$(LDIR)$(OBJSDIR)%.o: $(LDIR)%.c
+	$(CC) $(CFLAGS) -c -I$(LDIR) $< -o $@
+
+$(LDIR)$(OBJSDIR)%.o: $(LDIR)%.a
+	$(CC) $(CFLAGS) -c $< -o $@
+
+lib_clean: $(RM)
+	-$(RM) $(LOBJS)
+
+#
+# frontend
+#
+APFSRCS = $(APFMODS:%=$(APFDIR)%.c)
+APFOBJS = $(APFMODS:%=$(APFDIR)$(OBJSDIR)%.o)
+
+APFREVSRC = $(APFDIR)rev.c
+APFREVOBJ = $(APFDIR)$(OBJSDIR)rev.o
+
+$(APF): $(APFOBJS) $(MKREV)
+	-$(MKREV) $(APFREVSRC) $(APFOBJS)
+	$(CC) $(CFLAGS) -c -o $(APFREVOBJ) $(APFREVSRC) -DVNUM="$(VERSION)"
+	$(CC) $(CFLAGS) -o $@ $(APFOBJS) $(APFREVOBJ)
+
+$(APFDIR)$(OBJSDIR)%.o: $(APFDIR)%.c
+	$(CC) $(CFLAGS) -I$(APFDIR) -c -o $@ $<
+
+apf_clean: $(RM)
+	-$(RM) $(APFOBJS) $(APFREVOBJ)
+
+#
+# test
+#
+$(TEST): $(TDIR)test.c $(MOTAPURIFY) $(APLIB) $(RM) $(APF)
+	$(APF) -sl -v -motparser $(MOTAPURIFY) $(CC) -g $(TDIR)test.c -o$@
+#	$(CC) $(CFLAGS) -S $(TDIR)test.c -o $(TDIR)test.a
+#	$(MOTAPURIFY) $(TDIR)test.a
+#	$(CC) $(CFLAGS) $(TDIR)test.a -o $@ -l$(APLIB)
+#	-$(RM) $(TDIR)test.a

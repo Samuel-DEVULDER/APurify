@@ -1,0 +1,221 @@
+;
+; hack to use autoexit code for unregistered version
+; that code is supposed to be called just in place
+; of __exit fremem code. I found that autoexit0 could
+; be the right place.
+;
+	section	autoexit0,code
+	xref	__STDexitmalloc
+	jsr	__STDexitmalloc
+
+;
+; normal code
+;
+
+	section APURIFY,code
+
+	xdef	_geta4
+	xref	__ABSOLUTE_BAS
+_geta4: move.l	#__ABSOLUTE_BAS+$7ffe,a4
+	rts
+
+	xdef	_StdAlloc
+_StdAlloc:
+	movem.l 4(sp),D0-D1
+	move.l	A6,-(sp)
+	move.l	4.W,A6
+	jsr	$00fffff0
+	move.l	(sp)+,A6
+	rts
+
+	xref	_PubAllocMem
+	xdef	_AsmAllocMem
+_AsmAllocMem:
+	movem.l D1-D7/A0-A6,-(sp)
+	movem.l D0-D1,-(sp)
+	jsr	_PubAllocMem
+	addq.l	#8,sp
+	movem.l (sp)+,D1-D7/A0-A6
+	rts
+
+	xdef	_StdFree
+_StdFree:
+	move.l	4(sp),A1
+	move.l	8(sp),D0
+	move.l	A6,-(sp)
+	move.l	4.W,A6
+	jsr	$00fffff0
+	move.l	(sp)+,A6
+	rts
+
+	xref	_PubFreeMem
+	xdef	_AsmFreeMem
+_AsmFreeMem:
+	movem.l D1-D7/A0-A6,-(sp)
+	move.l	D0,-(sp)
+	move.l	A1,-(sp)
+	jsr	_PubFreeMem
+	addq.l	#8,sp
+	movem.l (sp)+,D1-D7/A0-A6
+	rts
+
+	xref	_AP_procname
+	xdef	AP_FuncStartup
+AP_FuncStartup:
+	move.l	4(sp),_AP_procname
+	move.l	(sp),4(sp)
+	addq.l	#4,sp
+	rts
+
+	xref	_AP_source
+	xdef	AP_FuncStartup2
+AP_FuncStartup2:
+	move.l	8(sp),_AP_source
+	move.l	4(sp),_AP_procname
+	move.l	(sp),8(sp)
+	addq.l	#8,sp
+	rts
+
+	xdef	AP_FuncCall
+	xref	_AP_ret
+	xref	_AP_pc
+	xref	_AP_protect
+	xref	_AP_unprotect
+AP_FuncCall:
+	move.l	(sp),_AP_ret
+	move.l	(sp),_AP_pc
+	movem.l D0-D7/A0-A6,-(sp)
+	jsr	_AP_protect
+	tst.b	d0
+	beq	err_funcall
+	movem.l (sp)+,D0-D7/A0-A6
+	move.l	4(sp),(sp)
+	move.l	#cont,4(sp)
+	rts
+cont:	movem.l D0-D7/A0-A6,-(sp)
+	jsr	_AP_unprotect
+	movem.l (sp)+,D0-D7/A0-A6
+	move.l	_AP_ret,-(sp)
+	rts
+err_funcall
+	movem.l (sp)+,D0-D7/A0-A6
+	subq.w	#4,sp
+	move.l	4(sp),(sp)
+	move.l	8(sp),4(sp)
+	move.l	(sp),8(sp)
+	addq.l	#4,sp
+	rts
+
+	xref	_AP_rd
+	xdef	AP_Read
+AP_Read:
+	move.l	(sp),_AP_pc
+	movem.l D0-D7/A0-A6,-(sp)
+	movem.l 64(sp),D0/D1
+	movem.l D0/D1,-(sp)
+	jsr	_AP_rd
+	addq.l	#8,sp
+	movem.l (sp)+,D0-D7/A0-A6
+	move.l	(sp),8(sp)
+	addq.l	#8,sp
+	rts
+
+	xdef	AP_ReadB
+AP_ReadB:
+	move.l	(sp),_AP_pc
+	movem.l D0-D7/A0-A6,-(sp)
+	move.l	64(sp),D0
+	pea	1.w
+	move.l	D0,-(sp)
+	jsr	_AP_rd
+	addq.l	#8,sp
+	movem.l (sp)+,D0-D7/A0-A6
+	move.l	(sp),4(sp)
+	addq.l	#4,sp
+	rts
+
+	xdef	AP_ReadW
+AP_ReadW:
+	move.l	(sp),_AP_pc
+	movem.l D0-D7/A0-A6,-(sp)
+	move.l	64(sp),D0
+	pea	2.w
+	move.l	D0,-(sp)
+	jsr	_AP_rd
+	addq.l	#8,sp
+	movem.l (sp)+,D0-D7/A0-A6
+	move.l	(sp),4(sp)
+	addq.l	#4,sp
+	rts
+
+	xdef	AP_ReadL
+AP_ReadL:
+	move.l	(sp),_AP_pc
+	movem.l D0-D7/A0-A6,-(sp)
+	move.l	64(sp),D0
+	pea	4.w
+	move.l	D0,-(sp)
+	jsr	_AP_rd
+	addq.l	#8,sp
+	movem.l (sp)+,D0-D7/A0-A6
+	move.l	(sp),4(sp)
+	addq.l	#4,sp
+	rts
+
+	xref	_AP_wr
+	xdef	AP_Write
+AP_Write:
+	move.l	(sp),_AP_pc
+	movem.l D0-D7/A0-A6,-(sp)
+	movem.l	64(sp),D0/D1
+	movem.l D0/D1,-(sp)
+	jsr	_AP_wr
+	addq.l	#8,sp
+	movem.l (sp)+,D0-D7/A0-A6
+	move.l	(sp),8(sp)
+	addq.l	#8,sp
+	rts
+
+	xdef	AP_WriteB
+AP_WriteB:
+	move.l	(sp),_AP_pc
+	movem.l D0-D7/A0-A6,-(sp)
+	move.l	64(sp),D0
+	pea	1.w
+	move.l	D0,-(sp)
+	jsr	_AP_wr
+	addq.l	#8,sp
+	movem.l (sp)+,D0-D7/A0-A6
+	move.l	(sp),4(sp)
+	addq.l	#4,sp
+	rts
+
+	xdef	AP_WriteW
+AP_WriteW:
+	move.l	(sp),_AP_pc
+	movem.l D0-D7/A0-A6,-(sp)
+	move.l	64(sp),D0
+	pea	2.w
+	move.l	D0,-(sp)
+	jsr	_AP_wr
+	addq.l	#8,sp
+	movem.l (sp)+,D0-D7/A0-A6
+	move.l	(sp),4(sp)
+	addq.l	#4,sp
+	rts
+
+	xdef	AP_WriteL
+AP_WriteL:
+	move.l	(sp),_AP_pc
+	movem.l D0-D7/A0-A6,-(sp)
+	movem.l 64(sp),D0
+	pea	4.w
+	move.l	D0,-(sp)
+	jsr	_AP_wr
+	addq.l	#8,sp
+	movem.l (sp)+,D0-D7/A0-A6
+	move.l	(sp),4(sp)
+	addq.l	#4,sp
+	rts
+
+	end

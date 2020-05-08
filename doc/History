@@ -1,0 +1,117 @@
+			      HISTORY of APurify
+			      ------------------
+
+			    (c) by Samuel DEVULDER
+
+- V1.0: + First public release.
+
+- V1.1: + Fix bug if the parsed code uses something like
+
+			link	#-TMP01,A5
+			....
+		TMP01	equ	10
+
+	  The minus  sign  was	badly  interpreted  as	link  #0,A5,  which
+	  produces  a  bad  stack  usage   (local   variables   scratching)
+	  if TMP01!=0 (that is to say most of the time :-).
+
+	+ Improved speed while freeing symbol  (DICE  is  slow  at  freeing
+	  memory).
+
+	+ Better error diagnostic in source parsing. Usage of  source  line
+	  number.
+
+	+ Fix	bug  causing  spurious	warning  about	missing   xref/xdef
+	  statement.
+
+	+ Added AP_Report(flag)  to  stop(flag=0)/start(flag=1)  report  of
+	  errors (for startup code).
+
+	+ Added "*" for some block-names.
+
+	+ Fixed bug in	inspreinst()  to  put  the  label, rest & nb_hat of
+	  current instruction to  the  one  added.  (It was just a bug if a
+	  opcode bears a label on the same line...)
+
+- V1.2: + Change the protocol of APlib funccall.
+	+ Made a special version for GCC.
+	+ Added AP_Err()
+	+ fixed move 4:w,a6 in APserv.s
+	+ replace the standard malloc()/free()/realloc() by mine since libnix
+	  uses Alloc() which does not allow to really know which memory belongs
+	  to the program or the system.
+	+ Get rid of french documentation file... It's *VERY* painfull to
+	  keep two documentation file update.
+
+- V1.2.1:
+	+ Get rid of -DFRANCAIS.
+	+ Check if AllocMem & FreeMem are not re-patched on closing.
+	+ Added CacheClearU().                          \
+	+ Added atexit(AP_Close) in AP_Init. Need nomore|
+	  calls to AP_Close.				|
+	+ Usage of inline & protos			|
+	+ Added Verbose mode: AP_Verbose() & new output | Thanx Joerg-Cyril
+	+ Added environment variable APlog.		| Hoehle !
+	+ Added PC, Segment & offset information when	|
+	  available.					/
+
+- V1.3 (parser V0.7):
+	+ now uses environment variable
+	+ can use output defined by patterns
+	+ can generate small code and small data code (dice version)
+	+ auto detects _main => Calling AP_Init() is no more needed :-)
+	+ now detects pea followed by jsr and treat it correctly.
+	+ changed find_chunk() now uses binary search => speed increase.
+
+- V1.4:
+	+ fix bug in tokenize (args was sometimes badly extracted).
+	+ start to make apurify work with SAS/C ! (requested by many
+	  people).
+	+ added APF, a great frontend (does everything automatically). Lots
+	  of modification due to SAS/C.
+	+ added a version string in Amiga Format.  Change parser version to
+	  1.4 to be more uniform.
+	+ fixed some (8) bugs caused by SAS/C asm/disasm feature. Big piece
+	  of work ! (sas buggy ?)
+	+ fixed a problem occurring when data appears in code sections.
+	+ added checking of memory allocated via malloc() before APurify has
+	  started (should make argv[] accesses now considered as legal).
+	+ Make use of source-level information for GCC, PDC, SAS/C and
+	  dice-pro (not tested for dice-pro).
+	+ Via ENV:APexec, APurify can now call an external process like
+	  an editor to point out the buggy line in the code.
+	+ thinking about a complete rewrite of APfuncs.c to reduce its
+	  complexity (V2.0?)
+	+ fixed buf in APF/sas.c (strcat was used where strcpy was needed)
+	  (v1.4.1).
+
+- V1.5:
+	+ added some User Interface with the help of some ARexx scripts to
+	  interface APurify with GoldEd, Emacs and c:Ed (not very nice the
+	  last one, but still better than nothing :)
+	+ added installer script.
+	+ added code to detect accesses to freed memory.
+	+ replace "$%08X" by "0x%08X". Can be modified with ENV:APDOLL.
+	+ made the lower bound of the stack block  decrease  automatically.
+	  This allow detection of memory accesses below the stack pointer.
+	+ added   code	to  handle  $XXXXXXXX(PC)  for  SAS/C  because  the
+	  instrumentation of the code modifies the offsets that  are  hard-
+	  coded in SAS/C asm file.  (may  be  needed  for  other  compilers
+	  too... we'll see).
+	+ fixed problem for SAS/C when quotes appear in dc.b '....'.
+	+ new test.c. Modified M(I|O)T-Apurify.doc for test.c
+	+ made libAPur-gcc.a use dos/System()  instead  of  ixemul/system()
+	  so that gcc-compiled programs can use AREXX scripts.
+	+ added NOSTRINGMERGE for SAS/C.
+	+ added support for ixemul _ctype_ array used in ctype.h: isXXXX().
+- V1.5.1: (june 97)
+	+ fixed another bug for SAS/C. That complier forgets to use 
+          __fardata in string access when compiled with DATA=FAR.
+- V1.6: (june 99)
+	+ added support for ixemul stdin/stdout/stderr since these are 
+	  allocated before APurify is started.
+	+ added support for env:APscreen to direct lowlevel requesters
+	  onto special screens (eg. GOLDED.1). (Suggestion made by Christian
+          Herblot).
+	+ modified AREXX/APgolded.ged so that golded uses the same current
+	  directory as the APurified executable (Bug reported by C. Herblot).

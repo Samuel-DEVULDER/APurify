@@ -1,0 +1,1098 @@
+#NO_APP
+gcc2_compiled.:
+___gnu_compiled_c:
+.stabs "/Work/Dev/C/progs/APurify/torture_test/t6/",100,0,0,Ltext0
+.stabs "clock.c",100,0,0,Ltext0
+.text
+Ltext0:
+.stabs "int:t1=r1;-2147483648;2147483647;",128,0,0,0
+.stabs "char:t2=r2;0;127;",128,0,0,0
+.stabs "long int:t3=r3;-2147483648;2147483647;",128,0,0,0
+.stabs "unsigned int:t4=r4;0;-1;",128,0,0,0
+.stabs "long unsigned int:t5=r5;0;-1;",128,0,0,0
+.stabs "long long int:t6=r1;01000000000000000000000;0777777777777777777777;",128,0,0,0
+.stabs "long long unsigned int:t7=r1;0000000000000;01777777777777777777777;",128,0,0,0
+.stabs "short int:t8=r8;-32768;32767;",128,0,0,0
+.stabs "short unsigned int:t9=r9;0;65535;",128,0,0,0
+.stabs "signed char:t10=r10;-128;127;",128,0,0,0
+.stabs "unsigned char:t11=r11;0;255;",128,0,0,0
+.stabs "float:t12=r1;4;0;",128,0,0,0
+.stabs "double:t13=r1;8;0;",128,0,0,0
+.stabs "long double:t14=r1;8;0;",128,0,0,0
+.stabs "complex int:t15=s8real:1,0,32;imag:1,32,32;;",128,0,0,0
+.stabs "complex float:t16=r16;4;0;",128,0,0,0
+.stabs "complex double:t17=r17;8;0;",128,0,0,0
+.stabs "complex long double:t18=r18;8;0;",128,0,0,0
+.stabs "void:t19=19",128,0,0,0
+.stabs "APTR:t20=21=*19",128,0,34,0
+.stabs "LONG:t22=3",128,0,36,0
+.stabs "ULONG:t23=5",128,0,37,0
+.stabs "LONGBITS:t24=5",128,0,38,0
+.stabs "WORD:t25=8",128,0,39,0
+.stabs "UWORD:t26=9",128,0,40,0
+.stabs "WORDBITS:t27=9",128,0,41,0
+.stabs "BYTE:t28=10",128,0,43,0
+.stabs "UBYTE:t29=11",128,0,47,0
+.stabs "BYTEBITS:t30=11",128,0,48,0
+.stabs "RPTR:t31=9",128,0,49,0
+.stabs "STRPTR:t32=33=*11",128,0,54,0
+.stabs "SHORT:t34=8",128,0,59,0
+.stabs "USHORT:t35=9",128,0,60,0
+.stabs "COUNT:t36=8",128,0,61,0
+.stabs "UCOUNT:t37=9",128,0,62,0
+.stabs "CPTR:t38=23",128,0,63,0
+.stabs "FLOAT:t39=12",128,0,67,0
+.stabs "DOUBLE:t40=13",128,0,68,0
+.stabs "BOOL:t41=8",128,0,69,0
+.stabs "TEXT:t42=11",128,0,70,0
+.stabs "Node:T43=s14ln_Succ:44=*43,0,32;ln_Pred:44,32,32;\\",128,0,0,0
+.stabs "ln_Type:29,64,8;ln_Pri:28,72,8;ln_Name:45=*2,80,32;;",128,0,0,0
+.stabs "MinNode:T46=s8mln_Succ:47=*46,0,32;mln_Pred:47,32,32;;",128,0,0,0
+.stabs "List:T48=s14lh_Head:44,0,32;lh_Tail:44,32,32;\\",128,0,0,0
+.stabs "lh_TailPred:44,64,32;lh_Type:29,96,8;l_pad:29,104,8;;",128,0,0,0
+.stabs "MinList:T49=s12mlh_Head:47,0,32;mlh_Tail:47,32,32;\\",128,0,0,0
+.stabs "mlh_TailPred:47,64,32;;",128,0,0,0
+.stabs "Task:T50=s92tc_Node:43,0,112;tc_Flags:29,112,8;\\",128,0,0,0
+.stabs "tc_State:29,120,8;tc_IDNestCnt:28,128,8;tc_TDNestCnt:28,136,8;\\",128,0,0,0
+.stabs "tc_SigAlloc:23,144,32;tc_SigWait:23,176,32;tc_SigRecvd:23,208,32;\\",128,0,0,0
+.stabs "tc_SigExcept:23,240,32;tc_TrapAlloc:26,272,16;tc_TrapAble:26,288,16;\\",128,0,0,0
+.stabs "tc_ExceptData:20,304,32;tc_ExceptCode:20,336,32;\\",128,0,0,0
+.stabs "tc_TrapData:20,368,32;tc_TrapCode:20,400,32;tc_SPReg:20,432,32;\\",128,0,0,0
+.stabs "tc_SPLower:20,464,32;tc_SPUpper:20,496,32;tc_Switch:51=*52=f19,528,32;\\",128,0,0,0
+.stabs "tc_Launch:51,560,32;tc_MemEntry:48,592,112;tc_UserData:20,704,32;;",128,0,0,0
+.stabs "StackSwapStruct:T53=s12stk_Lower:20,0,32;stk_Upper:23,32,32;\\",128,0,0,0
+.stabs "stk_Pointer:20,64,32;;",128,0,0,0
+.stabs "MsgPort:T54=s34mp_Node:43,0,112;mp_Flags:29,112,8;\\",128,0,0,0
+.stabs "mp_SigBit:29,120,8;mp_SigTask:21,128,32;mp_MsgList:48,160,112;;",128,0,0,0
+.stabs "Message:T55=s20mn_Node:43,0,112;mn_ReplyPort:56=*54,112,32;\\",128,0,0,0
+.stabs "mn_Length:26,144,16;;",128,0,0,0
+.stabs "IORequest:T57=s32io_Message:55,0,160;io_Device:58=*59=xsDevice:,160,32;\\",128,0,0,0
+.stabs "io_Unit:60=*61=xsUnit:,192,32;io_Command:26,224,16;\\",128,0,0,0
+.stabs "io_Flags:29,240,8;io_Error:28,248,8;;",128,0,0,0
+.stabs "IOStdReq:T62=s48io_Message:55,0,160;io_Device:58,160,32;\\",128,0,0,0
+.stabs "io_Unit:60,192,32;io_Command:26,224,16;io_Flags:29,240,8;\\",128,0,0,0
+.stabs "io_Error:28,248,8;io_Actual:23,256,32;io_Length:23,288,32;\\",128,0,0,0
+.stabs "io_Data:20,320,32;io_Offset:23,352,32;;",128,0,0,0
+.stabs "MemChunk:T63=s8mc_Next:64=*63,0,32;mc_Bytes:23,32,32;;",128,0,0,0
+.stabs "MemHeader:T65=s32mh_Node:43,0,112;mh_Attributes:26,112,16;\\",128,0,0,0
+.stabs "mh_First:64,128,32;mh_Lower:20,160,32;mh_Upper:20,192,32;\\",128,0,0,0
+.stabs "mh_Free:23,224,32;;",128,0,0,0
+.stabs "MemEntry:T66=s8me_Un:67=u4meu_Reqs:23,0,32;\\",128,0,0,0
+.stabs "meu_Addr:20,0,32;;,0,32;me_Length:23,32,32;;",128,0,0,0
+.stabs "MemList:T68=s24ml_Node:43,0,112;ml_NumEntries:26,112,16;\\",128,0,0,0
+.stabs "ml_ME:69=ar0;0;0;66,128,64;;",128,0,0,0
+.stabs "MemHandlerData:T70=s12memh_RequestSize:23,0,32;memh_RequestFlags:23,32,32;\\",128,0,0,0
+.stabs "memh_Flags:23,64,32;;",128,0,0,0
+.stabs "Library:T71=s34lib_Node:43,0,112;lib_Flags:29,112,8;\\",128,0,0,0
+.stabs "lib_pad:29,120,8;lib_NegSize:26,128,16;lib_PosSize:26,144,16;\\",128,0,0,0
+.stabs "lib_Version:26,160,16;lib_Revision:26,176,16;lib_IdString:20,192,32;\\",128,0,0,0
+.stabs "lib_Sum:23,224,32;lib_OpenCnt:26,256,16;;",128,0,0,0
+.stabs "Device:T59=s34dd_Library:71,0,272;;",128,0,0,0
+.stabs "Unit:T61=s38unit_MsgPort:54,0,272;unit_flags:29,272,8;\\",128,0,0,0
+.stabs "unit_pad:29,280,8;unit_OpenCnt:26,288,16;;",128,0,0,0
+.stabs "SemaphoreRequest:T72=s12sr_Link:46,0,64;sr_Waiter:73=*50,64,32;;",128,0,0,0
+.stabs "SignalSemaphore:T74=s46ss_Link:43,0,112;ss_NestCount:25,112,16;\\",128,0,0,0
+.stabs "ss_WaitQueue:49,128,96;ss_MultipleLink:72,224,96;\\",128,0,0,0
+.stabs "ss_Owner:73,320,32;ss_QueueCount:25,352,16;;",128,0,0,0
+.stabs "SemaphoreMessage:T75=s24ssm_Message:55,0,160;ssm_Semaphore:76=*74,160,32;;",128,0,0,0
+.stabs "Semaphore:T77=s36sm_MsgPort:54,0,272;sm_Bids:25,272,16;;",128,0,0,0
+.stabs "Rectangle:T78=s8MinX:25,0,16;MinY:25,16,16;\\",128,0,0,0
+.stabs "MaxX:25,32,16;MaxY:25,48,16;;",128,0,0,0
+.stabs "Rect32:T79=s16MinX:22,0,32;MinY:22,32,32;\\",128,0,0,0
+.stabs "MaxX:22,64,32;MaxY:22,96,32;;",128,0,0,0
+.stabs "tPoint:T80=s4x:25,0,16;y:25,16,16;;",128,0,0,0
+.stabs "Point:t81=80",128,0,42,0
+.stabs "PLANEPTR:t82=83=*29",128,0,44,0
+.stabs "BitMap:T84=s40BytesPerRow:26,0,16;Rows:26,16,16;\\",128,0,0,0
+.stabs "Flags:29,32,8;Depth:29,40,8;pad:26,48,16;\\",128,0,0,0
+.stabs "Planes:85=ar0;0;7;82,64,256;;",128,0,0,0
+.stabs "Hook:T86=s20h_MinNode:46,0,64;h_Entry:87=*88=f23,64,32;\\",128,0,0,0
+.stabs "h_SubEntry:87,96,32;h_Data:20,128,32;;",128,0,0,0
+.stabs "HOOKFUNC:t89=90=*91=f5",128,0,39,0
+.stabs "Layer:T92=s160front:93=*92,0,32;back:93,32,32;\\",128,0,0,0
+.stabs "ClipRect:94=*95=xsClipRect:,64,32;rp:96=*97=xsRastPort:,96,32;\\",128,0,0,0
+.stabs "bounds:78,128,64;reserved:98=ar0;0;3;29,192,32;\\",128,0,0,0
+.stabs "priority:26,224,16;Flags:26,240,16;SuperBitMap:99=*84,256,32;\\",128,0,0,0
+.stabs "SuperClipRect:94,288,32;Window:20,320,32;Scroll_X:25,352,16;\\",128,0,0,0
+.stabs "Scroll_Y:25,368,16;cr:94,384,32;cr2:94,416,32;\\",128,0,0,0
+.stabs "crnew:94,448,32;SuperSaveClipRects:94,480,32;_cliprects:94,512,32;\\",128,0,0,0
+.stabs "LayerInfo:100=*101=xsLayer_Info:,544,32;Lock:74,576,368;\\",128,0,0,0
+.stabs "BackFill:102=*86,944,32;reserved1:23,976,32;ClipRegion:103=*104=xsRegion:,1008,32;\\",128,0,0,0
+.stabs "saveClipRects:103,1040,32;Width:25,1072,16;Height:25,1088,16;\\",128,0,0,0
+.stabs "reserved2:105=ar0;0;17;29,1104,144;DamageList:103,1248,32;;",128,0,0,0
+.stabs "ClipRect:T95=s36Next:94,0,32;prev:94,32,32;\\",128,0,0,0
+.stabs "lobs:93,64,32;BitMap:99,96,32;bounds:78,128,64;\\",128,0,0,0
+.stabs "_p1:21,192,32;_p2:21,224,32;reserved:22,256,32;;",128,0,0,0
+.stabs "CopIns:T106=s6OpCode:25,0,16;u3:107=u4nxtlist:108=*109=xsCopList:,0,32;\\",128,0,0,0
+.stabs "u4:110=s4u1:111=u2VWaitPos:25,0,16;DestAddr:25,0,16;;,0,16;\\",128,0,0,0
+.stabs "u2:112=u2HWaitPos:25,0,16;DestData:25,0,16;;,16,16;;,0,32;;,16,32;;",128,0,0,0
+.stabs "cprlist:T113=s10Next:114=*113,0,32;start:115=*26,32,32;\\",128,0,0,0
+.stabs "MaxCount:25,64,16;;",128,0,0,0
+.stabs "CopList:T109=s38Next:108,0,32;_CopList:108,32,32;\\",128,0,0,0
+.stabs "_ViewPort:116=*117=xsViewPort:,64,32;CopIns:118=*106,96,32;\\",128,0,0,0
+.stabs "CopPtr:118,128,32;CopLStart:115,160,32;CopSStart:115,192,32;\\",128,0,0,0
+.stabs "Count:25,224,16;MaxCount:25,240,16;DyOffset:25,256,16;\\",128,0,0,0
+.stabs "SLRepeat:26,272,16;Flags:26,288,16;;",128,0,0,0
+.stabs "UCopList:T119=s12Next:120=*119,0,32;FirstCopList:108,32,32;\\",128,0,0,0
+.stabs "CopList:108,64,32;;",128,0,0,0
+.stabs "copinit:T121=s192vsync_hblank:122=ar0;0;1;26,0,32;\\",128,0,0,0
+.stabs "diagstrt:123=ar0;0;11;26,32,192;fm0:122,224,32;\\",128,0,0,0
+.stabs "diwstart:124=ar0;0;9;26,256,160;bplcon2:122,416,32;\\",128,0,0,0
+.stabs "sprfix:125=ar0;0;15;26,448,256;sprstrtup:126=ar0;0;31;26,704,512;\\",128,0,0,0
+.stabs "wait14:122,1216,32;norm_hblank:122,1248,32;jump:122,1280,32;\\",128,0,0,0
+.stabs "wait_forever:127=ar0;0;5;26,1312,96;sprstop:128=ar0;0;7;26,1408,128;;",128,0,0,0
+.stabs "ExtendedNode:T129=s24xln_Succ:44,0,32;xln_Pred:44,32,32;\\",128,0,0,0
+.stabs "xln_Type:29,64,8;xln_Pri:28,72,8;xln_Name:45,80,32;\\",128,0,0,0
+.stabs "xln_Subsystem:29,112,8;xln_Subtype:29,120,8;xln_Library:22,128,32;\\",128,0,0,0
+.stabs "xln_Init:130=*131=f22,160,32;;",128,0,0,0
+.stabs "MonitorSpec:T132=s160ms_Node:129,0,192;ms_Flags:26,192,16;\\",128,0,0,0
+.stabs "ratioh:22,208,32;ratiov:22,240,32;total_rows:26,272,16;\\",128,0,0,0
+.stabs "total_colorclocks:26,288,16;DeniseMaxDisplayColumn:26,304,16;\\",128,0,0,0
+.stabs "BeamCon0:26,320,16;min_row:26,336,16;ms_Special:133=*134=xsSpecialMonitor:,352,32;\\",128,0,0,0
+.stabs "ms_OpenCount:26,384,16;ms_transform:130,400,32;ms_translate:130,432,32;\\",128,0,0,0
+.stabs "ms_scale:130,464,32;ms_xoffset:26,496,16;ms_yoffset:26,512,16;\\",128,0,0,0
+.stabs "ms_LegalView:78,528,64;ms_maxoscan:130,592,32;ms_videoscan:130,624,32;\\",128,0,0,0
+.stabs "DeniseMinDisplayColumn:26,656,16;DisplayCompatible:23,672,32;\\",128,0,0,0
+.stabs "DisplayInfoDataBase:48,704,112;DisplayInfoDataBaseSemaphore:74,816,368;\\",128,0,0,0
+.stabs "ms_MrgCop:130,1184,32;ms_LoadView:130,1216,32;ms_KillView:130,1248,32;;",128,0,0,0
+.stabs "AnalogSignalInterval:T135=s4asi_Start:26,0,16;asi_Stop:26,16,16;;",128,0,0,0
+.stabs "SpecialMonitor:T134=s58spm_Node:129,0,192;spm_Flags:26,192,16;\\",128,0,0,0
+.stabs "do_monitor:130,208,32;reserved1:130,240,32;reserved2:130,272,32;\\",128,0,0,0
+.stabs "reserved3:130,304,32;hblank:135,336,32;vblank:135,368,32;\\",128,0,0,0
+.stabs "hsync:135,400,32;vsync:135,432,32;;",128,0,0,0
+.stabs "Tag:t136=23",128,0,30,0
+.stabs "TagItem:T137=s8ti_Tag:136,0,32;ti_Data:23,32,32;;",128,0,0,0
+.stabs "DisplayInfoHandle:t138=20",128,0,35,0
+.stabs "QueryHeader:T139=s16StructID:23,0,32;DisplayID:23,32,32;\\",128,0,0,0
+.stabs "SkipID:23,64,32;Length:23,96,32;;",128,0,0,0
+.stabs "DisplayInfo:T140=s56Header:139,0,128;NotAvailable:26,128,16;\\",128,0,0,0
+.stabs "PropertyFlags:23,144,32;Resolution:81,176,32;PixelSpeed:26,208,16;\\",128,0,0,0
+.stabs "NumStdSprites:26,224,16;PaletteRange:26,240,16;\\",128,0,0,0
+.stabs "SpriteResolution:81,256,32;pad:98,288,32;RedBits:29,320,8;\\",128,0,0,0
+.stabs "GreenBits:29,328,8;BlueBits:29,336,8;pad2:141=ar0;0;4;29,344,40;\\",128,0,0,0
+.stabs "reserved:142=ar0;0;1;23,384,64;;",128,0,0,0
+.stabs "DimensionInfo:T143=s88Header:139,0,128;MaxDepth:26,128,16;\\",128,0,0,0
+.stabs "MinRasterWidth:26,144,16;MinRasterHeight:26,160,16;\\",128,0,0,0
+.stabs "MaxRasterWidth:26,176,16;MaxRasterHeight:26,192,16;\\",128,0,0,0
+.stabs "Nominal:78,208,64;MaxOScan:78,272,64;VideoOScan:78,336,64;\\",128,0,0,0
+.stabs "TxtOScan:78,400,64;StdOScan:78,464,64;pad:144=ar0;0;13;29,528,112;\\",128,0,0,0
+.stabs "reserved:142,640,64;;",128,0,0,0
+.stabs "MonitorInfo:T145=s96Header:139,0,128;Mspc:146=*132,128,32;\\",128,0,0,0
+.stabs "ViewPosition:81,160,32;ViewResolution:81,192,32;\\",128,0,0,0
+.stabs "ViewPositionRange:78,224,64;TotalRows:26,288,16;\\",128,0,0,0
+.stabs "TotalColorClocks:26,304,16;MinRow:26,320,16;Compatibility:25,336,16;\\",128,0,0,0
+.stabs "pad:147=ar0;0;31;29,352,256;MouseTicks:81,608,32;\\",128,0,0,0
+.stabs "DefaultViewPosition:81,640,32;PreferredModeID:23,672,32;\\",128,0,0,0
+.stabs "reserved:142,704,64;;",128,0,0,0
+.stabs "NameInfo:T148=s56Header:139,0,128;Name:147,128,256;\\",128,0,0,0
+.stabs "reserved:142,384,64;;",128,0,0,0
+.stabs "VecInfo:T149=s40Header:139,0,128;Vec:20,128,32;\\",128,0,0,0
+.stabs "Data:20,160,32;Type:26,192,16;pad:150=ar0;0;2;26,208,48;\\",128,0,0,0
+.stabs "reserved:142,256,64;;",128,0,0,0
+.stabs "AudChannel:T151=s16ac_ptr:115,0,32;ac_len:26,32,16;\\",128,0,0,0
+.stabs "ac_per:26,48,16;ac_vol:26,64,16;ac_dat:26,80,16;\\",128,0,0,0
+.stabs "ac_pad:122,96,32;;",128,0,0,0
+.stabs "SpriteDef:T152=s8pos:26,0,16;ctl:26,16,16;\\",128,0,0,0
+.stabs "dataa:26,32,16;datab:26,48,16;;",128,0,0,0
+.stabs "Custom:T153=s510bltddat:26,0,16;dmaconr:26,16,16;\\",128,0,0,0
+.stabs "vposr:26,32,16;vhposr:26,48,16;dskdatr:26,64,16;\\",128,0,0,0
+.stabs "joy0dat:26,80,16;joy1dat:26,96,16;clxdat:26,112,16;\\",128,0,0,0
+.stabs "adkconr:26,128,16;pot0dat:26,144,16;pot1dat:26,160,16;\\",128,0,0,0
+.stabs "potinp:26,176,16;serdatr:26,192,16;dskbytr:26,208,16;\\",128,0,0,0
+.stabs "intenar:26,224,16;intreqr:26,240,16;dskpt:20,256,32;\\",128,0,0,0
+.stabs "dsklen:26,288,16;dskdat:26,304,16;refptr:26,320,16;\\",128,0,0,0
+.stabs "vposw:26,336,16;vhposw:26,352,16;copcon:26,368,16;\\",128,0,0,0
+.stabs "serdat:26,384,16;serper:26,400,16;potgo:26,416,16;\\",128,0,0,0
+.stabs "joytest:26,432,16;strequ:26,448,16;strvbl:26,464,16;\\",128,0,0,0
+.stabs "strhor:26,480,16;strlong:26,496,16;bltcon0:26,512,16;\\",128,0,0,0
+.stabs "bltcon1:26,528,16;bltafwm:26,544,16;bltalwm:26,560,16;\\",128,0,0,0
+.stabs "bltcpt:20,576,32;bltbpt:20,608,32;bltapt:20,640,32;\\",128,0,0,0
+.stabs "bltdpt:20,672,32;bltsize:26,704,16;pad2d:29,720,8;\\",128,0,0,0
+.stabs "bltcon0l:29,728,8;bltsizv:26,736,16;bltsizh:26,752,16;\\",128,0,0,0
+.stabs "bltcmod:26,768,16;bltbmod:26,784,16;bltamod:26,800,16;\\",128,0,0,0
+.stabs "bltdmod:26,816,16;pad34:154=ar0;0;3;26,832,64;\\",128,0,0,0
+.stabs "bltcdat:26,896,16;bltbdat:26,912,16;bltadat:26,928,16;\\",128,0,0,0
+.stabs "pad3b:150,944,48;deniseid:26,992,16;dsksync:26,1008,16;\\",128,0,0,0
+.stabs "cop1lc:23,1024,32;cop2lc:23,1056,32;copjmp1:26,1088,16;\\",128,0,0,0
+.stabs "copjmp2:26,1104,16;copins:26,1120,16;diwstrt:26,1136,16;\\",128,0,0,0
+.stabs "diwstop:26,1152,16;ddfstrt:26,1168,16;ddfstop:26,1184,16;\\",128,0,0,0
+.stabs "dmacon:26,1200,16;clxcon:26,1216,16;intena:26,1232,16;\\",128,0,0,0
+.stabs "intreq:26,1248,16;adkcon:26,1264,16;aud:155=ar0;0;3;151,1280,512;\\",128,0,0,0
+.stabs "bplpt:156=ar0;0;7;20,1792,256;bplcon0:26,2048,16;\\",128,0,0,0
+.stabs "bplcon1:26,2064,16;bplcon2:26,2080,16;bplcon3:26,2096,16;\\",128,0,0,0
+.stabs "bpl1mod:26,2112,16;bpl2mod:26,2128,16;bplcon4:26,2144,16;\\",128,0,0,0
+.stabs "clxcon2:26,2160,16;bpldat:128,2176,128;sprpt:156,2304,256;\\",128,0,0,0
+.stabs "spr:157=ar0;0;7;152,2560,512;color:126,3072,512;\\",128,0,0,0
+.stabs "htotal:26,3584,16;hsstop:26,3600,16;hbstrt:26,3616,16;\\",128,0,0,0
+.stabs "hbstop:26,3632,16;vtotal:26,3648,16;vsstop:26,3664,16;\\",128,0,0,0
+.stabs "vbstrt:26,3680,16;vbstop:26,3696,16;sprhstrt:26,3712,16;\\",128,0,0,0
+.stabs "sprhstop:26,3728,16;bplhstrt:26,3744,16;bplhstop:26,3760,16;\\",128,0,0,0
+.stabs "hhposw:26,3776,16;hhposr:26,3792,16;beamcon0:26,3808,16;\\",128,0,0,0
+.stabs "hsstrt:26,3824,16;vsstrt:26,3840,16;hcenter:26,3856,16;\\",128,0,0,0
+.stabs "diwhigh:26,3872,16;padf3:158=ar0;0;10;26,3888,176;\\",128,0,0,0
+.stabs "fmode:26,4064,16;;",128,0,0,0
+.stabs "ViewPort:T117=s40Next:116,0,32;ColorMap:159=*160=xsColorMap:,32,32;\\",128,0,0,0
+.stabs "DspIns:108,64,32;SprIns:108,96,32;ClrIns:108,128,32;\\",128,0,0,0
+.stabs "UCopIns:120,160,32;DWidth:25,192,16;DHeight:25,208,16;\\",128,0,0,0
+.stabs "DxOffset:25,224,16;DyOffset:25,240,16;Modes:26,256,16;\\",128,0,0,0
+.stabs "SpritePriorities:29,272,8;ExtendedModes:29,280,8;\\",128,0,0,0
+.stabs "RasInfo:161=*162=xsRasInfo:,288,32;;",128,0,0,0
+.stabs "View:T163=s18ViewPort:116,0,32;LOFCprList:114,32,32;\\",128,0,0,0
+.stabs "SHFCprList:114,64,32;DyOffset:25,96,16;DxOffset:25,112,16;\\",128,0,0,0
+.stabs "Modes:26,128,16;;",128,0,0,0
+.stabs "ViewExtra:T164=s34n:129,0,192;View:165=*163,192,32;\\",128,0,0,0
+.stabs "Monitor:146,224,32;TopLine:26,256,16;;",128,0,0,0
+.stabs "ViewPortExtra:T166=s66n:129,0,192;ViewPort:116,192,32;\\",128,0,0,0
+.stabs "DisplayClip:78,224,64;VecTable:20,288,32;DriverData:167=ar0;0;1;20,320,64;\\",128,0,0,0
+.stabs "Flags:26,384,16;Origin:168=ar0;0;1;81,400,64;\\",128,0,0,0
+.stabs "cop1ptr:23,464,32;cop2ptr:23,496,32;;",128,0,0,0
+.stabs "RasInfo:T162=s12Next:161,0,32;BitMap:99,32,32;\\",128,0,0,0
+.stabs "RxOffset:25,64,16;RyOffset:25,80,16;;",128,0,0,0
+.stabs "ColorMap:T160=s52Flags:29,0,8;Type:29,8,8;\\",128,0,0,0
+.stabs "Count:26,16,16;ColorTable:20,32,32;cm_vpe:169=*166,64,32;\\",128,0,0,0
+.stabs "LowColorBits:20,96,32;TransparencyPlane:29,128,8;\\",128,0,0,0
+.stabs "SpriteResolution:29,136,8;SpriteResDefault:29,144,8;\\",128,0,0,0
+.stabs "AuxFlags:29,152,8;cm_vp:116,160,32;NormalDisplayInfo:20,192,32;\\",128,0,0,0
+.stabs "CoerceDisplayInfo:20,224,32;cm_batch_items:170=*137,256,32;\\",128,0,0,0
+.stabs "VPModeID:23,288,32;PalExtra:171=*172=xsPaletteExtra:,320,32;\\",128,0,0,0
+.stabs "SpriteBase_Even:26,352,16;SpriteBase_Odd:26,368,16;\\",128,0,0,0
+.stabs "Bp_0_base:26,384,16;Bp_1_base:26,400,16;;",128,0,0,0
+.stabs "PaletteExtra:T172=s68pe_Semaphore:74,0,368;pe_FirstFree:26,368,16;\\",128,0,0,0
+.stabs "pe_NFree:26,384,16;pe_FirstShared:26,400,16;pe_NShared:26,416,16;\\",128,0,0,0
+.stabs "pe_RefCnt:83,432,32;pe_AllocList:83,464,32;pe_ViewPort:116,496,32;\\",128,0,0,0
+.stabs "pe_SharableColors:26,528,16;;",128,0,0,0
+.stabs "DBufInfo:T173=s84dbi_Link1:20,0,32;dbi_Count1:23,32,32;\\",128,0,0,0
+.stabs "dbi_SafeMessage:55,64,160;dbi_UserData1:20,224,32;\\",128,0,0,0
+.stabs "dbi_Link2:20,256,32;dbi_Count2:23,288,32;dbi_DispMessage:55,320,160;\\",128,0,0,0
+.stabs "dbi_UserData2:20,480,32;dbi_MatchLong:23,512,32;\\",128,0,0,0
+.stabs "dbi_CopPtr1:20,544,32;dbi_CopPtr2:20,576,32;dbi_CopPtr3:20,608,32;\\",128,0,0,0
+.stabs "dbi_BeamPos1:26,640,16;dbi_BeamPos2:26,656,16;;",128,0,0,0
+.stabs "AreaInfo:T174=s24VctrTbl:175=*25,0,32;VctrPtr:175,32,32;\\",128,0,0,0
+.stabs "FlagTbl:176=*28,64,32;FlagPtr:176,96,32;Count:25,128,16;\\",128,0,0,0
+.stabs "MaxCount:25,144,16;FirstX:25,160,16;FirstY:25,176,16;;",128,0,0,0
+.stabs "TmpRas:T177=s8RasPtr:176,0,32;Size:22,32,32;;",128,0,0,0
+.stabs "GelsInfo:T178=s38sprRsrvd:28,0,8;Flags:29,8,8;\\",128,0,0,0
+.stabs "gelHead:179=*180=xsVSprite:,16,32;gelTail:179,48,32;\\",128,0,0,0
+.stabs "nextLine:175,80,32;lastColor:181=*175,112,32;collHandler:182=*183=xscollTable:,144,32;\\",128,0,0,0
+.stabs "leftmost:25,176,16;rightmost:25,192,16;topmost:25,208,16;\\",128,0,0,0
+.stabs "bottommost:25,224,16;firstBlissObj:20,240,32;lastBlissObj:20,272,32;;",128,0,0,0
+.stabs "RastPort:T97=s100Layer:93,0,32;BitMap:99,32,32;\\",128,0,0,0
+.stabs "AreaPtrn:115,64,32;TmpRas:184=*177,96,32;AreaInfo:185=*174,128,32;\\",128,0,0,0
+.stabs "GelsInfo:186=*178,160,32;Mask:29,192,8;FgPen:28,200,8;\\",128,0,0,0
+.stabs "BgPen:28,208,8;AOlPen:28,216,8;DrawMode:28,224,8;\\",128,0,0,0
+.stabs "AreaPtSz:28,232,8;linpatcnt:28,240,8;dummy:28,248,8;\\",128,0,0,0
+.stabs "Flags:26,256,16;LinePtrn:26,272,16;cp_x:25,288,16;\\",128,0,0,0
+.stabs "cp_y:25,304,16;minterms:187=ar0;0;7;29,320,64;\\",128,0,0,0
+.stabs "PenWidth:25,384,16;PenHeight:25,400,16;Font:188=*189=xsTextFont:,416,32;\\",128,0,0,0
+.stabs "AlgoStyle:29,448,8;TxFlags:29,456,8;TxHeight:26,464,16;\\",128,0,0,0
+.stabs "TxWidth:26,480,16;TxBaseline:26,496,16;TxSpacing:25,512,16;\\",128,0,0,0
+.stabs "RP_User:190=*20,528,32;longreserved:142,560,64;wordreserved:191=ar0;0;6;26,624,112;\\",128,0,0,0
+.stabs "reserved:187,736,64;;",128,0,0,0
+.stabs "Layer_Info:T101=s102top_layer:93,0,32;check_lp:93,32,32;\\",128,0,0,0
+.stabs "obs:94,64,32;FreeClipRects:94,96,32;PrivateReserve1:22,128,32;\\",128,0,0,0
+.stabs "PrivateReserve2:22,160,32;Lock:74,192,368;gs_Head:49,560,96;\\",128,0,0,0
+.stabs "PrivateReserve3:25,656,16;PrivateReserve4:21,672,32;\\",128,0,0,0
+.stabs "Flags:26,704,16;fatten_count:28,720,8;LockLayersCount:28,728,8;\\",128,0,0,0
+.stabs "PrivateReserve5:25,736,16;BlankHook:21,752,32;LayerInfo_extra:21,784,32;;",128,0,0,0
+.stabs "TextAttr:T192=s8ta_Name:32,0,32;ta_YSize:26,32,16;\\",128,0,0,0
+.stabs "ta_Style:29,48,8;ta_Flags:29,56,8;;",128,0,0,0
+.stabs "TTextAttr:T193=s12tta_Name:32,0,32;tta_YSize:26,32,16;\\",128,0,0,0
+.stabs "tta_Style:29,48,8;tta_Flags:29,56,8;tta_Tags:170,64,32;;",128,0,0,0
+.stabs "TextFont:T189=s52tf_Message:55,0,160;tf_YSize:26,160,16;\\",128,0,0,0
+.stabs "tf_Style:29,176,8;tf_Flags:29,184,8;tf_XSize:26,192,16;\\",128,0,0,0
+.stabs "tf_Baseline:26,208,16;tf_BoldSmear:26,224,16;tf_Accessors:26,240,16;\\",128,0,0,0
+.stabs "tf_LoChar:29,256,8;tf_HiChar:29,264,8;tf_CharData:20,272,32;\\",128,0,0,0
+.stabs "tf_Modulo:26,304,16;tf_CharLoc:20,320,32;tf_CharSpace:20,352,32;\\",128,0,0,0
+.stabs "tf_CharKern:20,384,32;;",128,0,0,0
+.stabs "TextFontExtension:T194=s24tfe_MatchWord:26,0,16;tfe_Flags0:29,16,8;\\",128,0,0,0
+.stabs "tfe_Flags1:29,24,8;tfe_BackPtr:188,32,32;tfe_OrigReplyPort:56,64,32;\\",128,0,0,0
+.stabs "tfe_Tags:170,96,32;tfe_OFontPatchS:115,128,32;tfe_OFontPatchK:115,160,32;;",128,0,0,0
+.stabs "ColorFontColors:T195=s8cfc_Reserved:26,0,16;cfc_Count:26,16,16;\\",128,0,0,0
+.stabs "cfc_ColorTable:115,32,32;;",128,0,0,0
+.stabs "ColorTextFont:T196=s96ctf_TF:189,0,416;ctf_Flags:26,416,16;\\",128,0,0,0
+.stabs "ctf_Depth:29,432,8;ctf_FgColor:29,440,8;ctf_Low:29,448,8;\\",128,0,0,0
+.stabs "ctf_High:29,456,8;ctf_PlanePick:29,464,8;ctf_PlaneOnOff:29,472,8;\\",128,0,0,0
+.stabs "ctf_ColorFontColors:197=*195,480,32;ctf_CharData:156,512,256;;",128,0,0,0
+.stabs "TextExtent:T198=s12te_Width:26,0,16;te_Height:26,16,16;\\",128,0,0,0
+.stabs "te_Extent:78,32,64;;",128,0,0,0
+.stabs "timeval:T199=s8tv_secs:23,0,32;tv_micro:23,32,32;;",128,0,0,0
+.stabs "EClockVal:T200=s8ev_hi:23,0,32;ev_lo:23,32,32;;",128,0,0,0
+.stabs "timerequest:T201=s40tr_node:57,0,256;tr_time:199,256,64;;",128,0,0,0
+.stabs "IEPointerPixel:T202=s8iepp_Screen:203=*204=xsScreen:,0,32;\\",128,0,0,0
+.stabs "iepp_Position:205=s4X:25,0,16;Y:25,16,16;;,32,32;;",128,0,0,0
+.stabs "IEPointerTablet:T206=s10iept_Range:207=s4X:26,0,16;\\",128,0,0,0
+.stabs "Y:26,16,16;;,0,32;iept_Value:208=s4X:26,0,16;\\",128,0,0,0
+.stabs "Y:26,16,16;;,32,32;iept_Pressure:25,64,16;;",128,0,0,0
+.stabs "IENewTablet:T209=s32ient_CallBack:102,0,32;ient_ScaledX:26,32,16;\\",128,0,0,0
+.stabs "ient_ScaledY:26,48,16;ient_ScaledXFraction:26,64,16;\\",128,0,0,0
+.stabs "ient_ScaledYFraction:26,80,16;ient_TabletX:23,96,32;\\",128,0,0,0
+.stabs "ient_TabletY:23,128,32;ient_RangeX:23,160,32;ient_RangeY:23,192,32;\\",128,0,0,0
+.stabs "ient_TagList:170,224,32;;",128,0,0,0
+.stabs "InputEvent:T210=s22ie_NextEvent:211=*210,0,32;ie_Class:29,32,8;\\",128,0,0,0
+.stabs "ie_SubClass:29,40,8;ie_Code:26,48,16;ie_Qualifier:26,64,16;\\",128,0,0,0
+.stabs "ie_position:212=u4ie_xy:213=s4ie_x:25,0,16;\\",128,0,0,0
+.stabs "ie_y:25,16,16;;,0,32;ie_addr:20,0,32;\\",128,0,0,0
+.stabs "ie_dead:214=s4ie_prev1DownCode:29,0,8;ie_prev1DownQual:29,8,8;\\",128,0,0,0
+.stabs "ie_prev2DownCode:29,16,8;ie_prev2DownQual:29,24,8;;,0,32;;,80,32;\\",128,0,0,0
+.stabs "ie_TimeStamp:199,112,64;;",128,0,0,0
+.stabs "Menu:T215=s30NextMenu:216=*215,0,32;LeftEdge:25,32,16;\\",128,0,0,0
+.stabs "TopEdge:25,48,16;Width:25,64,16;Height:25,80,16;\\",128,0,0,0
+.stabs "Flags:26,96,16;MenuName:176,112,32;FirstItem:217=*218=xsMenuItem:,144,32;\\",128,0,0,0
+.stabs "JazzX:25,176,16;JazzY:25,192,16;BeatX:25,208,16;\\",128,0,0,0
+.stabs "BeatY:25,224,16;;",128,0,0,0
+.stabs "MenuItem:T218=s34NextItem:217,0,32;LeftEdge:25,32,16;\\",128,0,0,0
+.stabs "TopEdge:25,48,16;Width:25,64,16;Height:25,80,16;\\",128,0,0,0
+.stabs "Flags:26,96,16;MutualExclude:22,112,32;ItemFill:20,144,32;\\",128,0,0,0
+.stabs "SelectFill:20,176,32;Command:28,208,8;SubItem:217,224,32;\\",128,0,0,0
+.stabs "NextSelect:26,256,16;;",128,0,0,0
+.stabs "Requester:T219=s112OlderRequest:220=*219,0,32;LeftEdge:25,32,16;\\",128,0,0,0
+.stabs "TopEdge:25,48,16;Width:25,64,16;Height:25,80,16;\\",128,0,0,0
+.stabs "RelLeft:25,96,16;RelTop:25,112,16;ReqGadget:221=*222=xsGadget:,128,32;\\",128,0,0,0
+.stabs "ReqBorder:223=*224=xsBorder:,160,32;ReqText:225=*226=xsIntuiText:,192,32;\\",128,0,0,0
+.stabs "Flags:26,224,16;BackFill:29,240,8;ReqLayer:93,256,32;\\",128,0,0,0
+.stabs "ReqPad1:147,288,256;ImageBMap:99,544,32;RWindow:227=*228=xsWindow:,576,32;\\",128,0,0,0
+.stabs "ReqImage:229=*230=xsImage:,608,32;ReqPad2:147,640,256;;",128,0,0,0
+.stabs "Gadget:T222=s44NextGadget:221,0,32;LeftEdge:25,32,16;\\",128,0,0,0
+.stabs "TopEdge:25,48,16;Width:25,64,16;Height:25,80,16;\\",128,0,0,0
+.stabs "Flags:26,96,16;Activation:26,112,16;GadgetType:26,128,16;\\",128,0,0,0
+.stabs "GadgetRender:20,144,32;SelectRender:20,176,32;GadgetText:225,208,32;\\",128,0,0,0
+.stabs "MutualExclude:22,240,32;SpecialInfo:20,272,32;GadgetID:26,304,16;\\",128,0,0,0
+.stabs "UserData:20,320,32;;",128,0,0,0
+.stabs "ExtGadget:T231=s56NextGadget:232=*231,0,32;LeftEdge:25,32,16;\\",128,0,0,0
+.stabs "TopEdge:25,48,16;Width:25,64,16;Height:25,80,16;\\",128,0,0,0
+.stabs "Flags:26,96,16;Activation:26,112,16;GadgetType:26,128,16;\\",128,0,0,0
+.stabs "GadgetRender:20,144,32;SelectRender:20,176,32;GadgetText:225,208,32;\\",128,0,0,0
+.stabs "MutualExclude:22,240,32;SpecialInfo:20,272,32;GadgetID:26,304,16;\\",128,0,0,0
+.stabs "UserData:20,320,32;MoreFlags:23,352,32;BoundsLeftEdge:25,384,16;\\",128,0,0,0
+.stabs "BoundsTopEdge:25,400,16;BoundsWidth:25,416,16;BoundsHeight:25,432,16;;",128,0,0,0
+.stabs "BoolInfo:T233=s10Flags:26,0,16;Mask:115,16,32;\\",128,0,0,0
+.stabs "Reserved:23,48,32;;",128,0,0,0
+.stabs "PropInfo:T234=s22Flags:26,0,16;HorizPot:26,16,16;\\",128,0,0,0
+.stabs "VertPot:26,32,16;HorizBody:26,48,16;VertBody:26,64,16;\\",128,0,0,0
+.stabs "CWidth:26,80,16;CHeight:26,96,16;HPotRes:26,112,16;\\",128,0,0,0
+.stabs "VPotRes:26,128,16;LeftBorder:26,144,16;TopBorder:26,160,16;;",128,0,0,0
+.stabs "StringInfo:T235=s36Buffer:83,0,32;UndoBuffer:83,32,32;\\",128,0,0,0
+.stabs "BufferPos:25,64,16;MaxChars:25,80,16;DispPos:25,96,16;\\",128,0,0,0
+.stabs "UndoPos:25,112,16;NumChars:25,128,16;DispCount:25,144,16;\\",128,0,0,0
+.stabs "CLeft:25,160,16;CTop:25,176,16;Extension:236=*237=xsStringExtend:,192,32;\\",128,0,0,0
+.stabs "LongInt:22,224,32;AltKeyMap:238=*239=xsKeyMap:,256,32;;",128,0,0,0
+.stabs "IntuiText:T226=s20FrontPen:29,0,8;BackPen:29,8,8;\\",128,0,0,0
+.stabs "DrawMode:29,16,8;LeftEdge:25,32,16;TopEdge:25,48,16;\\",128,0,0,0
+.stabs "ITextFont:240=*192,64,32;IText:83,96,32;NextText:225,128,32;;",128,0,0,0
+.stabs "Border:T224=s16LeftEdge:25,0,16;TopEdge:25,16,16;\\",128,0,0,0
+.stabs "FrontPen:29,32,8;BackPen:29,40,8;DrawMode:29,48,8;\\",128,0,0,0
+.stabs "Count:28,56,8;XY:175,64,32;NextBorder:223,96,32;;",128,0,0,0
+.stabs "Image:T230=s20LeftEdge:25,0,16;TopEdge:25,16,16;\\",128,0,0,0
+.stabs "Width:25,32,16;Height:25,48,16;Depth:25,64,16;\\",128,0,0,0
+.stabs "ImageData:115,80,32;PlanePick:29,112,8;PlaneOnOff:29,120,8;\\",128,0,0,0
+.stabs "NextImage:229,128,32;;",128,0,0,0
+.stabs "IntuiMessage:T241=s52ExecMessage:55,0,160;Class:23,160,32;\\",128,0,0,0
+.stabs "Code:26,192,16;Qualifier:26,208,16;IAddress:20,224,32;\\",128,0,0,0
+.stabs "MouseX:25,256,16;MouseY:25,272,16;Seconds:23,288,32;\\",128,0,0,0
+.stabs "Micros:23,320,32;IDCMPWindow:227,352,32;SpecialLink:242=*241,384,32;;",128,0,0,0
+.stabs "ExtIntuiMessage:T243=s56eim_IntuiMessage:241,0,416;eim_TabletData:244=*245=xsTabletData:,416,32;;",128,0,0,0
+.stabs "IBox:T246=s8Left:25,0,16;Top:25,16,16;\\",128,0,0,0
+.stabs "Width:25,32,16;Height:25,48,16;;",128,0,0,0
+.stabs "Window:T228=s136NextWindow:227,0,32;LeftEdge:25,32,16;\\",128,0,0,0
+.stabs "TopEdge:25,48,16;Width:25,64,16;Height:25,80,16;\\",128,0,0,0
+.stabs "MouseY:25,96,16;MouseX:25,112,16;MinWidth:25,128,16;\\",128,0,0,0
+.stabs "MinHeight:25,144,16;MaxWidth:26,160,16;MaxHeight:26,176,16;\\",128,0,0,0
+.stabs "Flags:23,192,32;MenuStrip:216,224,32;Title:83,256,32;\\",128,0,0,0
+.stabs "FirstRequest:220,288,32;DMRequest:220,320,32;ReqCount:25,352,16;\\",128,0,0,0
+.stabs "WScreen:203,368,32;RPort:96,400,32;BorderLeft:28,432,8;\\",128,0,0,0
+.stabs "BorderTop:28,440,8;BorderRight:28,448,8;BorderBottom:28,456,8;\\",128,0,0,0
+.stabs "BorderRPort:96,464,32;FirstGadget:221,496,32;Parent:227,528,32;\\",128,0,0,0
+.stabs "Descendant:227,560,32;Pointer:115,592,32;PtrHeight:28,624,8;\\",128,0,0,0
+.stabs "PtrWidth:28,632,8;XOffset:28,640,8;YOffset:28,648,8;\\",128,0,0,0
+.stabs "IDCMPFlags:23,656,32;UserPort:56,688,32;WindowPort:56,720,32;\\",128,0,0,0
+.stabs "MessageKey:242,752,32;DetailPen:29,784,8;BlockPen:29,792,8;\\",128,0,0,0
+.stabs "CheckMark:229,800,32;ScreenTitle:83,832,32;GZZMouseX:25,864,16;\\",128,0,0,0
+.stabs "GZZMouseY:25,880,16;GZZWidth:25,896,16;GZZHeight:25,912,16;\\",128,0,0,0
+.stabs "ExtData:83,928,32;UserData:176,960,32;WLayer:93,992,32;\\",128,0,0,0
+.stabs "IFont:188,1024,32;MoreFlags:23,1056,32;;",128,0,0,0
+.stabs "NewWindow:T247=s48LeftEdge:25,0,16;TopEdge:25,16,16;\\",128,0,0,0
+.stabs "Width:25,32,16;Height:25,48,16;DetailPen:29,64,8;\\",128,0,0,0
+.stabs "BlockPen:29,72,8;IDCMPFlags:23,80,32;Flags:23,112,32;\\",128,0,0,0
+.stabs "FirstGadget:221,144,32;CheckMark:229,176,32;Title:83,208,32;\\",128,0,0,0
+.stabs "Screen:203,240,32;BitMap:99,272,32;MinWidth:25,304,16;\\",128,0,0,0
+.stabs "MinHeight:25,320,16;MaxWidth:26,336,16;MaxHeight:26,352,16;\\",128,0,0,0
+.stabs "Type:26,368,16;;",128,0,0,0
+.stabs "ExtNewWindow:T248=s52LeftEdge:25,0,16;TopEdge:25,16,16;\\",128,0,0,0
+.stabs "Width:25,32,16;Height:25,48,16;DetailPen:29,64,8;\\",128,0,0,0
+.stabs "BlockPen:29,72,8;IDCMPFlags:23,80,32;Flags:23,112,32;\\",128,0,0,0
+.stabs "FirstGadget:221,144,32;CheckMark:229,176,32;Title:83,208,32;\\",128,0,0,0
+.stabs "Screen:203,240,32;BitMap:99,272,32;MinWidth:25,304,16;\\",128,0,0,0
+.stabs "MinHeight:25,320,16;MaxWidth:26,336,16;MaxHeight:26,352,16;\\",128,0,0,0
+.stabs "Type:26,368,16;Extension:170,384,32;;",128,0,0,0
+.stabs "DrawInfo:T249=s50dri_Version:26,0,16;dri_NumPens:26,16,16;\\",128,0,0,0
+.stabs "dri_Pens:115,32,32;dri_Font:188,64,32;dri_Depth:26,96,16;\\",128,0,0,0
+.stabs "dri_Resolution:250=s4X:26,0,16;Y:26,16,16;;,112,32;\\",128,0,0,0
+.stabs "dri_Flags:23,144,32;dri_CheckMark:229,176,32;dri_AmigaKey:229,208,32;\\",128,0,0,0
+.stabs "dri_Reserved:251=ar0;0;4;23,240,160;;",128,0,0,0
+.stabs "Screen:T204=s346NextScreen:203,0,32;FirstWindow:227,32,32;\\",128,0,0,0
+.stabs "LeftEdge:25,64,16;TopEdge:25,80,16;Width:25,96,16;\\",128,0,0,0
+.stabs "Height:25,112,16;MouseY:25,128,16;MouseX:25,144,16;\\",128,0,0,0
+.stabs "Flags:26,160,16;Title:83,176,32;DefaultTitle:83,208,32;\\",128,0,0,0
+.stabs "BarHeight:28,240,8;BarVBorder:28,248,8;BarHBorder:28,256,8;\\",128,0,0,0
+.stabs "MenuVBorder:28,264,8;MenuHBorder:28,272,8;WBorTop:28,280,8;\\",128,0,0,0
+.stabs "WBorLeft:28,288,8;WBorRight:28,296,8;WBorBottom:28,304,8;\\",128,0,0,0
+.stabs "Font:240,320,32;ViewPort:117,352,320;RastPort:97,672,800;\\",128,0,0,0
+.stabs "BitMap:84,1472,320;LayerInfo:101,1792,816;FirstGadget:221,2608,32;\\",128,0,0,0
+.stabs "DetailPen:29,2640,8;BlockPen:29,2648,8;SaveColor0:26,2656,16;\\",128,0,0,0
+.stabs "BarLayer:93,2672,32;ExtData:83,2704,32;UserData:83,2736,32;;",128,0,0,0
+.stabs "NewScreen:T252=s32LeftEdge:25,0,16;TopEdge:25,16,16;\\",128,0,0,0
+.stabs "Width:25,32,16;Height:25,48,16;Depth:25,64,16;\\",128,0,0,0
+.stabs "DetailPen:29,80,8;BlockPen:29,88,8;ViewModes:26,96,16;\\",128,0,0,0
+.stabs "Type:26,112,16;Font:240,128,32;DefaultTitle:83,160,32;\\",128,0,0,0
+.stabs "Gadgets:221,192,32;CustomBitMap:99,224,32;;",128,0,0,0
+.stabs "ExtNewScreen:T253=s36LeftEdge:25,0,16;TopEdge:25,16,16;\\",128,0,0,0
+.stabs "Width:25,32,16;Height:25,48,16;Depth:25,64,16;\\",128,0,0,0
+.stabs "DetailPen:29,80,8;BlockPen:29,88,8;ViewModes:26,96,16;\\",128,0,0,0
+.stabs "Type:26,112,16;Font:240,128,32;DefaultTitle:83,160,32;\\",128,0,0,0
+.stabs "Gadgets:221,192,32;CustomBitMap:99,224,32;Extension:170,256,32;;",128,0,0,0
+.stabs "PubScreenNode:T254=s30psn_Node:43,0,112;psn_Screen:203,112,32;\\",128,0,0,0
+.stabs "psn_Flags:26,144,16;psn_Size:25,160,16;psn_VisitorCount:25,176,16;\\",128,0,0,0
+.stabs "psn_SigTask:73,192,32;psn_SigBit:29,224,8;;",128,0,0,0
+.stabs "ScreenBuffer:T255=s8sb_BitMap:99,0,32;sb_DBufInfo:256=*173,32,32;;",128,0,0,0
+.stabs "Preferences:T257=s232FontHeight:28,0,8;PrinterPort:29,8,8;\\",128,0,0,0
+.stabs "BaudRate:26,16,16;KeyRptSpeed:199,32,64;KeyRptDelay:199,96,64;\\",128,0,0,0
+.stabs "DoubleClick:199,160,64;PointerMatrix:258=ar0;0;35;26,224,576;\\",128,0,0,0
+.stabs "XOffset:28,800,8;YOffset:28,808,8;color17:26,816,16;\\",128,0,0,0
+.stabs "color18:26,832,16;color19:26,848,16;PointerTicks:26,864,16;\\",128,0,0,0
+.stabs "color0:26,880,16;color1:26,896,16;color2:26,912,16;\\",128,0,0,0
+.stabs "color3:26,928,16;ViewXOffset:28,944,8;ViewYOffset:28,952,8;\\",128,0,0,0
+.stabs "ViewInitX:25,960,16;ViewInitY:25,976,16;EnableCLI:41,992,16;\\",128,0,0,0
+.stabs "PrinterType:26,1008,16;PrinterFilename:259=ar0;0;29;29,1024,240;\\",128,0,0,0
+.stabs "PrintPitch:26,1264,16;PrintQuality:26,1280,16;PrintSpacing:26,1296,16;\\",128,0,0,0
+.stabs "PrintLeftMargin:26,1312,16;PrintRightMargin:26,1328,16;\\",128,0,0,0
+.stabs "PrintImage:26,1344,16;PrintAspect:26,1360,16;PrintShade:26,1376,16;\\",128,0,0,0
+.stabs "PrintThreshold:25,1392,16;PaperSize:26,1408,16;PaperLength:26,1424,16;\\",128,0,0,0
+.stabs "PaperType:26,1440,16;SerRWBits:29,1456,8;SerStopBuf:29,1464,8;\\",128,0,0,0
+.stabs "SerParShk:29,1472,8;LaceWB:29,1480,8;Pad:260=ar0;0;11;29,1488,96;\\",128,0,0,0
+.stabs "PrtDevName:261=ar0;0;15;29,1584,128;DefaultPrtUnit:29,1712,8;\\",128,0,0,0
+.stabs "DefaultSerUnit:29,1720,8;RowSizeChange:28,1728,8;\\",128,0,0,0
+.stabs "ColumnSizeChange:28,1736,8;PrintFlags:26,1744,16;\\",128,0,0,0
+.stabs "PrintMaxWidth:26,1760,16;PrintMaxHeight:26,1776,16;\\",128,0,0,0
+.stabs "PrintDensity:29,1792,8;PrintXOffset:29,1800,8;wb_Width:26,1808,16;\\",128,0,0,0
+.stabs "wb_Height:26,1824,16;wb_Depth:29,1840,8;ext_size:29,1848,8;;",128,0,0,0
+.stabs "Remember:T262=s12NextRemember:263=*262,0,32;RememberSize:23,32,32;\\",128,0,0,0
+.stabs "Memory:83,64,32;;",128,0,0,0
+.stabs "ColorSpec:T264=s8ColorIndex:25,0,16;Red:26,16,16;\\",128,0,0,0
+.stabs "Green:26,32,16;Blue:26,48,16;;",128,0,0,0
+.stabs "EasyStruct:T265=s20es_StructSize:23,0,32;es_Flags:23,32,32;\\",128,0,0,0
+.stabs "es_Title:83,64,32;es_TextFormat:83,96,32;es_GadgetFormat:83,128,32;;",128,0,0,0
+.stabs "TabletData:T245=s24td_XFraction:26,0,16;td_YFraction:26,16,16;\\",128,0,0,0
+.stabs "td_TabletX:23,32,32;td_TabletY:23,64,32;td_RangeX:23,96,32;\\",128,0,0,0
+.stabs "td_RangeY:23,128,32;td_TagList:170,160,32;;",128,0,0,0
+.stabs "TabletHookData:T266=s16thd_Screen:203,0,32;thd_Width:23,32,32;\\",128,0,0,0
+.stabs "thd_Height:23,64,32;thd_ScreenChanged:22,96,32;;",128,0,0,0
+.stabs "Object:t267=23",128,0,19,0
+.stabs "ClassID:t268=83",128,0,21,0
+.stabs "Msg:t269=270=*271=s4MethodID:23,0,32;;",128,0,32,0
+.stabs "opSet:T272=s12MethodID:23,0,32;ops_AttrList:170,32,32;\\",128,0,0,0
+.stabs "ops_GInfo:273=*274=xsGadgetInfo:,64,32;;",128,0,0,0
+.stabs "opUpdate:T275=s16MethodID:23,0,32;opu_AttrList:170,32,32;\\",128,0,0,0
+.stabs "opu_GInfo:273,64,32;opu_Flags:23,96,32;;",128,0,0,0
+.stabs "opGet:T276=s12MethodID:23,0,32;opg_AttrID:23,32,32;\\",128,0,0,0
+.stabs "opg_Storage:277=*23,64,32;;",128,0,0,0
+.stabs "opAddTail:T278=s8MethodID:23,0,32;opat_List:279=*48,32,32;;",128,0,0,0
+.stabs "opMember:T280=s8MethodID:23,0,32;opam_Object:281=*267,32,32;;",128,0,0,0
+.stabs "IClass:T282=s52cl_Dispatcher:86,0,160;cl_Reserved:23,160,32;\\",128,0,0,0
+.stabs "cl_Super:283=*282,192,32;cl_ID:268,224,32;cl_InstOffset:26,256,16;\\",128,0,0,0
+.stabs "cl_InstSize:26,272,16;cl_UserData:23,288,32;cl_SubclassCount:23,320,32;\\",128,0,0,0
+.stabs "cl_ObjectCount:23,352,32;cl_Flags:23,384,32;;",128,0,0,0
+.stabs "Class:t284=282",128,0,43,0
+.stabs "_Object:T285=s12o_Node:46,0,64;o_Class:283,64,32;;",128,0,0,0
+.stabs "GadgetInfo:T274=s58gi_Screen:203,0,32;gi_Window:227,32,32;\\",128,0,0,0
+.stabs "gi_Requester:220,64,32;gi_RastPort:96,96,32;gi_Layer:93,128,32;\\",128,0,0,0
+.stabs "gi_Domain:246,160,64;gi_Pens:286=s2DetailPen:29,0,8;\\",128,0,0,0
+.stabs "BlockPen:29,8,8;;,224,16;gi_DrInfo:287=*249,240,32;\\",128,0,0,0
+.stabs "gi_Reserved:288=ar0;0;5;23,272,192;;",128,0,0,0
+.stabs "PGX:T289=s16pgx_Container:246,0,64;pgx_NewKnob:246,64,64;;",128,0,0,0
+.stabs "ExAllData:T290=s40ed_Next:291=*290,0,32;ed_Name:83,32,32;\\",128,0,0,0
+.stabs "ed_Type:22,64,32;ed_Size:23,96,32;ed_Prot:23,128,32;\\",128,0,0,0
+.stabs "ed_Days:23,160,32;ed_Mins:23,192,32;ed_Ticks:23,224,32;\\",128,0,0,0
+.stabs "ed_Comment:83,256,32;ed_OwnerUID:26,288,16;ed_OwnerGID:26,304,16;;",128,0,0,0
+.stabs "ExAllControl:T292=s16eac_Entries:23,0,32;eac_LastKey:23,32,32;\\",128,0,0,0
+.stabs "eac_MatchString:83,64,32;eac_MatchFunc:102,96,32;;",128,0,0,0
+.stabs "DateStamp:T293=s12ds_Days:22,0,32;ds_Minute:22,32,32;\\",128,0,0,0
+.stabs "ds_Tick:22,64,32;;",128,0,0,0
+.stabs "FileInfoBlock:T294=s260fib_DiskKey:22,0,32;fib_DirEntryType:22,32,32;\\",128,0,0,0
+.stabs "fib_FileName:295=ar0;0;107;2,64,864;fib_Protection:22,928,32;\\",128,0,0,0
+.stabs "fib_EntryType:22,960,32;fib_Size:22,992,32;fib_NumBlocks:22,1024,32;\\",128,0,0,0
+.stabs "fib_Date:293,1056,96;fib_Comment:296=ar0;0;79;2,1152,640;\\",128,0,0,0
+.stabs "fib_OwnerUID:26,1792,16;fib_OwnerGID:26,1808,16;fib_Reserved:297=ar0;0;31;2,1824,256;;",128,0,0,0
+.stabs "BPTR:t298=3",128,0,130,0
+.stabs "BSTR:t299=3",128,0,131,0
+.stabs "InfoData:T300=s36id_NumSoftErrors:22,0,32;id_UnitNumber:22,32,32;\\",128,0,0,0
+.stabs "id_DiskState:22,64,32;id_NumBlocks:22,96,32;id_NumBlocksUsed:22,128,32;\\",128,0,0,0
+.stabs "id_BytesPerBlock:22,160,32;id_DiskType:22,192,32;\\",128,0,0,0
+.stabs "id_VolumeNode:298,224,32;id_InUse:22,256,32;;",128,0,0,0
+.stabs "Process:T301=s228pr_Task:50,0,736;pr_MsgPort:54,736,272;\\",128,0,0,0
+.stabs "pr_Pad:25,1008,16;pr_SegList:298,1024,32;pr_StackSize:22,1056,32;\\",128,0,0,0
+.stabs "pr_GlobVec:20,1088,32;pr_TaskNum:22,1120,32;pr_StackBase:298,1152,32;\\",128,0,0,0
+.stabs "pr_Result2:22,1184,32;pr_CurrentDir:298,1216,32;pr_CIS:298,1248,32;\\",128,0,0,0
+.stabs "pr_COS:298,1280,32;pr_ConsoleTask:20,1312,32;pr_FileSystemTask:20,1344,32;\\",128,0,0,0
+.stabs "pr_CLI:298,1376,32;pr_ReturnAddr:20,1408,32;pr_PktWait:20,1440,32;\\",128,0,0,0
+.stabs "pr_WindowPtr:20,1472,32;pr_HomeDir:298,1504,32;pr_Flags:22,1536,32;\\",128,0,0,0
+.stabs "pr_ExitCode:51,1568,32;pr_ExitData:22,1600,32;pr_Arguments:83,1632,32;\\",128,0,0,0
+.stabs "pr_LocalVars:49,1664,96;pr_ShellPrivate:23,1760,32;\\",128,0,0,0
+.stabs "pr_CES:298,1792,32;;",128,0,0,0
+.stabs "FileHandle:T302=s44fh_Link:303=*55,0,32;fh_Port:56,32,32;\\",128,0,0,0
+.stabs "fh_Type:56,64,32;fh_Buf:22,96,32;fh_Pos:22,128,32;\\",128,0,0,0
+.stabs "fh_End:22,160,32;fh_Funcs:22,192,32;fh_Func2:22,224,32;\\",128,0,0,0
+.stabs "fh_Func3:22,256,32;fh_Args:22,288,32;fh_Arg2:22,320,32;;",128,0,0,0
+.stabs "DosPacket:T304=s48dp_Link:303,0,32;dp_Port:56,32,32;\\",128,0,0,0
+.stabs "dp_Type:22,64,32;dp_Res1:22,96,32;dp_Res2:22,128,32;\\",128,0,0,0
+.stabs "dp_Arg1:22,160,32;dp_Arg2:22,192,32;dp_Arg3:22,224,32;\\",128,0,0,0
+.stabs "dp_Arg4:22,256,32;dp_Arg5:22,288,32;dp_Arg6:22,320,32;\\",128,0,0,0
+.stabs "dp_Arg7:22,352,32;;",128,0,0,0
+.stabs "StandardPacket:T305=s68sp_Msg:55,0,160;sp_Pkt:304,160,384;;",128,0,0,0
+.stabs "ErrorString:T306=s8estr_Nums:307=*22,0,32;estr_Strings:83,32,32;;",128,0,0,0
+.stabs "DosLibrary:T308=s70dl_lib:71,0,272;dl_Root:309=*310=xsRootNode:,272,32;\\",128,0,0,0
+.stabs "dl_GV:20,304,32;dl_A2:22,336,32;dl_A5:22,368,32;\\",128,0,0,0
+.stabs "dl_A6:22,400,32;dl_Errors:311=*306,432,32;dl_TimeReq:312=*201,464,32;\\",128,0,0,0
+.stabs "dl_UtilityBase:313=*71,496,32;dl_IntuitionBase:313,528,32;;",128,0,0,0
+.stabs "RootNode:T310=s56rn_TaskArray:298,0,32;rn_ConsoleSegment:298,32,32;\\",128,0,0,0
+.stabs "rn_Time:293,64,96;rn_RestartSeg:22,160,32;rn_Info:298,192,32;\\",128,0,0,0
+.stabs "rn_FileHandlerSegment:298,224,32;rn_CliList:49,256,96;\\",128,0,0,0
+.stabs "rn_BootProc:56,352,32;rn_ShellSegment:298,384,32;\\",128,0,0,0
+.stabs "rn_Flags:22,416,32;;",128,0,0,0
+.stabs "CliProcList:T314=s16cpl_Node:46,0,64;cpl_First:22,64,32;\\",128,0,0,0
+.stabs "cpl_Array:315=*56,96,32;;",128,0,0,0
+.stabs "DosInfo:T316=s158di_McName:298,0,32;di_DevInfo:298,32,32;\\",128,0,0,0
+.stabs "di_Devices:298,64,32;di_Handlers:298,96,32;di_NetHand:20,128,32;\\",128,0,0,0
+.stabs "di_DevLock:74,160,368;di_EntryLock:74,528,368;di_DeleteLock:74,896,368;;",128,0,0,0
+.stabs "Segment:T317=s16seg_Next:298,0,32;seg_UC:22,32,32;\\",128,0,0,0
+.stabs "seg_Seg:298,64,32;seg_Name:98,96,32;;",128,0,0,0
+.stabs "CommandLineInterface:T318=s64cli_Result2:22,0,32;cli_SetName:299,32,32;\\",128,0,0,0
+.stabs "cli_CommandDir:298,64,32;cli_ReturnCode:22,96,32;\\",128,0,0,0
+.stabs "cli_CommandName:299,128,32;cli_FailLevel:22,160,32;\\",128,0,0,0
+.stabs "cli_Prompt:299,192,32;cli_StandardInput:298,224,32;\\",128,0,0,0
+.stabs "cli_CurrentInput:298,256,32;cli_CommandFile:299,288,32;\\",128,0,0,0
+.stabs "cli_Interactive:22,320,32;cli_Background:22,352,32;\\",128,0,0,0
+.stabs "cli_CurrentOutput:298,384,32;cli_DefaultStack:22,416,32;\\",128,0,0,0
+.stabs "cli_StandardOutput:298,448,32;cli_Module:298,480,32;;",128,0,0,0
+.stabs "DeviceList:T319=s44dl_Next:298,0,32;dl_Type:22,32,32;\\",128,0,0,0
+.stabs "dl_Task:56,64,32;dl_Lock:298,96,32;dl_VolumeDate:293,128,96;\\",128,0,0,0
+.stabs "dl_LockList:298,224,32;dl_DiskType:22,256,32;dl_unused:22,288,32;\\",128,0,0,0
+.stabs "dl_Name:299,320,32;;",128,0,0,0
+.stabs "DevInfo:T320=s44dvi_Next:298,0,32;dvi_Type:22,32,32;\\",128,0,0,0
+.stabs "dvi_Task:20,64,32;dvi_Lock:298,96,32;dvi_Handler:299,128,32;\\",128,0,0,0
+.stabs "dvi_StackSize:22,160,32;dvi_Priority:22,192,32;\\",128,0,0,0
+.stabs "dvi_Startup:22,224,32;dvi_SegList:298,256,32;dvi_GlobVec:298,288,32;\\",128,0,0,0
+.stabs "dvi_Name:299,320,32;;",128,0,0,0
+.stabs "DosList:T321=s44dol_Next:298,0,32;dol_Type:22,32,32;\\",128,0,0,0
+.stabs "dol_Task:56,64,32;dol_Lock:298,96,32;dol_misc:322=u24dol_handler:323=s24dol_Handler:299,0,32;\\",128,0,0,0
+.stabs "dol_StackSize:22,32,32;dol_Priority:22,64,32;\\",128,0,0,0
+.stabs "dol_Startup:23,96,32;dol_SegList:298,128,32;dol_GlobVec:298,160,32;;,0,192;\\",128,0,0,0
+.stabs "dol_volume:324=s20dol_VolumeDate:293,0,96;dol_LockList:298,96,32;\\",128,0,0,0
+.stabs "dol_DiskType:22,128,32;;,0,160;dol_assign:325=s8dol_AssignName:83,0,32;\\",128,0,0,0
+.stabs "dol_List:326=*327=xsAssignList:,32,32;;,0,64;;,128,192;\\",128,0,0,0
+.stabs "dol_Name:299,320,32;;",128,0,0,0
+.stabs "AssignList:T327=s8al_Next:326,0,32;al_Lock:298,32,32;;",128,0,0,0
+.stabs "DevProc:T328=s16dvp_Port:56,0,32;dvp_Lock:298,32,32;\\",128,0,0,0
+.stabs "dvp_Flags:23,64,32;dvp_DevNode:329=*321,96,32;;",128,0,0,0
+.stabs "FileLock:T330=s20fl_Link:298,0,32;fl_Key:22,32,32;\\",128,0,0,0
+.stabs "fl_Access:22,64,32;fl_Task:56,96,32;fl_Volume:298,128,32;;",128,0,0,0
+.stabs "RecordLock:T331=s16rec_FH:298,0,32;rec_Offset:23,32,32;\\",128,0,0,0
+.stabs "rec_Length:23,64,32;rec_Mode:23,96,32;;",128,0,0,0
+.stabs "CSource:T332=s12CS_Buffer:83,0,32;CS_Length:22,32,32;\\",128,0,0,0
+.stabs "CS_CurChr:22,64,32;;",128,0,0,0
+.stabs "RDArgs:T333=s32RDA_Source:332,0,96;RDA_DAList:22,96,32;\\",128,0,0,0
+.stabs "RDA_Buffer:83,128,32;RDA_BufSiz:22,160,32;RDA_ExtHelp:83,192,32;\\",128,0,0,0
+.stabs "RDA_Flags:22,224,32;;",128,0,0,0
+.stabs "AnchorPath:T334=s282ap_Base:335=*336=xsAChain:,0,32;ap_Last:335,32,32;\\",128,0,0,0
+.stabs "ap_BreakBits:22,64,32;ap_FoundBreak:22,96,32;\\",128,0,0,0
+.stabs "ap_Flags:28,128,8;ap_Reserved:28,136,8;ap_Strlen:25,144,16;\\",128,0,0,0
+.stabs "ap_Info:294,160,2080;ap_Buf:337=ar0;0;0;29,2240,8;;",128,0,0,0
+.stabs "AChain:T336=s274an_Child:335,0,32;an_Parent:335,32,32;\\",128,0,0,0
+.stabs "an_Lock:298,64,32;an_Info:294,96,2080;an_Flags:28,2176,8;\\",128,0,0,0
+.stabs "an_String:337,2184,8;;",128,0,0,0
+.stabs "LocalVar:T338=s24lv_Node:43,0,112;lv_Flags:26,112,16;\\",128,0,0,0
+.stabs "lv_Value:83,128,32;lv_Len:23,160,32;;",128,0,0,0
+.stabs "NotifyMessage:T339=s38nm_ExecMessage:55,0,160;nm_Class:23,160,32;\\",128,0,0,0
+.stabs "nm_Code:26,192,16;nm_NReq:340=*341=xsNotifyRequest:,208,32;\\",128,0,0,0
+.stabs "nm_DoNotTouch:23,240,32;nm_DoNotTouch2:23,272,32;;",128,0,0,0
+.stabs "NotifyRequest:T341=s48nr_Name:83,0,32;nr_FullName:83,32,32;\\",128,0,0,0
+.stabs "nr_UserData:23,64,32;nr_Flags:23,96,32;nr_stuff:342=u8nr_Msg:343=s4nr_Port:56,0,32;;,0,32;\\",128,0,0,0
+.stabs "nr_Signal:344=s8nr_Task:73,0,32;nr_SignalNum:29,32,8;\\",128,0,0,0
+.stabs "nr_pad:345=ar0;0;2;29,40,24;;,0,64;;,128,64;\\",128,0,0,0
+.stabs "nr_Reserved:346=ar0;0;3;23,192,128;nr_MsgCount:23,320,32;\\",128,0,0,0
+.stabs "nr_Handler:56,352,32;;",128,0,0,0
+.stabs "DateTime:T347=s26dat_Stamp:293,0,96;dat_Format:29,96,8;\\",128,0,0,0
+.stabs "dat_Flags:29,104,8;dat_StrDay:83,112,32;dat_StrDate:83,144,32;\\",128,0,0,0
+.stabs "dat_StrTime:83,176,32;;",128,0,0,0
+.stabs "_physadr:T348=s2r:349=ar0;0;0;8,0,16;;",128,0,0,0
+.stabs "physadr:t350=351=*348",128,0,45,0
+.stabs "label_t:T352=s60val:353=ar0;0;14;1,0,480;;",128,0,0,0
+.stabs "label_t:t354=352",128,0,49,0
+.stabs "vm_offset_t:t355=5",128,0,52,0
+.stabs "vm_size_t:t356=5",128,0,53,0
+.stabs "int8_t:t357=10",128,0,60,0
+.stabs "u_int8_t:t358=11",128,0,61,0
+.stabs "int16_t:t359=8",128,0,62,0
+.stabs "u_int16_t:t360=9",128,0,63,0
+.stabs "int32_t:t361=1",128,0,64,0
+.stabs "u_int32_t:t362=4",128,0,65,0
+.stabs "int64_t:t363=6",128,0,66,0
+.stabs "u_int64_t:t364=7",128,0,67,0
+.stabs "register_t:t365=361",128,0,69,0
+.stabs "u_char:t366=11",128,0,53,0
+.stabs "u_short:t367=9",128,0,54,0
+.stabs "u_int:t368=4",128,0,55,0
+.stabs "u_long:t369=5",128,0,56,0
+.stabs "ushort:t370=9",128,0,57,0
+.stabs "uint:t371=4",128,0,58,0
+.stabs "u_quad_t:t372=364",128,0,61,0
+.stabs "quad_t:t373=363",128,0,62,0
+.stabs "qaddr_t:t374=375=*373",128,0,63,0
+.stabs "caddr_t:t376=45",128,0,65,0
+.stabs "daddr_t:t377=361",128,0,66,0
+.stabs "dev_t:t378=359",128,0,67,0
+.stabs "fixpt_t:t379=362",128,0,68,0
+.stabs "gid_t:t380=360",128,0,69,0
+.stabs "ino_t:t381=362",128,0,70,0
+.stabs "key_t:t382=3",128,0,71,0
+.stabs "mode_t:t383=360",128,0,72,0
+.stabs "nlink_t:t384=360",128,0,73,0
+.stabs "off_t:t385=361",128,0,74,0
+.stabs "pid_t:t386=361",128,0,75,0
+.stabs "rlim_t:t387=361",128,0,76,0
+.stabs "segsz_t:t388=361",128,0,77,0
+.stabs "swblk_t:t389=361",128,0,78,0
+.stabs "uid_t:t390=360",128,0,79,0
+.stabs "clock_t:t391=5",128,0,105,0
+.stabs "size_t:t392=5",128,0,110,0
+.stabs "ssize_t:t393=1",128,0,115,0
+.stabs "time_t:t394=3",128,0,120,0
+.stabs "fd_mask:t395=361",128,0,137,0
+.stabs "fd_set:T396=s32fds_bits:397=ar0;0;7;395,0,256;;",128,0,0,0
+.stabs "fd_set:t398=396",128,0,146,0
+.stabs "fpos_t:t399=3",128,0,63,0
+.stabs "__sbuf:T400=s8_base:33,0,32;_size:1,32,32;;",128,0,0,0
+.stabs "__sFILE:T401=s84_p:33,0,32;_r:1,32,32;\\",128,0,0,0
+.stabs "_w:1,64,32;_flags:8,96,16;_file:8,112,16;\\",128,0,0,0
+.stabs "_bf:400,128,64;_lbfsize:1,192,32;_cookie:21,224,32;\\",128,0,0,0
+.stabs "_close:402=*403=f1,256,32;_read:404=*405=f1,288,32;\\",128,0,0,0
+.stabs "_seek:406=*407=f399,320,32;_write:408=*409=f1,352,32;\\",128,0,0,0
+.stabs "_ub:400,384,64;_up:33,448,32;_ur:1,480,32;\\",128,0,0,0
+.stabs "_ubuf:410=ar0;0;2;11,512,24;_nbuf:411=ar0;0;0;11,536,8;\\",128,0,0,0
+.stabs "_lb:400,544,64;_blksize:1,608,32;_offset:1,640,32;;",128,0,0,0
+.stabs "FILE:t412=401",128,0,134,0
+.stabs "wchar_t:t413=1",128,0,52,0
+.stabs "div_t:t414=415=s8quot:1,0,32;rem:1,32,32;;",128,0,59,0
+.stabs "ldiv_t:t416=417=s8quot:3,0,32;rem:3,32,32;;",128,0,64,0
+.stabs "qdiv_t:t418=419=s16quot:373,0,64;rem:373,64,64;;",128,0,70,0
+	.even
+.globl _itoa
+AP_itoa:
+	.ascii "_itoa\0"
+APclock_c:
+	.ascii "clock.c\0"
+	.even
+_itoa:
+	pea APclock_c
+	pea AP_itoa
+	jbsr AP_FuncStartup2
+	.stabd 68,0,10
+	link a5,#-4
+	movel a3,sp@-
+	movel a2,sp@-
+	.stabd 68,0,11
+LBB2:
+	moveb #2,a5@(-1)
+	.stabd 68,0,13
+L6:
+	moveb a5@(-1),d0
+	subqb #1,a5@(-1)
+	tstb d0
+	jne L8
+	tstl a5@(12)
+	jne L8
+	jra L7
+L8:
+	.stabd 68,0,15
+	moveb a5@(-1),d0
+	extw d0
+	movew d0,a2
+	movel a5@(8),a3
+	movel a5@(12),d0
+	pea 10:w
+	movel d0,sp@-
+	movew #15,_AP_lineno
+	pea ___umodsi3
+	jbsr AP_FuncCall
+	addqw #8,sp
+	moveb d0,d1
+	addb #48,d1
+	pea a2@(a3:l)
+	jbsr AP_WriteB
+	moveb d1,a2@(a3:l)
+	.stabd 68,0,16
+	movel a5@(12),d0
+	pea 10:w
+	movel d0,sp@-
+	movew #16,_AP_lineno
+	pea ___udivsi3
+	jbsr AP_FuncCall
+	addqw #8,sp
+	movel d0,a5@(12)
+	.stabd 68,0,17
+	jra L6
+L7:
+	.stabd 68,0,18
+LBE2:
+	.stabd 68,0,18
+L5:
+	movel a5@(-12),a2
+	movel a5@(-8),a3
+	unlk a5
+	rts
+.stabs "itoa:F19",36,0,10,_itoa
+.stabs "rep:p45",160,0,9,8
+.stabs "u:p23",160,0,9,12
+.stabs "i:28",128,0,11,-1
+.stabn 192,0,0,LBB2
+.stabn 224,0,0,LBE2
+LC0:
+	.ascii "CON:0/10/400/50/Clock Requester .../AUTO/CLOSE/WAIT/INACTIVE\0"
+	.even
+.globl _Failat
+AP_Failat:
+	.ascii "_Failat\0"
+	.even
+_Failat:
+	pea APclock_c
+	pea AP_Failat
+	jbsr AP_FuncStartup2
+	.stabd 68,0,21
+	link a5,#-4
+	.stabd 68,0,22
+LBB3:
+	.stabd 68,0,23
+	pea 1006:w
+	pea LC0
+	movew #23,_AP_lineno
+	pea _Open
+	jbsr AP_FuncCall
+	addqw #8,sp
+	movel d0,a5@(-4)
+	tstl a5@(-4)
+	jeq L10
+	.stabd 68,0,24
+	movel a5@(8),sp@-
+	movel a5@(-4),sp@-
+	movew #24,_AP_lineno
+	pea _FPrintf
+	jbsr AP_FuncCall
+	addqw #8,sp
+L10:
+	.stabd 68,0,25
+LBE3:
+	.stabd 68,0,25
+L9:
+	unlk a5
+	rts
+.stabs "Failat:F19",36,0,21,_Failat
+.stabs "s:p45",160,0,20,8
+.stabs "con:298",128,0,22,-4
+.stabn 192,0,0,LBB3
+.stabn 224,0,0,LBE3
+LC1:
+	.ascii "00:00:00\0"
+LC2:
+	.ascii "dos.library\0"
+LC3:
+	.ascii "intuition.library\0"
+LC4:
+	.ascii "Can't open window Sorry !!!\12\0"
+	.even
+.globl _main
+AP_main:
+	.ascii "_main\0"
+	.even
+_main:
+	.stabd 68,0,31
+	link a5,#-76
+	movel d2,sp@-
+	jbsr ___main
+	pea APclock_c
+	pea AP_main
+	jbsr AP_FuncStartup2
+	jbsr _AP_Init
+	movew #31,_AP_lineno
+	.stabd 68,0,32
+LBB4:
+	movew #500,a5@(-48)
+	clrw a5@(-46)
+	movew #100,a5@(-44)
+	movew #11,a5@(-42)
+	clrb a5@(-40)
+	moveb #1,a5@(-39)
+	movel #512,a5@(-38)
+	moveq #10,d2
+	movel d2,a5@(-34)
+	clrl a5@(-30)
+	clrl a5@(-26)
+	movel #LC1,a5@(-22)
+	clrl a5@(-18)
+	clrl a5@(-14)
+	clrw a5@(-10)
+	clrw a5@(-8)
+	clrw a5@(-6)
+	clrw a5@(-4)
+	movew #1,a5@(-2)
+	.stabd 68,0,48
+	moveb #1,a5@(-61)
+	.stabd 68,0,53
+	movel ___sF,a0
+	movew #53,_AP_lineno
+	pea a0@
+	jbsr AP_ReadL
+	movel a0@,sp@-
+	pea _fgetc
+	jbsr AP_FuncCall
+	addqw #4,sp
+	.stabd 68,0,55
+	pea 36:w
+	pea LC2
+	movew #55,_AP_lineno
+	pea _OpenLibrary
+	jbsr AP_FuncCall
+	addqw #8,sp
+	movel d0,_DosBase
+	tstl _DosBase
+	jeq L12
+	.stabd 68,0,57
+	pea 36:w
+	pea LC3
+	movew #57,_AP_lineno
+	pea _OpenLibrary
+	jbsr AP_FuncCall
+	addqw #8,sp
+	movel d0,d1
+	movel d1,_IntuitionBase
+	tstl d1
+	jeq L13
+	.stabd 68,0,59
+	lea a5@(-48),a0
+	movel a0,sp@-
+	movew #59,_AP_lineno
+	pea _OpenWindow
+	jbsr AP_FuncCall
+	addqw #4,sp
+	movel d0,a5@(-52)
+	tstl a5@(-52)
+	jeq L14
+	.stabd 68,0,61
+	movel a5@(-52),a0
+	movew #61,_AP_lineno
+	pea a0@(32)
+	jbsr AP_ReadL
+	movel a0@(32),a5@(-60)
+	.stabd 68,0,62
+L15:
+	movel a5@(-52),a0
+	pea a0@(86)
+	jbsr AP_ReadL
+	movel a0@(86),sp@-
+	pea _GetMsg
+	jbsr AP_FuncCall
+	addqw #4,sp
+	movel d0,d1
+	movel d1,a5@(-56)
+	tstl d1
+	jne L17
+	tstb a5@(-61)
+	jne L17
+	jra L16
+L17:
+	.stabd 68,0,64
+	tstl a5@(-56)
+	jeq L18
+	.stabd 68,0,66
+	movel a5@(-56),sp@-
+	movew #66,_AP_lineno
+	pea _ReplyMsg
+	jbsr AP_FuncCall
+	addqw #4,sp
+	.stabd 68,0,67
+	clrb a5@(-61)
+L18:
+	.stabd 68,0,69
+	pea 50:w
+	movew #69,_AP_lineno
+	pea _Delay
+	jbsr AP_FuncCall
+	addqw #4,sp
+	.stabd 68,0,70
+	lea a5@(-66),a0
+	movel a0,sp@-
+	lea a5@(-70),a0
+	movel a0,sp@-
+	movew #70,_AP_lineno
+	pea _CurrentTime
+	jbsr AP_FuncCall
+	addqw #8,sp
+	.stabd 68,0,71
+	movel a5@(-70),d0
+	pea 3600:w
+	movel d0,sp@-
+	movew #71,_AP_lineno
+	pea ___udivsi3
+	jbsr AP_FuncCall
+	addqw #8,sp
+	pea 24:w
+	movel d0,sp@-
+	pea ___umodsi3
+	jbsr AP_FuncCall
+	addqw #8,sp
+	movel d0,sp@-
+	lea a5@(-72),a0
+	movel a0,sp@-
+	pea _itoa
+	jbsr AP_FuncCall
+	addqw #8,sp
+	.stabd 68,0,72
+	movel a5@(-70),d0
+	pea 60:w
+	movel d0,sp@-
+	movew #72,_AP_lineno
+	pea ___udivsi3
+	jbsr AP_FuncCall
+	addqw #8,sp
+	pea 60:w
+	movel d0,sp@-
+	pea ___umodsi3
+	jbsr AP_FuncCall
+	addqw #8,sp
+	movel d0,sp@-
+	lea a5@(-74),a0
+	movel a0,sp@-
+	pea _itoa
+	jbsr AP_FuncCall
+	addqw #8,sp
+	.stabd 68,0,73
+	movel a5@(-70),d0
+	pea 60:w
+	movel d0,sp@-
+	movew #73,_AP_lineno
+	pea ___umodsi3
+	jbsr AP_FuncCall
+	addqw #8,sp
+	movel d0,sp@-
+	lea a5@(-76),a0
+	movel a0,sp@-
+	pea _itoa
+	jbsr AP_FuncCall
+	addqw #8,sp
+	.stabd 68,0,74
+	movel a5@(-60),a0
+	movew #74,_AP_lineno
+	pea a0@
+	jbsr AP_WriteB
+	moveb a5@(-72),a0@
+	.stabd 68,0,75
+	movel a5@(-60),a0
+	addqw #1,a0
+	movew #75,_AP_lineno
+	pea a0@
+	jbsr AP_WriteB
+	moveb a5@(-71),a0@
+	.stabd 68,0,76
+	movel a5@(-60),a0
+	addqw #3,a0
+	movew #76,_AP_lineno
+	pea a0@
+	jbsr AP_WriteB
+	moveb a5@(-74),a0@
+	.stabd 68,0,77
+	movel a5@(-60),a0
+	addqw #4,a0
+	movew #77,_AP_lineno
+	pea a0@
+	jbsr AP_WriteB
+	moveb a5@(-73),a0@
+	.stabd 68,0,78
+	movel a5@(-60),a0
+	addqw #6,a0
+	movew #78,_AP_lineno
+	pea a0@
+	jbsr AP_WriteB
+	moveb a5@(-76),a0@
+	.stabd 68,0,79
+	movel a5@(-60),a0
+	addqw #7,a0
+	movew #79,_AP_lineno
+	pea a0@
+	jbsr AP_WriteB
+	moveb a5@(-75),a0@
+	.stabd 68,0,80
+	movel a5@(-52),sp@-
+	movew #80,_AP_lineno
+	pea _RefreshWindowFrame
+	jbsr AP_FuncCall
+	addqw #4,sp
+	.stabd 68,0,81
+	jra L15
+L16:
+	.stabd 68,0,82
+	movel a5@(-52),sp@-
+	movew #82,_AP_lineno
+	pea _CloseWindow
+	jbsr AP_FuncCall
+	addqw #4,sp
+	.stabd 68,0,83
+	jra L19
+L14:
+	.stabd 68,0,84
+	pea LC4
+	movew #84,_AP_lineno
+	pea _Failat
+	jbsr AP_FuncCall
+	addqw #4,sp
+L19:
+	.stabd 68,0,85
+	movel _IntuitionBase,sp@-
+	movew #85,_AP_lineno
+	pea _CloseLibrary
+	jbsr AP_FuncCall
+	addqw #4,sp
+L13:
+	.stabd 68,0,87
+	movel _DosBase,sp@-
+	movew #87,_AP_lineno
+	pea _CloseLibrary
+	jbsr AP_FuncCall
+	addqw #4,sp
+L12:
+	.stabd 68,0,89
+	moveq #0,d0
+	jra L11
+	.stabd 68,0,90
+LBE4:
+	moveq #0,d0
+	jra L11
+	.stabd 68,0,90
+L11:
+	movel a5@(-80),d2
+	unlk a5
+	rts
+.stabs "main:F1",36,0,31,_main
+.stabs "newwindow:247",128,0,32,-48
+.stabs "window:227",128,0,45,-52
+.stabs "message:242",128,0,46,-56
+.stabs "title:45",128,0,47,-60
+.stabs "cont:29",128,0,48,-61
+.stabs "micros:23",128,0,49,-66
+.stabs "seconds:23",128,0,49,-70
+.stabs "hours:420=ar0;0;1;2",128,0,50,-72
+.stabs "mins:421=ar0;0;1;2",128,0,50,-74
+.stabs "secs:422=ar0;0;1;2",128,0,50,-76
+.stabn 192,0,0,LBB4
+.stabn 224,0,0,LBE4
+.stabs "IntuitionBase:G423=*424=xsIntuitionBase:",32,0,28,0
+.comm _IntuitionBase,4
+.stabs "DosBase:G313",32,0,27,0
+.comm _DosBase,4

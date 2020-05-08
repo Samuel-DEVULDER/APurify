@@ -1,0 +1,207 @@
+	section APURIFY,code
+
+;	xdef	_geta4
+;	xref	__
+;_geta4: move.l	#__ABSOLUTE_BAS+$7ffe,a4
+;	rts
+
+	xdef	_StdAlloc
+_StdAlloc:
+	movem.l 4(sp),D0-D1
+	move.l	A6,-(sp)
+	move.l	4.W,A6
+	jsr	$00fffff0
+	move.l	(sp)+,A6
+	rts
+
+	xref	_PubAllocMem
+	xdef	_AsmAllocMem
+_AsmAllocMem:
+	movem.l D1-D7/A0-A6,-(sp)
+	movem.l D0-D1,-(sp)
+	jsr	_PubAllocMem
+	addq.l	#8,sp
+	movem.l (sp)+,D1-D7/A0-A6
+	rts
+
+	xdef	_StdFree
+_StdFree:
+	move.l	4(sp),A1
+	move.l	8(sp),D0
+	move.l	A6,-(sp)
+	move.l	4.W,A6
+	jsr	$00fffff0
+	move.l	(sp)+,A6
+	rts
+
+	xref	_PubFreeMem
+	xdef	_AsmFreeMem
+_AsmFreeMem:
+	movem.l D1-D7/A0-A6,-(sp)
+	move.l	D0,-(sp)
+	move.l	A1,-(sp)
+	jsr	_PubFreeMem
+	addq.l	#8,sp
+	movem.l (sp)+,D1-D7/A0-A6
+	rts
+
+	xref	_AP_procname
+	xdef	_AP_FuncStartup
+_AP_FuncStartup:
+	move.l	4(sp),_AP_procname
+	move.l	(sp),4(sp)
+	addq.l	#4,sp
+	rts
+
+	xref	_AP_source
+	xdef	_AP_FuncStartup2
+_AP_FuncStartup2:
+	move.l	8(sp),_AP_source
+	move.l	4(sp),_AP_procname
+	move.l	(sp),8(sp)
+	addq.l	#8,sp
+	rts
+
+	xdef	_AP_FuncCall
+	xref	_AP_ret
+	xref	_AP_pc
+	xref	_AP_protect
+	xref	_AP_unprotect
+_AP_FuncCall:
+	move.l	(sp),_AP_ret
+	move.l	(sp),_AP_pc
+	movem.l D0-D7/A0-A6,-(sp)
+	jsr	_AP_protect
+	tst.b	d0
+	beq	err_funcall
+	movem.l (sp)+,D0-D7/A0-A6
+	move.l	4(sp),(sp)
+	move.l	#cont,4(sp)
+	rts
+cont:	movem.l D0-D7/A0-A6,-(sp)
+	jsr	_AP_unprotect
+	movem.l (sp)+,D0-D7/A0-A6
+	move.l	_AP_ret,-(sp)
+	rts
+err_funcall
+	movem.l (sp)+,D0-D7/A0-A6
+	subq.w	#4,sp
+	move.l	4(sp),(sp)
+	move.l	8(sp),4(sp)
+	move.l	(sp),8(sp)
+	addq.l	#4,sp
+	rts
+
+	xref	_AP_rd
+	xdef	_AP_Read
+_AP_Read:
+	move.l	(sp),_AP_pc
+	movem.l D0-D7/A0-A6,-(sp)
+	movem.l 64(sp),D0/D1
+	movem.l D0/D1,-(sp)
+	jsr	_AP_rd
+	addq.l	#8,sp
+	movem.l (sp)+,D0-D7/A0-A6
+	move.l	(sp),8(sp)
+	addq.l	#8,sp
+	rts
+
+	xdef	_AP_ReadB
+_AP_ReadB:
+	move.l	(sp),_AP_pc
+	movem.l D0-D7/A0-A6,-(sp)
+	move.l	64(sp),D0
+	pea	1.w
+	move.l	D0,-(sp)
+	jsr	_AP_rd
+	addq.l	#8,sp
+	movem.l (sp)+,D0-D7/A0-A6
+	move.l	(sp),4(sp)
+	addq.l	#4,sp
+	rts
+
+	xdef	_AP_ReadW
+_AP_ReadW:
+	move.l	(sp),_AP_pc
+	movem.l D0-D7/A0-A6,-(sp)
+	move.l	64(sp),D0
+	pea	2.w
+	move.l	D0,-(sp)
+	jsr	_AP_rd
+	addq.l	#8,sp
+	movem.l (sp)+,D0-D7/A0-A6
+	move.l	(sp),4(sp)
+	addq.l	#4,sp
+	rts
+
+	xdef	_AP_ReadL
+_AP_ReadL:
+	move.l	(sp),_AP_pc
+	movem.l D0-D7/A0-A6,-(sp)
+	move.l	64(sp),D0
+	pea	4.w
+	move.l	D0,-(sp)
+	jsr	_AP_rd
+	addq.l	#8,sp
+	movem.l (sp)+,D0-D7/A0-A6
+	move.l	(sp),4(sp)
+	addq.l	#4,sp
+	rts
+
+	xref	_AP_wr
+	xdef	_AP_Write
+_AP_Write:
+	move.l	(sp),_AP_pc
+	movem.l D0-D7/A0-A6,-(sp)
+	movem.l	64(sp),D0/D1
+	movem.l D0/D1,-(sp)
+	jsr	_AP_wr
+	addq.l	#8,sp
+	movem.l (sp)+,D0-D7/A0-A6
+	move.l	(sp),8(sp)
+	addq.l	#8,sp
+	rts
+
+	xdef	_AP_WriteB
+_AP_WriteB:
+	move.l	(sp),_AP_pc
+	movem.l D0-D7/A0-A6,-(sp)
+	move.l	64(sp),D0
+	pea	1.w
+	move.l	D0,-(sp)
+	jsr	_AP_wr
+	addq.l	#8,sp
+	movem.l (sp)+,D0-D7/A0-A6
+	move.l	(sp),4(sp)
+	addq.l	#4,sp
+	rts
+
+	xdef	_AP_WriteW
+_AP_WriteW:
+	move.l	(sp),_AP_pc
+	movem.l D0-D7/A0-A6,-(sp)
+	move.l	64(sp),D0
+	pea	2.w
+	move.l	D0,-(sp)
+	jsr	_AP_wr
+	addq.l	#8,sp
+	movem.l (sp)+,D0-D7/A0-A6
+	move.l	(sp),4(sp)
+	addq.l	#4,sp
+	rts
+
+	xdef	_AP_WriteL
+_AP_WriteL:
+	move.l	(sp),_AP_pc
+	movem.l D0-D7/A0-A6,-(sp)
+	movem.l 64(sp),D0
+	pea	4.w
+	move.l	D0,-(sp)
+	jsr	_AP_wr
+	addq.l	#8,sp
+	movem.l (sp)+,D0-D7/A0-A6
+	move.l	(sp),4(sp)
+	addq.l	#4,sp
+	rts
+
+	end

@@ -1,0 +1,110 @@
+				  Scripts.doc
+				  -----------
+
+			    (c) by Samuel DEVULDER
+				   Nov. 1996
+
+		       Samuel.Devulder@info.unicaen.fr
+
+DESCRIPTION:
+-----------
+	This document describes how the scripts located in AREXX/ are to be
+    used and how they work.
+
+	Those are scripts to use APurify with GoldEd,  Emacs  or  the  well
+    known standard c:Ed editor via a REXX port. The scripts try to use	the
+    editor as a tool to help you in the debugging process. Each  script  is
+    dedicated to one editor. The best editor to use with APurify is  Golded
+    because it can do more things than other editors (for  example  it  can
+    hilight some lines in a file); but you can also use emacs or c:Ed  (the
+    last one is not really recommended indeed :-).
+
+	When you run an APurify'ed program and a bad access  to  memory  is
+    detected, an editor depending on the script installed is  automatically
+    called.  The  source  file	is  displayed  and  the  line  involved  is
+    hilighted. A requester is also displayed.  It  shows  some	imformation
+    about that hit and particularly the list of called functions  that	led
+    to that hit. That list appears from the latest called function  to	the
+    earliest from top to bottom. In front of all call  descriptor  you	can
+    find a number that represents the depth of the call.
+
+	That requester offers you 3 choices. You can choice to ignore  this
+    hit by pressing the "No" button (or pressing 'N' or ESC). You can  also
+    choice to ignore a specified number of  hits  by  pressing	the  "Skip"
+    gadget (or by hitting the 'S' key). As a last alternative you can  stop
+    the execution of the program by pressing the "Yes" button (or by  using
+    the 'Y' or RETURN keys).
+
+	If you select the "Skip" gadget, then a second  requester  appears.
+    It asks you for a number. It is the number of hits to ignore.  In  case
+    of trouble (for example if you discover that this script  ignores  more
+    hits), then you can  delete  the  variable	indicated  by  the  "(Check
+    <variable>)" message. This will reset from skip-mode to default-mode.
+
+	If you press the "Yes" button, then your program is stopped.  If  a
+    log file exists, then editor will  load  it  in  an  other	window	and
+    position the cursor to last error. You can now  examine  your  code  to
+    find what went wrong. Note that if you are using emacs,  you  might  be
+    asked to type 'yes' in  the  window  to  confirm  the  loading  of  the
+    logfile. With c:Ed it is c:more that is called to display the log file.
+
+
+INSTALLATION:
+------------
+	The  installation  is  automatically  performed  if  you  use	the
+    installer-script provided with APurify. Of course, you must have one of
+    the supported editors installed to run one of those scripts :-). If you
+    want to display the logfile  automatically,  you  must  set  the  APLOG
+    environment variable to a proper file. For best result, you  must  also
+    enable usage of source-level information to view the line  involved  in
+    the hit (see option "APF -sl" in APF.doc).
+
+	But if you wish to install one of the scripts  by  hand,  you  just
+    have to copy it to your  AREXX:  directory	or  any  other	appropriate
+    directory (for example, use GOLDED:ARexx for the  Golded  script).  You
+    must also set the environment variable APEXEC using this template:
+
+       SetEnv APEXEC "rx <PATH><script> $HITNO $SOURCE $LINE $CALLCHAIN"
+
+    "<PATH><script>" is the path where this script is located. You can copy
+    ENV:APEXEC to ENVARC:APEXEC if you don't want to SetEnv APEXEC at every
+    reboot.
+
+
+TEST:
+----
+	If you want to test the scripts, you can 'cd' in APurify directory.
+    Then execute the files test/test.(pdc|gcc|sas|dcc).  Don't  forget  the
+    "test/" prefix or else the script will be unable to find the source.
+
+	If you have gdb installed, you can use it for test/test.gcc because
+    it is compiled with the '-g' option. This explains  the  size  of  this
+    executable.
+
+	Please note that test/test.dcc does not  use  line-information.  So
+    don't be surprised if your editor does not indicate the line where  the
+    HIT occur. The only information you have for test/test.dcc is the  HUNK
+    and OFFSET values. You'll have to use  DOBJ  to  figure  out  the  line
+    involved.
+
+
+NOTE:
+----
+	If your favorite editor is not Golded nor Emacs or  c:Ed,  you	can
+    create a script by modifying one of the scripts to support your editor.
+    "APgolded.ged" is the nicer script since it uses all  the  features  of
+    GoldEd (Boolean requester, number requester, ...). If your  editor  has
+    no support for requesters, you  can  use  the  "poor  man's  requester"
+    procedures in APed.rx.
+
+	You can send me your scripts  and  I'll  include  it  in  a  future
+    release.
+    
+    	I wish to thank all the people that helped  me  in  writing/testing 
+    those scripts.
+
+
+LEGAL PART:
+----------
+	Well, see MIT-APurify.doc or MOT-APurify.doc. GoldEd is (c) Dietmar
+    Eilert.

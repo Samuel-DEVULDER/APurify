@@ -1,0 +1,707 @@
+			       MIT-APurify v1.6
+			       ----------------
+
+			   MIT-syntax version (GCC).
+
+			    (c) by Samuel DEVULDER
+				   June 1999
+
+		       Samuel.Devulder@info.unicaen.fr
+
+DESCRIPTION (SHORT):
+--------------------
+    This is APurify for compilers with MIT syntax asm-files. As  far  as  I
+    know only GCC uses such a syntax. So that version is indeed  a  version
+    for the GCC compiler. If you are using an  other  compiler,  then  read
+    MOT-APurify instead. In the following of that document, APurify  stands
+    for MIT-APurify, and I assume you're using the GCC compiler.
+
+    APurify is a program that allows you to detect bad accesses  to  memory
+    of your programs without any kind of specific external  devices  (MMU).
+    It avoids bugs due to accessing memory not owned by your program.
+
+    New things are labeled with a *NEW* mark.
+
+INSTALLATION:
+------------
+	That archive contains the version of APurify for the  GCC  compiler
+    as well for other compilers. Here is a description of gcc-related files
+    of this archive for that version. It also gives you  what  to  do  with
+    those files to make an installation.
+
+	- doc/MIT-APurify.doc	The file you are currently  reading. Put it
+				with all your doc files. It is usefull from
+				time to time.
+
+	- doc/History		The whole history.  (this  file is not very
+				usefull for common people). Do whatever you
+				want with it.
+
+	- bin/MIT-APurify	The parser tuned for the MIT syntax. Rename
+				it as APurify and put it someware  in  your
+				path (provided you do not want to use APF).
+
+				If you wish to use APF (read  APF.doc)  you
+				just need to copy that	file  somewhere  in
+				your path (ie. do not rename it).
+
+	- lib/libAPur-gcc.a	The link-time library.	Rename it as APur.a
+				and  put  it  someware	in   your   library
+				search-path.
+
+				If  you   wish	 to   use   APF   (strongly
+				recommended), just put that  file  in  your
+				LIB: directory. APF will expect it in  that
+				place.
+
+	- test/test.c		Source of a stupid test file.  Just here to
+				let  you  remake  the  test   program.	 Do
+				whatever you want with it.
+
+	- test/test.gcc 	Test file  Apurify'ed.  Run it  to  see how
+				APurify is useful :-).
+
+	If you don't want to mess with all those files, you had rather  use
+    the included Installer script. It will handle  evrything  for  you	and
+    generate an script that will uninstall APurify,  but  you  wouldn't  do
+    that :-).
+
+
+SYNOPSIS:
+--------
+    Usage: APurify [-revinfo] <inputfile> [options]
+
+    Where options can be:
+
+	?		: To display this usage
+	-o file 	: specifies output file (def="%s")
+	-tb		: enable base register testing
+	-ts		: enable stack register testing
+	-tl		: enable local stack frame testing
+	-tp		: to test pea instruction
+	-sl source name : to use source level informations
+	-br An		: sets the base register (def="A4")
+	-mp main label	: sets the main label (def="_main")
+
+    Options can be anywhere on the command line. NOTE: They can  nomore  be
+    merged together, they must be separated by a space. You  can pre-define
+    them with the environment variable AP_MITP_OPT. For example, if you do:
+
+	CLI> SetEnv AP_MITP_OPT "-tb -br A5"
+
+    Then, when "-tb -br A5" will automatically  be  added  to  the  command
+    line. The space between an option and its argument can be ommited. Thus
+    "-br A4" is the same as "-brA4". Here is a description of arguments and
+    flags:
+
+    ?		Obvious options.
+
+    -revinfo	This displays informations  about APurify  (name,  size and
+		date of modules and number of  compilation  done  for  that
+		version).
+
+    -o arg	This specifies the name of the outputfile. If  ommited	the
+		outputfile will be the same as the inputfile (source file).
+		The name of the output file can be defined by a  real  name
+		or a pattern. A pattern is a string where special sequences
+		of characters (called specifier) are  replaced  by  special
+		strings. Let's suppose that inputfile is equal to
+
+			    drive:path/file.ext
+
+		Here is a description of specifiers:
+
+		    %s	will be replaced by the full source name:
+
+			    drive:path/file.ext
+
+		    %S	will expand to the  full  source name  without	the
+			extension:
+
+			    drive:path/file
+
+		    %b	stands for the full basename:
+
+			    file.ext
+
+		    %B	is a shortcut for the  full  basename  without	the
+			extension:
+
+			    file
+
+		    %p	is the path (ending "/" or ":" is included):
+
+			    drive:path/
+
+		    %e	is the extension ("." is ommited):
+
+			    ext
+
+		Thus, if you put "-o ram:%B-apurify.%e" in the commandline,
+		then the outputfile  will  be  "ram:file-apurify.ext"  with
+		our example.
+
+    -tb 	This enable APurify to check all referenced  memory through
+		the base register (see -br). If you are using a  SMALL_DATA
+		model, add this flag on  your  command	line.  By  default,
+		APurify won't check  memory  referenced  through  the  base
+		register.
+
+		NOTE: for safest check, you should always use that  option,
+		even if you're not in smalldata model (A4 may  be  used  as
+		a temporary register in that case). To allow this, you	can
+		use the environment variable.
+
+    -ts 	This  enable  APurify to  check memory referenced  by stack
+		pointer (SP or A7). By default  APurify  won't  check  such
+		memory accesses (to reduce the code size and  increase  the
+		runtime speed). That option will detect when  you  have  no
+		more room on your stack (stack overflow).
+
+    -tl 	This enable APurify to check  memory  referenced   by local
+		stack pointer (the one that is link'ed and  unlink'ed  when
+		enterring and exiting a C-function). By  default,  this  is
+		switched off. This option allow  APurify  to  detect  stack
+		overflow.
+
+    -tp 	This enable APurify to check indirect  adresses pushed onto
+		the stack by using a pea. By  default  this  is  off.  When
+		used, that option will check things like "pea  a2@(10)"  or
+		the like. This can help  you  with  memory  accessed  by  a
+		pointer in a code that has not been APurify'ed. For example
+		this is usefull  for  things  like  fread(&ptr[10],10,1,fp)
+		because in that case the "pea a2@(10)" used to push on  the
+		stack &ptr[10] will be checked and if ptr[10] is not  owned
+		by your program, you'll get an APurify error.  Please  note
+		that this may no work all the time  since  &ptr[0]  can  be
+		translated as "movel a0,sp@-" which  won't be checked.
+
+    -sl  file	By  using this option, you tell apurify to use source-level
+		information. File must be the fullname of the C file  (path
+		included). To use this option you must	compile  with  'gcc
+		-g'. I suggest you not to use this option by  yourself  and
+		let APF handle everything automatically.
+
+    -br arg	This  sets  the  base  register  used  to  reference memory
+		in SMALL_DATA model. Usually A4 is used  for  that  perpose
+		and that's the default. If A5  is  used  instead  then  add
+		-brA5 on your command line.
+
+    -mp arg	This tells APurify which label should be considered as	the
+		entry-point. By default it is set to "_main", and it should
+		not be modified.
+
+
+DESCRIPTION (A BIT LONGER):
+--------------------------
+	As a general rule, at the microprocessor level, there is  two  kind
+    of ways to access memory. There is direct access and indirect access to
+    memory. For example, in C, direct access can be viewed as accessing  to
+    global variables. Indirect access corresponds  to  accessing  an  array
+    value. More precisely, direct access corresponds to reading or  writing
+    a variable whose address is known at compilation  time  (or  since  the
+    loading of the program into the memory). Indirect access  is  used	for
+    variables whose adress is dynamicaly determined  by  the  program.	For
+    example, if p is a pointer to an array allocated by malloc(), *p is  an
+    indirect access. Such an access occur also in case of instruction  like
+    T[i] where T is a global array, because the  address  of  T[i]  is	not
+    known at compilation time, since it depends on the index value i. Using
+    indirect access to memory is called indirection.
+
+	A regular program must not access memory not owned by it. That kind
+    of access can be qualified as illegal.
+
+	Illegal direct access  to   memory  is	not  possible, because	 by
+    definition, only global  variables can be  accessed that  way and those
+    variables belongs obviously to the program	(except for code written in
+    assembly   language   that	references  absolute   values, for example:
+    "btst  #6,$bfe001"; but that  kind of  code  is not a  good programming
+    :-)). So we can assume that direct access to memory is always right.
+
+	On the other hand,  it is sure	that indirect access to  memory can
+    be illegal.  Many bugs are made by	overstepping array  boundaries.  If
+    that oversteppings are  in reading a value, there  is not much  trouble
+    for over running tasks (it is an error inside your  task); but if it is
+    in writing you may directly interfere with other tasks and big mess can
+    happen (total breakdown of the system).
+
+	APurify works on  that kind of access  by verifying the validity of
+    indirect access to memory. It remebers the memory that was allocated by
+    the program and check the integrity of  each access. One can think that
+    makes a lot of tests ! Well, yes, but APurify is  not  designed  to  be
+    used in the general use of programs; just  in  test  phases.  Moreover,
+    indirections  do  no  occur  very  often  actually.  Only	array-based
+    variables produces indirections.  Thus,  the  variables  on  the  stack
+    --although being accessed by  indirection--  are  not  checked  because
+    their access is always safe (at least if there is no stack overflow !).
+    Also, in SMALL_DATA model, global  variables  access  is  done  through
+    indirection, but they are not checked.
+
+	If an illegal access is found, APurify displays an error message on
+    the error stream of the program  by  default.  There  is  two  kind  of
+    illegal accesses. Some are accesses to memory that	doesn't  belong  to
+    the program (it is called an access between blocks),  some  others  are
+    accesses to a part of memory owned by a program and an other  part	not
+    owned by it (it is an overstepping  of  a  block).  You  can  see  this
+    visually: If [ 1 ] and [ 2 ] represent  two  blocks  allocated  by	the
+    program and ( 3 ) the memory accessed, then
+
+		 ---- [ 1 ] ---- ( 3 ) ---- [ 2 ] ---->
+		0				       increasing address
+
+    corresponds to the first kind of illegal access and
+
+		     ---- [ 1 ( ] 3 ) ---- [ 2 ] ----->
+    or
+		     ---- [ 1 ] ---- ( 3 [ ) 2 ] ----->
+
+    corresonds to the second kind of access. The first kind is very  common
+    but the second is quite rare (it's rather a misaligment problem).
+
+	APurify has two output modes. One is verbose an tries to  give	lot
+    of informations by using words. The other one is more brief  and  gives
+    you the same informations but you'll have to decode them.
+
+	When APurify starts and ends, it outputs  the  date/time.  This  is
+    useful if you are using logfiles. With that, you can keep all your logs
+    in a  single  file	and  retrieve  any  execution  with  it's  date  of
+    execution.
+
+	In case of error, APurify displays some text. The first line  looks
+    like this one:
+
+	**** APURIFY ERROR ! [0x<N1>(<N2>) <ATTR> (<TEXT1>)] <TEXT2>:
+
+    That line represent  the  accessed	memory.  <N1>  is  the	hexadecimal
+    address accessed. <N2> is the length of the access (in decimal). <ATTR>
+    represents the type of acess. <TEXT1> allows you to find where in  your
+    code the illegal accessed had happened. <TEXT2> describe  the  kind  of
+    illegal access. The prefix "0x" can  be  replaced  by  the  content  of
+    ENV:APDOLL (for example '$' if you prefer asm-style).
+    illegal access.
+
+	If the length (<N1>) is 1, then it was a byte access. 2 stands  for
+    a short access,  4	for  a	int/long  and  >4  for	movem  instruction.
+    Attributes, <ATTR>, can be "R---" or "-W--". The first  one  represents
+    an access in reading a value and the second  an  access  in  writing  a
+    value.
+
+	The text <TEXT1> look like this:
+
+	    <NAME>, PC=0x<PC#> HUNK=0x<HUNK#> OFFSET=0x<OFF#>
+
+    <NAME> is the name of the subroutine where the  error  occured.  It  is
+    always displayed (even if it is a "static" one). The rest of  the  line
+    can be partially displayed, showing as much informations as APurify can
+    get. <PC#> is a hexadecimal address pointing to  the  instruction  that
+    produced the error. <HUNK#> and <OFF#> are	the  hunk  number  and	the
+    relative offset of <PC#>. Using <HUNK#> and <OFF#> and a  disassembler,
+    you can very easilly find where your code is bad (BTW, I use dobj  from
+    netdcc, (c) by Matt Dillon). Please note  that  in  this  new  version,
+    <PC#> will nomore point to some instruction before the faultly one.  It
+    is always the real faultly adress.
+
+	When '-sl' is used, <TEXT1> is a bit longer. Before <NAME> you  can
+    find a filename and a line number (<FILE>.c:<NUMBER>). That  gives  you
+    in the code where the faultly access has occured.
+
+	The remaining lines show the context  of  the  illegal	access.  It
+    gives you informations about the  surronding  memory  blocks  owned  by
+    your program. Each	block  is  displayed  according  to  the  following
+    pattern:
+
+		       [0x<N1>(<N2>) <ATTR> (<TEXT>)]
+
+    where <N1> is the hexadecimal address of the beginning  of	the  block,
+    <N2> its length (in decimal). Note that  the  length  may  seem  to  be
+    longer than the one allocated by malloc() and  the  address  may  point
+    before the one you obtained via malloc(). This is not wrong !  In  fact
+    you must know that the malloc() subroutine may  add  some  informations
+    (like an double-chained list or the length of the  allocation)  to  the
+    block you've requested. Those extra informations  are  put  before  the
+    address you recieve. That explain this behavior.  In  this	version  of
+    APur.lib, this takes 12 (0xC)  extra  bytes.  So  if  you  allocate  10
+    bytes, don't be suprised if APurify thinks you've requested 22 bytes.
+
+	<ATTR> are 4 status characters RWSF
+
+	where R means: read-enable block
+	      W means: write-enable block
+	      S means: system block (block not controlled by the program).
+	      F means: freed block (a block that is freed bye FreeMem()).
+
+    If one access is forbidden, the letter '-' replaces  the  corresponding
+    character. <TEXT> is actually  the	name  of  the  procedure  that	has
+    allocated the block.
+
+	With each block you can find an offset. That offset is the distance
+    between that block and the faultly address. In verbose  mode,  you	can
+    see some text explaining things about the relative position of a  block
+    and the accessed memory. In non-verbose  mode  you	can  just  see	the
+    offsets followed by the blocks. The shorter offset is  displayed  first
+    since that block is the one that is more likely overstepped.
+
+	When an illegal writing occur (the only dangerous thing you can  do
+    by indirection, indeed), a requester opens to tell you about that. With
+    that requester, you can stop your program to prevent the  deadly  error
+    to really happen. If you wish  so,	exit()  is  called.  You  can  also
+    ignore that error or ignore all such errors  (but  then  you'll  surely
+    meet the guru !). If you want the requester to pop on  a special screen 
+    (say "GOLDED.1"), then *NEW* use
+			SetEnv APscreen "GOLDED.1"
+    to tell APurify to use "GOLDED.1" as screen.
+
+	APurify checks the memory allocated and *NEW* freed by the program.
+    Now, if you  access  a  pointer  that  you	have  freed,  APurify  will
+    complain. It'll also complain if you attempt to free twice an allocated
+    block. It'll display non deallocated-blocks on library-closing time.
+
+	It  knows  about  memory  location  independant  of   the   program
+    execution. That is to say, the first kilobyte of memory  that  contains
+    interrupt vectors of the 680x0 processor, the program segments and	the
+    stack. Accessing to those blocks  will  be	illegal.  They	got  the  S
+    attribute (for SYSTEM blocks).
+
+	It takes into  account	memory	block  allocated  by  malloc()  and
+    AllocMem(), and indirect allocated block (by OpenScreen() for example).
+    But I did not test the last kind of allocation. Anyway,  it  should  be
+    ok, because APurify patches AllocMem()  &  FreeMem()  entries.  Thus  a
+    program can access to the bitplanes of one of its screen without error.
+
+	If  the  program  makes  a  legal  access,   but   attributes	are
+    incompatible  with	the  access-kind,  a  protection-error	message  is
+    displayed. Actually only the first	kilobyte  is  read/write-protected.
+    But it may change in the future.
+
+
+HOW TO USE APURIFY:
+------------------
+	One can see APurify as a pre-assembler. It must be used on assembly
+    language sourcefile just before the assembler takes place. It scan	the
+    file and change it a bit so that APur.a can be used.
+
+	Normal way to use it for a C program is to:
+
+	- compile C sourcefiles and leave assembly language source (.s).
+	- use APurify on each .s file.
+	- compile your .s file to get a .o file
+	- link all .o files together with APur.a.
+
+    For example, using gcc on prog.c it gives
+
+	CLI> gcc -g prog.c -o prog.s -S
+	CLI> APurify -tb prog.s
+	CLI> gcc -g prog.s -o prog -lAPur
+
+	As you can see, APurify needs no change to your C files to be used.
+    In this realease you need no more  to  call  AP_Init()  in  the  main()
+    function. The call is automatically inserted when the main-entry  label
+    (specified by -mp) is found. You shoud not  use  dos.library/Exit()  to
+    abort your program, I think it'll crash if APurify is running.  If  you
+    must use Exit() then call AP_Close() just before  calling  Exit().  The
+    explantion is simple: since some system functions  are  patched,  if  a
+    program  exits  without  closing  the  library,  those  patch  will  be
+    corruped, pointing to a code that is nomore in memory and  you'll  meet
+    the guru (ie: the computer will crash)... (You've been warned :-).
+
+	You can disable/enable printing of messages by	making	a  call  to
+    AP_Report(flag). If  flag  is  true  (ie.  different  from  zero)  then
+    printing is enabled, if it is false (ie. equal to zero), no output will
+    be done. This is usefull for startup-codes. For  example,  if  you	are
+    using the argv[] array in C,  APurify  will  make  a lot of false-error
+    printing. This is because the values pointed by this array is allocated
+    before  the  library   is	opened.   You  can avoid  this	by  calling
+    AP_Report(0) before (and AP_Report(1) after) the code that uses argv[].
+
+	When debugging an APurify'ed program, you can put a  breakpoint  on
+    a function called AP_Err(). That function AP_Err() is called each  time
+    APurify detects an error. With that, you'll have the occasion  to  look
+    at your program just before a faultly memory-access occur.
+
+	You can also use  the  enviroment  variable  "APexec"  to  call  an
+    external  process  when  AP_Err()  is  called,  provided   source-level
+    information are available (see '-sl'). With that feature, you can  call
+    your favorite editor when an error is detected. For example, if you do
+
+	    CLI> Setenv APexec "Memacs $source goto $line"
+
+    then in case of error, APurify will call Memacs on the source file	and
+    will put the cursor on the line that caused the error. Before executing
+    the string contained in  env:APexec,  APurify  will  do  the  following
+    substitutions:
+
+	    $SOURCE    <=> source of the file
+	    $LINE      <=> line in the source where the error had occured
+	    $BUGNO     <=> the number of APurify-hit found so far.
+	    $CALLCHAIN <=> the history of function calls.
+
+    You can call a shell-script by this process and use $BUGNO to call	the
+    editor after a certain number of APurify-hit are found. If the executed
+    process returns an error code different from zero, APurify will abort()
+    your program. I know this is quite rudimentary, but it is  better  than
+    nothing ;-) This mecanism is used in the scripts located in the  AREXX/
+    directory (read Scripts.doc for more information about them).
+
+	You can switch	from  a  verbose  output  to  a  shorter  one  with
+    AP_Verbose(flag). IF flag is true then the verbose mode is on. If it is
+    false then only short messages will be printed. Some people prefer	the
+    later so that is the default. If you perfer the verbose ouput then	put
+    AP_Verbose(1)  someware  in  your  code  and  you'll  get  some  longer
+    explanations about illegal accesses.
+
+	You can specify a logfile where APurify can put its errors.  To  do
+    this, set the environment variable "APlog" (file ENV:APlog) to  a  name
+    of a logfile. If this variable is set, then APurify will append all its
+    outputs to the file indicated. If this variable does not  exists,  then
+    the standard error stream is used.
+
+	With  the  help  of  APF  all  this  boring  stuff  will  be   done
+    automatically. Read APF.doc for further information.
+
+
+EXAMPLE:
+-------
+	As an example,	let's  look  at  the  test  program  compiled  with
+    gcc-2.7.2. You'll see how you can use the APurify report it produces to
+    find what's wrong in the program.  For  this,  I've  included  in  that
+    document the commented report.  My comments/explanations appear between
+    /* */ pair.
+
+    **** APurify started on Fri Nov 15 22:03:05 1996
+
+    /*
+    Well, the report started...
+    */
+
+    **** APURIFY ERROR ! [0x0036432C(4) R--- (test/test.c:54, _sum1,
+    PC=0x0036EF44 HUNK=0x0 OFFSET=0x51c)] accessed between:
+	-1	    [0x00364330(160) RW-- (test/test.c:37, _init_tab)]
+	+3555117    [0x00000000(1024) --S- (Basic 680x0 vectors)]
+
+    /*
+    Hum first hit! It is an  error  in	reading  something  in	the  sum1()
+    procedure between two  blocks  already  allocated.	The  nearest  block
+    appears in first position, so we can think that the error was  done  by
+    accessing an array allocated in init_tab() with a negative index.
+
+    As the index is -1, The situation is like this:
+
+			 ---------( 2 )[ 1 ]---------->
+
+    Where "[ 1 ]" is the allocated block and "( 2 )"  the  accessed  block.
+    So one can think that this is a violation  of  the	lowerbound  of	the
+    array.
+    */
+
+    **** APURIFY ERROR ! [0x003643D0(4) R--- (test/test.c:54, _sum1,
+    PC=0x0036EF1E HUNK=0x0 OFFSET=0x4f6)] accessed between:
+	+1	[0x00364330(160) RW-- (test/test.c:37, _init_tab)]
+	-10733	[0x00366DC0(1032) RWS- (segment Module CLI)]
+
+
+    /*
+    Second hit! This time we access the  same  array  as  above,  but  with
+    a positive index. The situation is now like that:
+
+			 ---------[ 1 ]( 2 )---------->
+
+    APurify tells us this occurred at line 54 in test.c:
+
+			tab[i] += tab[i+1]*2 - tab[i-1];
+				      ^^^	   ^^^
+    Quite easy once found :-)
+    */
+
+    **** APURIFY ERROR ! [0x0000000C(4) R--- (test/test.c:155, _output_depth,
+    PC=0x0036F5B0 HUNK=0x0 OFFSET=0xb88)] accessed on a read-protected block:
+	+12	[0x00000000(1024) --S- (Basic 680x0 vectors)]
+
+    /*
+    Hum.. new hit. This time  we  accessed  the  zero-page.  It  is  likely
+    that node==NULL in the following code:
+
+	printf("The depth of %d is: %d\n", num, node->depth);
+						^^^^
+						NULL
+    */
+
+    **** APURIFY ERROR ! [0x00485268(4) R--- (test/test.c:155, _output_depth,
+    PC=0x0036F5B0 HUNK=0x0 OFFSET=0xb88)] below stack pointer:
+	-14	[0x00485276(330) RWS- (standard stack frame of task)]
+
+    /*
+    This hit happend at the same place in the  code  as  above.  The  error
+    is different tough. This time, we accessed some data  below  the  stack
+    pointer. It is probably some  pointer  pointing  to  a  local  variable
+    returned by the function 'find_num_safe'.
+    */
+
+    **** APURIFY ERROR ! [0x0036561C(4) R--- (test/test.c:181, _print_min_depth,
+    PC=0x0036F744 HUNK=0x0 OFFSET=0xd1c)] accessed on freed memory:
+	+12	[0x00365610(16) ---F (test/test.c:75, _insert_tree)]
+
+    /*
+    Now  apurify  complains  that  we  accessed  some  free()'d  memory  in
+    function  print_min_depth().  It  is  a  typical  beginner  error  when
+    doing:
+	    min = n;
+	    DISPOSE(n);
+	    printf("minimum node depth %d\n",min->depth);
+					     ^^^
+					     min is no more allocated
+    */
+
+    **** APURIFY ERROR ! [0x00365614(4) R--- (test/test.c:65, _del_tree,
+    PC=0x0036EFE8 HUNK=0x0 OFFSET=0x5c0)] accessed on freed memory:
+	+4	[0x00365610(16) ---F (test/test.c:75, _insert_tree)]
+
+    **** APURIFY ERROR ! [0x00365610(4) R--- (test/test.c:66, _del_tree,
+    PC=0x0036F00E HUNK=0x0 OFFSET=0x5e6)] accessed on freed memory:
+	+0	[0x00365610(16) ---F (test/test.c:75, _insert_tree)]
+
+    /*
+    This is the same as above, but this time it is  the 't' pointer that
+    points to free()d memory:
+	    del_tree(t->left);
+	    del_tree(t->right);
+		     ^
+    */
+
+    **** APURIFY ERROR ! [0x00365610(16) ---F (test/test.c:75, _insert_tree)]
+    already freed (test/test.c:67, _del_tree).
+
+    /*
+    We are trying to free the block involved in the previous error.  It  is
+    caused by the DISPOSE(t) call in line 75.
+    */
+
+    **** APURIFY ERROR ! [0x003643CE(4) R--- (test/test.c:94, _build_tree,
+    PC=0x0036F22C HUNK=0x0 OFFSET=0x804)] accessed across the ending boundary
+    of:
+	-2	[0x00364330(160) RW-- (test/test.c:37, _init_tab)]
+
+    /*
+    Here it is an interresting problem. It looks like this:
+
+		      ------------[ 1(]2 )----------->
+		  [ 1 ] = allocated	  ( 2 ) = accessed.
+
+    It is actually a misaligment problem caused by the following code:
+	    build_tree(&tr,(void*)((ULONG)tabint+2),numint);
+						^^
+    */
+
+    **** APURIFY WARNING ! Closing library without deallocation of the following
+    block(s):
+	- [0x00363A08(16) RW-- (test/test.c:174, _print_min_depth)]
+
+    /*
+    Damn! An other bug. This time, APurify complains about  unfreed  memory
+    when the program exits. It is a case of memory  leak.  If  you  examine
+    closely the code, you'll discover that the pointer  allocated  in  line
+    174:
+	    NEW(min);
+    is never freed in the program. In  fact  that  pointer  is	eaven  lost
+    with the 'min = n' assigment  that  happened  a  little  later  in  the
+    code.
+    */
+
+    **** APurify ended on Fri Nov 15 22:03:06 1996
+
+    /*
+    Well... done :-). There were a lot of bugs in test.c.  This  source  is
+    rather a collection of bad coding practices that  shouldn't  appear  in
+    your own programs. Specially if you are using APurify!
+    */
+
+    As a comparison, here is what Enforcer + mungwall  +  segtracker  finds
+    for test/test.gcc:
+
+ LONG-READ from 0000000C			PC: 004504A0
+ USP:  0053DAB4 SR: 0010 SW: 0749  (U0)(-)(-)  TCB: 002976F8
+ Data: 00000000 00000000 00000000 002976F8 0044F918 00000001 000A33CB 0044F914
+ Addr: 00000000 00482638 0045016E 0028CA04 0053DB90 0053DABC 002007F0 --------
+ Stck: 00481A58 00000000 0053DAD4 00450A32 0045016E 002C3EB0 00000011 00481CD8
+ Stck: 0053DB20 0044FBE2 00000001 00481A58 00481CD8 00000001 0044FB90 004AB0F8
+ ----> 004504A0 - "test/test.gcc"  Hunk 0000 Offset 00000B88
+ Name: "Shell Process"  CLI: "test/test.gcc"  Hunk 0000 Offset 00000B88
+
+    As you can see, APurify and Enforcer agree. But APurify does  a  better
+    job because it discovers more bugs.
+
+
+LEGAL PART:
+----------
+	That program is provided 'AS IS'. I  am  not  responsible  for  any
+    dammage it can cause (but I am responsible for the benefits it can give
+    to you :-). Use that software at your own risks.
+
+	That program is FREEWARE. You can use and distribute it as long  as
+    you keep the archive  intact  (no  adulteration  of  files  except  for
+    compression). It can't be sold without my agreement (except  a  minimal
+    amount for media support). You must ask me for commercial use  of  (any
+    part of) that product. I keep all my rights on  that  program  and	its
+    future releases. I can modify that software without telling it  to	the
+    users.
+
+	If you wish, you can send me a postcard or anything else  you  want
+    (money, documentation, amiga, hardware  stuff,  ...)  in  exchange  for
+    using APurify. But there is no obligation :-). My postal address is:
+
+	    M. DEVULDER Samuel
+	    1, Rue du chateau
+	    59380 STEENE
+	    FRANCE
+
+    (yes I'm french !). You can  send  suggestions  or  bugs  to  my  email
+    address:
+
+	    devulder@info.unicaen.fr
+
+
+NOTES:
+-----
+	I had the idea of that program	after  a  chat	with  Cedric  BEUST
+    (AMIGA NEWS) on IRC (Internet Relay Chat). Thanks Cedric !
+
+	I wish to thank Philippe Brand for his help in my port. I also wish
+    to thank J.C Hoehle for his usefull advices.
+
+	All marks are proprietary of their respective owners.
+
+	There are some programs like APurify. For example,  FORTIFY  (Simon
+    P. Bullen), but  it  only  detects	illegal  writes  to  boundaries  of
+    allocated blocks. Thus it can't detect big oversteps and  oversteps  in
+    reading and the detection is not real-time. Enforcer can detect illegal
+    access to memory, but it needs a special device (MMU).
+
+
+HINTS & TIPS:
+------------
+	You can see some memory leaks with that version of APurify.  It  is
+    not really good but it can help. Memory leak  occur  when  a  block  of
+    memory is nomore pointed by your  program.	Those  memory  blocks  will
+    necessary be displayed when your  program  exit()s.  So  with  all  the
+    messages printed on that occasion, you can find such  blocks.  I  known
+    this is not so great, but I think it can help you a little	bit  (maybe
+    in a future version I'll build some code to really check memory leaks).
+
+
+BUGS:
+----
+	APurify don't known public memory where a program can read or write
+    without having allocated it. Thus, it  will  report  an  error  when  a
+    program reads or writes values in a message obtained  through  GetMsg()
+    calls. Use AP_Report() to avoid such reports.
+
+	It can display messages about closing the library  without  freeing
+    some memory blocks. This is due to printf() that allocates memory  that
+    is free'd on exit. This is not a real bug, but you can  avoid  this  by
+    doing a AP_Report(0) just before exiting. But you must notice  that  it
+    is better to display false bugs than to not display real ones.
+
+	I've rewritten malloc()/realloc()/free().  I  hope  this  will  not
+    produce bugs (I've tested sucessfully the test program with  libnix and
+    ixemul, so I hope it will be all right).
+
+	Certainly more bugs, but I'm waiting for your bug-reports.

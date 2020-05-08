@@ -1,0 +1,326 @@
+Undefined symbols        First Referenced
+_sprintf                 Library 'aPur-pdc.lib' Program unit 'lib/APfuncs_code'
+_stdout                  Library 'aPur-pdc.lib' Program unit 'lib/APfuncs_code'
+.ldivs                   Library 'aPur-pdc.lib' Program unit 'lib/APfuncs_code'
+.lmuls                   Library 'aPur-pdc.lib' Program unit 'lib/APfuncs_code'
+_fprintf                 Library 'aPur-pdc.lib' Program unit 'lib/APfuncs_code'
+_malloc                  Library 'aPur-pdc.lib' Program unit 'lib/APfuncs_code'
+_vfprintf                Library 'aPur-pdc.lib' Program unit 'lib/APfuncs_code'
+_vsprintf                Library 'aPur-pdc.lib' Program unit 'lib/APfuncs_code'
+_free                    Library 'aPur-pdc.lib' Program unit 'lib/APfuncs_code'
+.cswitch                 Library 'aPur-pdc.lib' Program unit 'lib/APfuncs_code'
+_FindTask                Library 'aPur-pdc.lib' Program unit 'lib/APfuncs_code'
+_SysBase                 Library 'aPur-pdc.lib' Program unit 'lib/APfuncs_code'
+_getenv                  Library 'aPur-pdc.lib' Program unit 'lib/APfuncs_code'
+_fopen                   Library 'aPur-pdc.lib' Program unit 'lib/APfuncs_code'
+_perror                  Library 'aPur-pdc.lib' Program unit 'lib/APfuncs_code'
+_time                    Library 'aPur-pdc.lib' Program unit 'lib/APfuncs_code'
+_ctime                   Library 'aPur-pdc.lib' Program unit 'lib/APfuncs_code'
+_exit                    Library 'aPur-pdc.lib' Program unit 'lib/APfuncs_code'
+_Forbid                  Library 'aPur-pdc.lib' Program unit 'lib/APfuncs_code'
+_SetFunction             Library 'aPur-pdc.lib' Program unit 'lib/APfuncs_code'
+_Permit                  Library 'aPur-pdc.lib' Program unit 'lib/APfuncs_code'
+_atexit                  Library 'aPur-pdc.lib' Program unit 'lib/APfuncs_code'
+_fgetc                   Library 'aPur-pdc.lib' Program unit 'lib/APfuncs_code'
+_fclose                  Library 'aPur-pdc.lib' Program unit 'lib/APfuncs_code'
+_fflush                  Library 'aPur-pdc.lib' Program unit 'lib/APfuncs_code'
+_stdin                   Library 'aPur-pdc.lib' Program unit 'lib/APfuncs_code'
+_Delay                   Library 'aPur-pdc.lib' Program unit 'lib/APfuncs_code'
+
+
+
+Undefined symbols        First Referenced
+_SysBase                 Library 'aPur-dcc.lib' Program unit 'text'
+__Iob                    Library 'aPur-dcc.lib' Program unit 'text'
+__ABSOLUTE_BAS           Library 'aPur-dcc.lib' Program unit 'APURIFY'
+_Delay                   Library 'aPur-dcc.lib' Program unit 'text'
+_fclose                  Library 'aPur-dcc.lib' Program unit 'text'
+_fgetc                   Library 'aPur-dcc.lib' Program unit 'text'
+_fflush                  Library 'aPur-dcc.lib' Program unit 'text'
+_atexit                  Library 'aPur-dcc.lib' Program unit 'text'
+_Permit                  Library 'aPur-dcc.lib' Program unit 'text'
+_SetFunction             Library 'aPur-dcc.lib' Program unit 'text'
+_Forbid                  Library 'aPur-dcc.lib' Program unit 'text'
+_exit                    Library 'aPur-dcc.lib' Program unit 'text'
+_ctime                   Library 'aPur-dcc.lib' Program unit 'text'
+_time                    Library 'aPur-dcc.lib' Program unit 'text'
+_perror                  Library 'aPur-dcc.lib' Program unit 'text'
+_fopen                   Library 'aPur-dcc.lib' Program unit 'text'
+_getenv                  Library 'aPur-dcc.lib' Program unit 'text'
+_CacheClearU             Library 'aPur-dcc.lib' Program unit 'text'
+_FindTask                Library 'aPur-dcc.lib' Program unit 'text'
+_strcpy                  Library 'aPur-dcc.lib' Program unit 'text'
+_strlen                  Library 'aPur-dcc.lib' Program unit 'text'
+_free                    Library 'aPur-dcc.lib' Program unit 'text'
+_vsprintf                Library 'aPur-dcc.lib' Program unit 'text'
+_vfprintf                Library 'aPur-dcc.lib' Program unit 'text'
+_malloc                  Library 'aPur-dcc.lib' Program unit 'text'
+_fprintf                 Library 'aPur-dcc.lib' Program unit 'text'
+__muls                   Library 'aPur-dcc.lib' Program unit 'text'
+__divs                   Library 'aPur-dcc.lib' Program unit 'text'
+_sprintf                 Library 'aPur-dcc.lib' Program unit 'text'
+Error 510: UNKNOWN symbol - Reference to unmerged data item
+  First Reference in Unit T:APfuncs at offset 00000014 in file 'aPur-dcc.lib'
+  To Unit T:APfuncs at offset 00000014 in file 'aPur-dcc.lib'
+Error 510: UNKNOWN symbol - Reference to unmerged data item
+  First Reference in Unit T:APfuncs at offset 00000014 in file 'aPur-dcc.lib'
+  To Unit T:APfuncs at offset 00000014 in file 'aPur-dcc.lib'
+Error 510: _SysBase symbol - Reference to unmerged data item
+  First Reference in Unit T:APfuncs at offset 00000014 in file 'aPur-dcc.lib'
+  To ABSOLUTE symbol value 00000000
+Error 510: __Iob symbol - Reference to unmerged data item
+  First Reference in Unit T:APfuncs at offset 00000014 in file 'aPur-dcc.lib'
+  To ABSOLUTE symbol value 00000000
+
+
+
+
+
+******************************************************************************
+ source
+
+
+; test MoveScreen
+
+;	incdir	"include:"
+		include	"intuition/intuitionbase.i"
+		include	"intuition/screens.i"
+		include	dos/dos.i
+
+
+_DOSBase	equ	-4
+_IntuitionBase	equ	-8
+screenptr	equ	-12
+left		equ	-16
+top		equ	-20
+left2		equ	-24
+top2		equ	-28
+mousex		equ	-32
+mousey		equ	-36
+dx		equ	-40
+dy		equ	-44
+dx2		equ	-48
+dy2		equ	-52
+height		equ	-56
+
+
+
+
+		SECTION	text,CODE
+_main
+	jsr	_AP_Init
+		link	a5,#-56
+
+		movea.l	a5,a1
+		moveq	#0,d7
+		moveq	#13,d1
+_l1	pea	AP_l1
+	jsr	AP_FuncStartup
+	pea -4(a1)
+	jsr	AP_WriteL
+   		move.l	d7,-(a1)
+		dbf	d1,_l1
+
+		movea.l	$4,a6
+		lea	_c0(pc),a1
+		moveq	#0,d0
+	pea	-552(a6)
+	jsr	AP_FuncCall
+	pea	_DOSBase(a5)
+	jsr	AP_WriteL
+		move.l	d0,_DOSBase(a5)
+		beq	_l0
+
+		lea	_c1(pc),a1
+		moveq	#0,d0
+	pea	-552(a6)
+	jsr	AP_FuncCall
+	pea	_IntuitionBase(a5)
+	jsr	AP_WriteL
+		move.l	d0,_IntuitionBase(a5)
+		beq	_l0
+
+		movea.l	_IntuitionBase(a5),a0
+	pea	ib_ActiveScreen(a0)
+	jsr	AP_ReadL
+	pea	screenptr(a5)
+	jsr	AP_WriteL
+		move.l	ib_ActiveScreen(a0),screenptr(a5)
+		bra	begin
+
+invertdx	;	dx = -dx
+		moveq	#0,d6
+	pea	dx(a5)
+	jsr	AP_ReadL
+		sub.l	dx(a5),d6
+	pea	dx(a5)
+	jsr	AP_WriteL
+		move.l	d6,dx(a5)
+		rts
+
+invertdy	;	dy = -dy
+		moveq	#0,d6
+	pea	dy(a5)
+	jsr	AP_ReadL
+		sub.l	dy(a5),d6
+	pea	dy(a5)
+	jsr	AP_WriteL
+		move.l	d6,dy(a5)
+		rts
+
+begin
+	pea	left(a5)
+	jsr	AP_WriteL
+		clr.l	left(a5)
+	pea	top(a5)
+	jsr	AP_WriteL
+		clr.l	top(a5)
+	pea	-38(a5)
+	jsr	AP_WriteW
+		move.w	#-2,-38(a5)
+	pea	-42(a5)
+	jsr	AP_WriteW
+		move.w	#-2,-42(a5)
+
+scroll
+		movea.l	_DOSBase(a5),a6
+		move.l	#SIGBREAKF_CTRL_C,d1
+	pea	-792(a6)
+	jsr	AP_FuncCall
+		tst.l	d0
+		bne	after
+		movea.l	_IntuitionBase(a5),a6
+		movea.l	screenptr(a5),a0
+	pea	dx(a5)
+	jsr	AP_ReadL
+		move.l	dx(a5),d0
+	pea	dy(a5)
+	jsr	AP_ReadL
+		move.l	dy(a5),d1
+	pea	-162(a6)
+	jsr	AP_FuncCall
+		movea.l	screenptr(a5),a0
+	pea	sc_Height(a0)
+	jsr	AP_ReadW
+		move.w	sc_Height(a0),d5
+	pea	sc_TopEdge(a0)
+	jsr	AP_ReadW
+	pea	-26(a5)
+	jsr	AP_WriteW
+		move.w	sc_TopEdge(a0),-26(a5)
+	pea	top2(a5)
+	jsr	AP_ReadL
+		move.l	top2(a5),d3
+	pea	sc_LeftEdge(a0)
+	jsr	AP_ReadW
+	pea	-22(a5)
+	jsr	AP_WriteW
+		move.w	sc_LeftEdge(a0),-22(a5)
+	pea	left2(a5)
+	jsr	AP_ReadL
+		move.l	left2(a5),d4
+	pea	-14(a5)
+	jsr	AP_ReadW
+		cmp.w	-14(a5),d4
+		bne	_l2
+	pea	invertdx
+	jsr	AP_FuncCall
+_l2	pea	AP_l2
+	jsr	AP_FuncStartup
+	pea	-18(a5)
+	jsr	AP_ReadW
+		cmp.w	-18(a5),d3
+		bne	_l3
+	pea	invertdy
+	jsr	AP_FuncCall
+_l3	pea	AP_l3
+	jsr	AP_FuncStartup
+		tst.w	d3
+		bne	_l4
+	pea	invertdy
+	jsr	AP_FuncCall
+_l4	pea	AP_l4
+	jsr	AP_FuncStartup
+	pea	top2(a5)
+	jsr	AP_ReadL
+	pea	top(a5)
+	jsr	AP_WriteL
+		move.l	top2(a5),top(a5)
+	pea	left2(a5)
+	jsr	AP_ReadL
+	pea	left(a5)
+	jsr	AP_WriteL
+		move.l	left2(a5),left(a5)
+		bra	scroll
+
+after
+
+_l0	pea	AP_l0
+	jsr	AP_FuncStartup
+		movea.l	$4,a6
+	pea	_DOSBase(a5)
+	jsr	AP_ReadL
+		move.l	_DOSBase(a5),d7
+		beq  	_l5
+		movea.l	d7,a1
+	pea	-414(a6)
+	jsr	AP_FuncCall
+
+_l5	pea	AP_l5
+	jsr	AP_FuncStartup
+	pea	_IntuitionBase(a5)
+	jsr	AP_ReadL
+		move.l	_IntuitionBase(a5),d7
+		beq  	_l6
+		movea.l	d7,a1
+	pea	-414(a6)
+	jsr	AP_FuncCall
+
+_l6	pea	AP_l6
+	jsr	AP_FuncStartup
+		unlk	a5
+
+		moveq	#0,d0
+		rts
+
+
+_c0		dc.b	"dos.library",0
+_c1		dc.b	"intuition.library",0
+
+	section	APurify,data
+AP_c1:
+	dc.b	95,99,49,0
+AP_c0:
+	dc.b	95,99,48,0
+AP_l6:
+	dc.b	95,108,54,0
+AP_l5:
+	dc.b	95,108,53,0
+AP_l0:
+	dc.b	95,108,48,0
+AP_l4:
+	dc.b	95,108,52,0
+AP_l3:
+	dc.b	95,108,51,0
+AP_l2:
+	dc.b	95,108,50,0
+AP_l1:
+	dc.b	95,108,49,0
+AP_main:
+	dc.b	95,109,97,105,110,0
+AP_IntuitionBase:
+	dc.b	95,73,110,116,117,105,116,105,111,110,66,97,115,101,0
+AP_DOSBase:
+	dc.b	95,68,79,83,66,97,115,101,0
+	xref	AP_FuncStartup
+	xref	AP_FuncCall
+	xref	AP_Read
+	xref	AP_ReadB
+	xref	AP_ReadW
+	xref	AP_ReadL
+	xref	AP_Write
+	xref	AP_WriteB
+	xref	AP_WriteW
+	xref	AP_WriteL
+	xref	_AP_Init
+		END

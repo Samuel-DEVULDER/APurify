@@ -1,0 +1,26 @@
+Work:Dev/C/progs/APurify/torture_test/t1 14> source mk.sh 
+A68k -iPDC:include -iWork:dev/c/os-include -otest.o test.a
+68000 Assembler - version 2.6 (November 2, 1989)
+Copyright 1985 by Brian R. Anderson
+AmigaDOS conversion copyright 1989 by Charlie Gibbs.
+
+Assembling test.a
+
+PASS 1 line 8919
+PASS 2 line 8919
+End of assembly - no errors were found.
+Heap usage:  -w2047,400
+Total hunk sizes:  2e8 code, 44 data, 0 BSS
+ccx: Last command returned error code 0
+
+BLink PDC:lib/acrt0.o+ test.o library + PDC:lib/APur-pdc.lib+ PDC:lib/PDC.Lib+ PDC:lib/A
+Pass1 for Library 'PDC:lib/Math.lib'
+Pass2 for Library 'PDC:lib/Math.lib'
+
+Parsing            0:00.00 ---   19142
+Pass1              0:02.48 ---  129774
+Coalescing         0:00.14 ---   56046
+Pass2              0:01.96 ---   79142
+Map Processing     0:00.00 ---   57390
+======================================
+Total              0:04.58 ---  129774

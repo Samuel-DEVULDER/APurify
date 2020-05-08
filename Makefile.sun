@@ -1,0 +1,242 @@
+#
+# Makefile: how to make apurify on UNIX with cross-gcc 2.7.0
+#
+
+.INCLUDE	globals
+
+#
+# system stuff
+#
+AMICFLAGS	= -g -O -noixemul
+AMICC		= amigcc
+
+SUNCFLAGS	= -g -O
+SUNCC		= gcc
+
+LHA		= lha 
+LHAARG		= a
+
+AR              = $(HOME)/gcc-amiga/amigados/bin/ar rc
+RANLIB          = $(HOME)/gcc-amiga/amigados/bin/ranlib
+
+#
+# apurify stuff
+#
+AMIOBJSDIR	= gcc-objs/
+SUNOBJSDIR	= sun-objs/
+
+SUNMITAPURIFY 	= $(BDIR)Mit-APurify.sun
+SUNMOTAPURIFY 	= $(BDIR)Mot-APurify.sun
+
+AMIMITAPURIFY 	= $(BDIR)Mit-APurify.gcc
+AMIMOTAPURIFY 	= $(BDIR)Mot-APurify.gcc
+
+SUNAPF	 	= $(BDIR)APF.sun
+AMIAPF	 	= $(BDIR)APF.gcc
+
+APLIB		= $(LDIR)APur-gcc.a
+
+TEST		= $(TDIR)test.gcc
+
+MKREV		= $(BDIR)mkrev.sun
+
+RM		= $(BDIR)rm.sun
+
+#
+# make all execs
+#
+all: $(SUNMOTAPURIFY) $(SUNMITAPURIFY) $(AMIMOTAPURIFY) $(AMIMITAPURIFY) $(TEST) toto
+
+#
+# toto
+#
+toto: lib/APfuncs.c tmp/toto.c
+	$(SUNCC) $(SUNCFLAGS) -I$(HOME)/gcc-amiga/amigados/os-include tmp/toto.c -o toto
+	toto
+
+#
+# clear temporary objects (.o, .a)
+#
+clean: mot-parse_clean mit-parse_clean lib_clean test_clean
+
+#
+# utils: a rm that accepts more args than amigados delete and a revision
+# manager
+#
+$(RM): $(UDIR)rm.c
+	$(SUNCC) $(SUNCFLAGS) $(UDIR)rm.c -o $@
+
+$(MKREV): $(UDIR)mkrev.c
+	$(SUNCC) $(SUNCFLAGS) $(UDIR)mkrev.c -o $@
+
+#
+# mit-parser
+#
+MITREVSRC 	= $(MITPDIR)rev.c
+
+mit-parse_clean: sunmit-parse_clean amimit-parse_clean
+
+#
+# unix
+# 	
+SUNMITPSRCS 	= $(MITPMODS:%=$(MITPDIR)%.c)
+SUNMITPOBJS 	= $(MITPMODS:%=$(MITPDIR)$(SUNOBJSDIR)%.o)
+
+SUNMITREVOBJ 	= $(MITPDIR)$(SUNOBJSDIR)rev.o
+
+$(SUNMITAPURIFY): $(SUNMITPOBJS) $(SUNMITREVOBJ)
+	$(SUNCC) $(SUNCFLAGS) -o $@ $(SUNMITPOBJS) $(SUNMITREVOBJ)
+
+$(SUNMITREVOBJ): $(MKREV) $(SUNMITPOBJS)
+	-$(MKREV) $(MITREVSRC) $(SUNMITPOBJS)
+	$(SUNCC) $(SUNCFLAGS) -c -o $@ $(MITREVSRC)
+
+$(MITPDIR)$(SUNOBJSDIR)%.o: $(MITPDIR)%.c
+	$(SUNCC) $(SUNCFLAGS) -I$(MITPDIR) -c -o $@ $<
+
+sunmit-parse_clean: $(RM)
+	-$(RM) $(SUNMITPOBJS) $(SUNMITREVOBJ)
+
+#
+# amigados
+# 	
+AMIMITPSRCS 	= $(MITPMODS:%=$(MITPDIR)%.c)
+AMIMITPOBJS 	= $(MITPMODS:%=$(MITPDIR)$(AMIOBJSDIR)%.o)
+
+AMIMITREVOBJ 	= $(MITPDIR)$(AMIOBJSDIR)rev.o
+
+$(AMIMITAPURIFY): $(AMIMITPOBJS) $(AMIMITREVOBJ)
+	$(AMICC) $(AMICFLAGS) -o $@ $(AMIMITPOBJS) $(AMIMITREVOBJ)
+
+$(AMIMITREVOBJ): $(MKREV) $(AMIMITPOBJS)
+	-$(MKREV) $(MITREVSRC) $(AMIMITPOBJS)
+	$(AMICC) $(AMICFLAGS) -c -o $@ $(MITREVSRC)
+
+$(MITPDIR)$(AMIOBJSDIR)%.o: $(MITPDIR)%.c
+	$(AMICC) $(AMICFLAGS) -I$(MITPDIR) -c -o $@ $<
+
+amimit-parse_clean: $(RM)
+	-$(RM) $(AMIMITPOBJS) $(AMIMITREVOBJ)
+
+#
+# mot-parser unix
+#
+MOTREVSRC 	= $(MOTPDIR)rev.c
+
+mot-parse_clean: SUNmot-parse_clean amimot-parse_clean
+
+#
+# unix
+# 	
+SUNMOTPSRCS 	= $(MOTPMODS:%=$(MOTPDIR)%.c)
+SUNMOTPOBJS 	= $(MOTPMODS:%=$(MOTPDIR)$(SUNOBJSDIR)%.o)
+
+SUNMOTREVOBJ 	= $(MOTPDIR)$(SUNOBJSDIR)rev.o
+
+$(SUNMOTAPURIFY): $(SUNMOTPOBJS) $(SUNMOTREVOBJ)
+	$(SUNCC) $(SUNCFLAGS) -o $@ $(SUNMOTPOBJS) $(SUNMOTREVOBJ)
+
+$(SUNMOTREVOBJ): $(MKREV) $(SUNMOTPOBJS)
+	-$(MKREV) $(MOTREVSRC) $(SUNMOTPOBJS)
+	$(SUNCC) $(SUNCFLAGS) -c -o $@ $(MOTREVSRC)
+
+$(MOTPDIR)$(SUNOBJSDIR)%.o: $(MOTPDIR)%.c
+	$(SUNCC) $(SUNCFLAGS) -I$(MOTPDIR) -c -o $@ $<
+
+SUNmot-parse_clean: $(RM)
+	-$(RM) $(SUNMOTPOBJS) $(SUNMOTREVOBJ)
+
+#
+# amigados
+# 	
+AMIMOTPSRCS 	= $(MOTPMODS:%=$(MOTPDIR)%.c)
+AMIMOTPOBJS 	= $(MOTPMODS:%=$(MOTPDIR)$(AMIOBJSDIR)%.o)
+
+AMIMOTREVOBJ 	= $(MOTPDIR)$(AMIOBJSDIR)rev.o
+
+$(AMIMOTAPURIFY): $(AMIMOTPOBJS) $(AMIMOTREVOBJ)
+	$(AMICC) $(AMICFLAGS) -o $@ $(AMIMOTPOBJS) $(AMIMOTREVOBJ)
+
+$(AMIMOTREVOBJ): $(MKREV) $(AMIMOTPOBJS)
+	-$(MKREV) $(MOTREVSRC) $(AMIMOTPOBJS)
+	$(AMICC) $(AMICFLAGS) -c -o $@ $(MOTREVSRC)
+
+$(MOTPDIR)$(AMIOBJSDIR)%.o: $(MOTPDIR)%.c
+	$(AMICC) $(AMICFLAGS) -I$(MOTPDIR) -c -o $@ $<
+
+amimot-parse_clean: $(RM)
+	-$(RM) $(AMIMOTPOBJS) $(AMIMOTREVOBJ)
+
+#
+# runtime library
+#
+LMODS += APserv
+
+LOBJS = $(LMODS:%=$(LDIR)$(AMIOBJSDIR)%.o)
+
+$(APLIB): $(LOBJS)
+	$(AR) $@ $(LOBJS)
+	$(RANLIB) $@
+
+$(LDIR)$(AMIOBJSDIR)%.o: $(LDIR)%.c
+	$(AMICC) $(AMICFLAGS) -c -I$(LDIR) $< -o $@
+
+$(LDIR)$(AMIOBJSDIR)%.o: $(LDIR)%.s
+	$(AMICC) $(AMICFLAGS) -c $< -o $@
+
+lib_clean: $(RM)
+	-$(RM) $(LOBJS)
+
+#
+# frontend
+#
+APFREVSRC = $(APFDIR)rev.c
+
+APFREVOBJ = $(APFDIR)$(OBJSDIR)rev.o
+
+TERMINER LA PARTIE APF
+
+#
+# unix
+# 	
+SUNAPFSRCS = $(APFMODS:%=$(APFDIR)%.c)
+SUNAPFOBJS = $(APFMODS:%=$(APFDIR)$(SUNOBJSDIR)%.o)
+
+$(SUNAPF): $(SUNAPFOBJS) $(APFREVOBJ)
+	$(CC) $(CFLAGS) -o $@ $(SUNAPFOBJS) $(APFREVOBJ)
+
+$(SUNAPFREVOBJ): $(MKREV) $(APFOBJS)
+	-$(MKREV) $(APFREVSRC) $(SUNAPFOBJS)
+	$(CC) $(CFLAGS) -c -o $@ $(APFREVSRC)
+
+$(SUNAPFDIR)$(OBJSDIR)%.o: $(APFDIR)%.c
+	$(CC) $(CFLAGS) -I$(APFDIR) -c -o $@ $<
+
+$(SUNAPF): $(SUNAPFOBJS) $(APFREVOBJ)
+	echo >$(APFDIR)$(OBJSDIR)linkfile $(APFOBJS) $(APFREVOBJ)
+	sc $(CFLAGS) TO $@ LINK WITH $(APFDIR)$(OBJSDIR)linkfile 
+
+$(APFREVOBJ): $(MKREV) $(APFOBJS)
+	-$(MKREV) $(APFREVSRC) $(APFOBJS)
+	sc $(CFLAGS) TO $(APFDIR)$(notdir $@) $(APFREVSRC) NOLINK
+	$(CP) $(APFDIR)$(notdir $@) $(APFDIR)$(OBJSDIR)
+	$(RM) $(APFDIR)$(notdir $@)
+
+$(APFDIR)$(OBJSDIR)%.o: $(APFDIR)%.c
+	sc $(CFLAGS) IDIR $(APFDIR) TO $(APFDIR)$(notdir $@) $< NOLINK
+	$(CP) $(APFDIR)$(notdir $@) $(APFDIR)$(OBJSDIR)
+	$(RM) $(APFDIR)$(notdir $@)
+
+apf_clean: $(RM)
+	-$(RM) $(APFOBJS) $(APFREVOBJ)
+
+#
+# test
+#
+$(TEST): $(TDIR)test.c $(SUNMOTAPURIFY) $(APLIB) $(RM)
+	$(AMICC) -noixemul -g -S $(TDIR)test.c -o $(TDIR)test.s
+	$(SUNMITAPURIFY) $(TDIR)test.s
+	$(AMICC) -noixemul -g $(TDIR)test.s -o $@ $(APLIB)
+	-$(RM) $(TDIR)test.s
+
+test_clean: $(RM)

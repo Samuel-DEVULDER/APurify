@@ -1,0 +1,494 @@
+;------------------------------------------------------------------------
+;
+; APurify-Install - Intaller script for APurify
+;
+; $VER: APurify-Install 1.5 (20.10.96)
+;
+; (C)1996 by Samuel Devulder
+;
+;------------------------------------------------------------------------
+
+;------------------------------------------------------------------------
+; Set text strings
+
+; default = English
+(set
+     #yes                 (cat "Yes")
+     #no                  (cat "No")
+     #none                (cat "None")
+
+     #dice-name           (cat "the DICE compiler")
+     #sas-name            (cat "the SAS/C compiler")
+     #gcc-name            (cat "GCC or ADE")
+     #pdc-name            (cat "the PDC compiler")
+
+     #no-editor           (cat "no editor")
+
+     #wrong-version       (cat "Sorry wrong version of installer.\n"
+                               "Installer v42.7 is the minimum required.")
+
+     #welcome             (cat "Welcome to the Installation of the "
+                               "APurify V1.5 package.\n"
+                               "© 1996 by Samuel Devulder")
+
+     #exit-compil         (cat "APurify has been installed on your system "
+                               "for the following compiler(s): ")
+     #exit-editor         (cat "and the following editor(s): ")
+     #exit-script         (cat "APurify will use %s when it finds an "
+                               "error.")
+     #exit-doc            (cat "The documentation is stored in \"%s\".")
+     #exit-remove         (cat "If you ever want to remove APurify, then "
+                               "just execute \"%s\" in a shell.")
+     #exit-happy          (cat "Happy debugging!")
+
+     #determining-config  (cat "Determining configuration...")
+     #cleaning-files      (cat "Cleaning files...")
+     #copying-files       (cat "Copying files...")
+     #removing-temps      (cat "Removing temporaries...")
+
+     #ask-location-prompt (cat "Please indicate the directory where %s "
+                               "is located.")
+     #ask-compiler-prompt (cat "Select which compiler(s) to use with "
+                               "APurify:")
+     #ask-editor-prompt   (cat "Select which editor(s) APurify will use:")
+     #ask-script-prompt   (cat "Select the editor that APurify will call "
+                               "when it finds a buggy program:")
+
+     #keep-doc-prompt     (cat "Do you want to keep the docs ?")
+     #keep-doc-help       (cat "The documentation files might be usefull "
+                               "from time to time. You had rather keep "
+                               "them.")
+     #where-doc-prompt    (cat "Where should be placed the docs ?")
+
+     #gen-remover-prompt  (cat "Do you want to generate an remover script ?")
+     #gen-remover-help    (cat "I strongly encourage you to make that "
+                               "script. It'll be far more easier to "
+                               "uninstall APurify with it. You'll just have "
+                               "to execute it to remove APurify from your "
+                               "system.")
+     #ask-remover-name    (cat "How should be named the remover script ?")
+     #editor-not-present  (cat "The editor is not installed for that script!")
+)
+
+; Francais
+(if (or (= @language "français")
+        (= @language "Français"))
+(set
+     #yes                 (cat "Oui")
+     #no                  (cat "Non")
+     #none                (cat "Aucun")
+
+     #dice-name           (cat "le compilateur DICE")
+     #sas-name            (cat "le compilateur SAS/C")
+     #gcc-name            (cat "GCC (ou ADE)")
+     #pdc-name            (cat "le compilateur PDC")
+
+     #no-editor           (cat "aucun éditeur")
+
+     #wrong-version       (cat "Désolé, vous avez une mauvaise version "
+                               "de l'Installer. Ce script a besoin de l'"
+                               "Installer v42.7 au minimum.")
+
+     #welcome             (cat "Bienvenue dans l'installation de APurify "
+                               "V1.5.\n"
+                               "© 1996 by Samuel Devulder")
+
+     #exit-compil         (cat "APurify vient d'être installé dans votre "
+                               "système pour le(s) compilateur(s) "
+                               "suivant(s): ")
+     #exit-editor         (cat "ainsi que pour l(es) éditeur(s) suivant(s): ")
+     #exit-script         (cat "APurify utilisera %s quand il découvrira "
+                               "une erreur dans vos programmes.")
+     #exit-doc            (cat "La documentation est stockée dans \"%s\".")
+     #exit-remove         (cat "Si vous souhaitez retirer APurify de votre "
+                               "système, il vous suffit d'exécuter \"%s\" "
+                               "dans un shell.")
+     #exit-happy          (cat "Bon débogage!")
+
+     #determining-config  (cat "Détermination de votre configuration...")
+     #cleaning-files      (cat "Effacement des fichiers...")
+     #copying-files       (cat "Copie de fichiers...")
+     #removing-temps      (cat "Effacement des fichiers temporaires...")
+
+     #ask-location-prompt (cat "Veuillez indiquer le répertoire où %s "
+                               "se situe.")
+     #ask-compiler-prompt (cat "Vous voulez installer APurify pour quel(s) "
+                               "compilateur(s) ?")
+     #ask-editor-prompt   (cat "Veuillez choisir l(es) éditeur(s) qui "
+                               "pourra(ont) être(s) utilisé(s) avec APurify:")
+     #ask-script-prompt   (cat "Quel éditeur utilisera APurify en cas "
+                               "d'erreur ?")
+
+     #keep-doc-prompt     (cat "Voulez-vous conserver la documentation ?")
+     #keep-doc-help       (cat "La documentation peut être utile de temps à "
+                               "autres. Vous devriez la conserver "
+                               "précieusement.")
+     #where-doc-prompt    (cat "Où faut-il mettre la documentation ?")
+
+     #gen-remover-prompt  (cat "Voulez-vous un script de désinstallation ?")
+     #gen-remover-help    (cat "Je vous encourage à choisir la création "
+                               "du fichier de désinstallation. Grâce a lui, "
+                               "il vous sera très facile de retirer APurify "
+                               "de votre système (simplement en exécutant "
+                               "ce script).")
+
+     #editor-not-present  (cat "Il n'y a pas cet éditeur sur votre système!")
+
+     #ask-remover-name    (cat "Quel nom voulez-vous donner au script de "
+                               "désinstallation ?")
+))
+
+;------------------------------------------------------------------------------
+
+(if (< @installer-version (+ (* 42 65536) 7)) (abort #wrong-version))
+
+;------------------------------------------------------------------------------
+; Check if the directory is correct
+(procedure P_checkdir #dir #prompt
+   (debug "P_checkdir" #dir "\"" #prompt "\"")
+   (if (exists #dir (noreq)) #dir
+       (askdir (prompt (#ask-location-prompt #prompt))
+               (help @askdir-help)
+               (default #dir))
+   ) ;if
+) ; P_checkdir
+
+
+;------------------------------------------------------------------------------
+; Copy procedure that maintains the remover-script
+(procedure P_copy #src #dst
+   (if (= 2 (exists #dst (noreq))) (set #dst (tackon #dst (fileonly #src))))
+   (debug "copy" #src "to" #dst)
+   (textfile (dest    #tmp-remover)
+             (include #tmp-remover)
+             (append ("c:Delete \"%s.tmp\" FORCE QUIET\n" #dst)))
+   (textfile (dest    #tmp-uninstaller)
+             (include #tmp-uninstaller)
+             (append ("c:Delete \"%s\" FORCE QUIET\n" #dst)))
+   (textfile (dest    #tmp-renamer)
+             (include #tmp-renamer)
+             (append ("c:Delete \"%s\" FORCE QUIET\n" #dst))
+             (append ("c:Rename \"%s.tmp\" \"%s\" QUIET\n" #dst #dst)))
+   (if (not @pretend)
+       (copyfiles (source #src)
+                  (dest (pathonly #dst))
+                  (newname (fileonly (cat #dst ".tmp"))))
+   ) ; if not pretend
+) ; P_copy
+
+;------------------------------------------------------------------------------
+; Emergency cleanup
+(procedure P_cleanup
+     (working #cleaning-files)
+     (execute #tmp-remover)
+); P_cleanup
+
+;------------------------------------------------------------------------------
+; Set variables
+(set
+     #dice-dir  "Dice:"
+     #sas-dir   "SC:"
+     #gcc-dir   "ADE:"
+     #pdc-dir   "PDC:"
+     
+     #ged-dir   "GoldEd:"
+     #emacs-dir "GNUEMACS:"
+     #ed-dir    "c:"
+     
+     #dice-doc  "Dice:doc"
+     #sas-doc   "sc:help"
+     #gcc-doc   "ADE:guide"
+     #pdc-doc   "pdc:doc"
+     
+     #tmp-remover        "t:APurify-tmpremover" ; will remove .tmp files
+     #tmp-renamer        "t:APurify-Renamer"    ; will rename .tmp files
+     #tmp-uninstaller    "t:APurify-UnInstall"  ; uninstaller scipt
+
+     #uninstaller        "s:APurify-UnInstall"
+) ; set
+
+;------------------------------------------------------------------------------
+; Here we start...
+(complete 0)
+(welcome #welcome)
+(working #determining-config)
+
+;------------------------------------------------------------------------------
+; Find which compilers are installed
+(set #compiler-set 
+     (bitor
+        (if (exists #dice-dir (noreq)) %0001)
+        (if (exists #sas-dir  (noreq)) %0010)
+        (if (exists #gcc-dir  (noreq)) %0100)
+        (if (exists #pdc-dir  (noreq)) %1000)
+     ) ; bitor
+) ; set
+(debug "compiler set is" #compiler-set)
+
+;------------------------------------------------------------------------------
+; Find which Editors are installed
+(set #editor-set 
+     (bitor
+        (if (exists #ged-dir (noreq))            %0001)
+        (if (exists #emacs-dir (noreq))          %0010)
+        (if (exists (cat #ed-dir "Ed") (noreq))  %0100)
+     ) ; bitor
+) ; set
+(debug "editor set is" #editor-set)
+
+;------------------------------------------------------------------------------
+; Find which Editors to use by default
+(set #editor-script
+        (if (in #editor-set 0) 1 ; golded or
+        (if (in #editor-set 1) 2 ; emacs
+        0)))
+
+;------------------------------------------------------------------------------
+; Ask user for compilers 
+(complete 10)
+(set #user-compiler
+        (askoptions 
+                (prompt  #ask-compiler-prompt)
+                (help    @askoptions-help)
+                (choices "Dice" "SAS/C" "gcc" "pdc")
+                (default #compiler-set)
+        ) ; askoptions
+) ; set
+(debug "User-compiler is" #user-compiler)
+
+;------------------------------------------------------------------------------
+; Verify the input
+(if (in #user-compiler 0) 
+    (set #dice-dir (P_checkdir #dice-dir #dice-name)))
+(if (in #user-compiler 1) 
+    (set #sas-dir  (P_checkdir #sas-dir  #sas-name)))
+(if (in #user-compiler 2) 
+    (set #gcc-dir  (P_checkdir #gcc-dir  #gcc-name)))
+(if (in #user-compiler 3) 
+    (set #pdc-dir  (P_checkdir #pdc-dir  #pdc-name)))
+
+;------------------------------------------------------------------------------
+; Ask user for editors
+(complete 15)
+(set #user-editor
+        (askoptions 
+                (prompt  #ask-editor-prompt)
+                (help    @askoptions-help)
+                (choices "GoldEd" "GnuEmacs" "c:Ed")
+                (default #editor-set)
+        ) ; askoptions
+) ;set
+(debug "User-editor is" #user-editor)
+
+;------------------------------------------------------------------------------
+; Verify the input
+(if (in #user-editor 0) (set #ged-dir   (P_checkdir #ged-dir   "GoldEd")))
+(if (in #user-editor 1) (set #emacs-dir (P_checkdir #emacs-dir "GnuEmacs")))
+(if (in #user-editor 2) (set #ed-dir    (P_checkdir #ed-dir    "c:Ed")))
+
+;------------------------------------------------------------------------------
+; Determine the default ARexx script
+(complete 20)
+(set #user-script
+     (askchoice 
+        (prompt  #ask-script-prompt)
+        (help    @askchoice-help)
+        (choices #none "GoldEd" "GnuEmacs" "c:Ed")
+        (default #editor-script)
+     ) ; askchoice
+) ; set
+(if (and (> #user-script 0)
+         (not (in #user-editor (- #user-script 1))))
+    (abort #editor-not-present))
+(debug "user-script is" #user-script)
+
+;------------------------------------------------------------------------------
+; keep Docs ?
+(complete 25)
+(set #doc-dir
+     (if (exists #sas-doc  (noreq)) #sas-doc
+     (if (exists #gcc-doc  (noreq)) #gcc-doc
+     (if (exists #dice-doc (noreq)) #dice-doc
+     (if (exists #pdc-doc  (noreq)) #pdc-doc
+     "SYS:Utilities/APurify/DOC")))))
+
+(if (askbool (prompt  #keep-doc-prompt)
+             (help    #keep-doc-help)
+             (choices #yes #no)
+             (default 1))
+    (set #keep-docs 1
+         #doc-dir   (askdir  (prompt  #where-doc-prompt)
+                             (help    @askdir-help)
+                             (default #doc-dir)
+                    )
+    )   
+    (set #keep-docs 0)
+)
+(debug "keep-docs" #keep-docs)
+
+;------------------------------------------------------------------------------
+; generate uninstaller-script ?
+(complete 30)
+(if (askbool (prompt  #gen-remover-prompt)
+             (help    #gen-remover-help)
+             (choices #yes #no)
+             (default 1))
+    (set #make-remover 1
+         #uninstaller  (askstring
+                       (prompt  #ask-remover-name)
+                       (help    @askfile-help)
+                       (default #uninstaller)
+                    ) ; askfile
+    ) ; set
+    (set #make-remover 0)
+) ; if
+(debug "make-remover" #make-remover)
+
+;------------------------------------------------------------------------------
+; make the installation
+
+; cleanup generated scripts
+(textfile (dest #tmp-remover) 
+          (append ("c:Delete %s %s FORCE QUIET\n" 
+                   #tmp-renamer #tmp-uninstaller)))
+(textfile (dest #tmp-renamer)
+          (append ("c:Delete %s %s FORCE QUIET\n" 
+                   #tmp-remover #tmp-uninstaller)))
+(textfile (dest #tmp-uninstaller)
+          (append "Ask \"Do you really want to remove APurify from your system ? [y/n]\"\n")
+          (append "if not warn\n")
+          (append "quit\n")
+          (append "endif\n"))
+(protect #tmp-uninstaller "+s")
+
+; setup trap & exit code
+(onerror (P_cleanup))
+
+(working #copying-files)
+
+;------------------------------------------------------------------------------
+; 1st the compilers
+(complete 40)
+(if (in #user-compiler 0) ; DICE
+    (
+     (P_copy "bin/APF"          (tackon #dice-dir "bin"))
+     (P_copy "bin/Mot-APurify"  (tackon #dice-dir "bin"))
+     (P_copy "lib/APur-dcc.lib" (tackon #dice-dir "dlib"))
+    )
+) ; if
+(complete 45)
+(if (in #user-compiler 1) ; SAS/C
+    (
+     (P_copy "bin/APF"          (tackon #sas-dir "c"))
+     (P_copy "bin/Mot-APurify"  (tackon #sas-dir "c"))
+     (P_copy "lib/APur-sas.lib" (tackon #sas-dir "lib"))
+    )
+) ; if
+(complete 50)
+(if (in #user-compiler 2) ; ADE
+    (
+     (P_copy "bin/APF"           (tackon #gcc-dir "bin"))
+     (P_copy "bin/Mit-APurify"   (tackon #gcc-dir "bin"))
+     (P_copy "lib/libAPur-gcc.a" (tackon #gcc-dir "lib"))
+    )
+) ; if
+(complete 55)
+(if (in #user-compiler 3) ; PDC
+    (
+     (P_copy "bin/APF"           (tackon #pdc-dir "bin"))
+     (P_copy "bin/Mot-APurify"   (tackon #pdc-dir "bin"))
+     (P_copy "lib/APur-pdc.lib"  (tackon #pdc-dir "lib"))
+    )
+) ; if
+
+;------------------------------------------------------------------------------
+; 2nd the editors script
+(complete 60)
+(if (in #user-editor 0) (P_copy "AREXX/APgolded.ged"  
+                                (tackon #ged-dir "ARexx/APgolded.ged")))
+(if (in #user-editor 1) (P_copy "AREXX/APemacs.elx"   
+                                (tackon #emacs-dir "etc/APemacs.elx")))
+(if (in #user-editor 2) (P_copy "AREXX/APed.rx" "Rexx:APed.rx"))
+
+;------------------------------------------------------------------------------
+; 3rd - Environment variables
+(complete 65)
+(if (= #user-script 1) (set #env (tackon #ged-dir   "ARexx/APgolded.ged"))
+(if (= #user-script 2) (set #env (tackon #emacs-dir "etc/APemacs.elx"))
+(if (= #user-script 3) (set #env "Rexx:APed.rx"))))
+
+(if (> #user-script 0)
+    ((textfile (dest    #tmp-renamer)
+               (include #tmp-renamer)
+               (if (= #user-script 1) 
+                   ((append "Echo >ENV:APscreen    GOLDED.1\n")
+                    (append "Echo >ENVARC:APscreen GOLDED.1\n")))
+               (append  "Echo >ENV:APlog    t:APurify.log\n")
+               (append  "Echo >ENVARC:APlog t:APurify.log\n")
+               (append ("Echo >ENV:APexec \"rx %s *$HITNO *$SOURCE *$LINE *$CALLCHAIN\"\n" #env)) 
+               (append ("Echo >ENVARC:APexec \"rx %s *$HITNO *$SOURCE *$LINE *$CALLCHAIN\"\n" #env)))
+     (textfile (dest    #tmp-uninstaller)
+               (include #tmp-uninstaller)
+               (append (cat "c:Delete ENV:APlog ENVARC:APlog ENV:APexec ENVARC:APexec "
+			    "ENV:APscreen ENVARC:APscreen FORCE QUIET\n")))
+     )
+) ; if
+
+;------------------------------------------------------------------------------
+; copy docs
+(complete 70)
+(if (= #keep-docs 1) 
+    (foreach "doc/" "#?" (P_copy (tackon "doc/" @each-name) #doc-dir)))
+
+;------------------------------------------------------------------------------
+; uninstaller
+(complete 75)
+(if (= #make-remover 1)
+    (P_copy #tmp-uninstaller #uninstaller))
+
+;------------------------------------------------------------------------------
+; exit
+(complete 80)
+(working #removing-temps)
+(execute #tmp-renamer)
+
+;-----------------------------------------------------------------------------
+(complete 90)
+(set #prompt #exit-compil #colon "")
+(if (=  #user-compiler 0) (set #prompt ("%s%s"   #prompt #none)))
+(if (in #user-compiler 0) (set #prompt ("%s%s%s" #prompt #colon #dice-name)
+                               #colon ", "))
+(if (in #user-compiler 1) (set #prompt ("%s%s%s" #prompt #colon #sas-name)
+                               #colon ", "))
+(if (in #user-compiler 2) (set #prompt ("%s%s%s" #prompt #colon #gcc-name)
+                               #colon ", "))
+(if (in #user-compiler 3) (set #prompt ("%s%s%s" #prompt #colon #pdc-name)))
+
+(set #prompt ("%s %s" #prompt #exit-editor) #colon "")
+(if (=  #user-editor 0) (set #prompt ("%s%s"   #prompt #none)))
+(if (in #user-editor 0) (set #prompt ("%s%s%s" #prompt #colon "GoldEd")
+                             #colon ", "))
+(if (in #user-editor 1) (set #prompt ("%s%s%s" #prompt #colon "Emacs")
+                             #colon ", "))
+(if (in #user-editor 2) (set #prompt ("%s%s%s" #prompt #colon "c:Ed")))
+(set #prompt ("%s.\n" #prompt))
+
+(set #prompt ("%s\n%s\n" #prompt
+                     (#exit-script
+                           (if (= #user-script 0) #no-editor
+                           (if (= #user-script 1) "GoldEd"
+                           (if (= #user-script 2) "Emacs"
+                           (if (= #user-script 3) "c:Ed")))))))
+
+(if (= #keep-docs 1)
+    (set #prompt ("%s\n%s\n" #prompt
+                         (#exit-doc #doc-dir))))
+
+(if (= #make-remover 1)
+    (set #prompt ("%s\n%s\n" #prompt
+                         (#exit-remove #uninstaller))))
+
+(set #prompt ("%s\n%s" #prompt #exit-happy))
+
+(complete 100)
+(exit #prompt (quiet))

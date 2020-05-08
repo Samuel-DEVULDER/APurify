@@ -1,0 +1,149 @@
+#
+# Makefile: how to make apurify on amiga with DICE
+#
+
+.INCLUDE	globals
+
+#
+# system stuff
+#
+
+CFLAGS		= -s -ms
+CC		= dcc
+LHA		= lha 
+LHAARG		= -r -e r
+AR              = Join TO
+CP		= copy
+RM		= delete quiet
+# don't use c:ECHO since it can't have long arguments:
+ECHO		= bin/echo 
+
+#
+# apurify stuff
+#
+
+OBJSDIR		= dcc-objs/
+MITAPURIFY	= $(BDIR)Mit-APurify.dcc
+MOTAPURIFY	= $(BDIR)Mot-APurify.dcc
+APF		= $(BDIR)APF.dcc
+APLIB		= $(LDIR)APur-dcc.lib
+TEST		= $(TDIR)test.dcc
+MKREV		= $(BDIR)mkrev
+MKLNK		= $(BDIR)mklnk
+
+#
+# make all execs
+#
+all: $(MOTAPURIFY) $(MITAPURIFY) $(TEST) $(APF)
+
+#
+# toto
+#
+toto: lib/APfuncs.c tmp/toto.c
+	$(CC) $(CFLAGS) tmp/toto.c -o tmp/toto
+	tmp/toto
+
+#
+# clear temporary objects (.o, .a)
+#
+clean: mot-parse_clean mit-parse_clean lib_clean apf_clean
+
+#
+# utils: a rm that accepts more args than amigados delete and a revision
+# manager
+#
+#$(RM): $(UDIR)rm.c
+#	$(CC) $(CFLAGS) $< -o $@
+
+$(MKREV): $(UDIR)mkrev.c
+	$(CC) $(CFLAGS) $< -o $@
+
+$(MKLNK): $(UDIR)mklnk.c
+	$(CC) $(CFLAGS) $< -o $@
+
+#
+# mit-parser
+#
+MITPSRCS = $(MITPMODS:%=$(MITPDIR)%.c)
+MITPOBJS = $(MITPMODS:%=$(MITPDIR)$(OBJSDIR)%.o)
+
+MITREVSRC = $(MITPDIR)rev.c
+MITREVOBJ = $(MITPDIR)$(OBJSDIR)rev.o
+
+$(MITAPURIFY): $(MKLNK) $(MITPOBJS) $(MKREV)
+	-$(MKREV) $(MITREVSRC) @$(MITPDIR)$(OBJSDIR)linkfile
+	$(CC) $(CFLAGS) -o $@ $(MITREVSRC) @$(MITPDIR)$(OBJSDIR)linkfile -DVNUM="$(VERSION)"
+
+$(MITPDIR)$(OBJSDIR)%.o: $(MITPDIR)%.c
+	$(MKLNK) $(MITPDIR)$(OBJSDIR)linkfile "\n" $@
+	$(CC) $(CFLAGS) -I$(MITPDIR) -c -o $@ $<
+
+mit-parse_clean: 
+	$(RM) $(MITPDIR)$(OBJSDIR)#?
+
+#
+# mot-parser
+#
+MOTPSRCS = $(MOTPMODS:%=$(MOTPDIR)%.c)
+MOTPOBJS = $(MOTPMODS:%=$(MOTPDIR)$(OBJSDIR)%.o)
+
+MOTREVSRC = $(MOTPDIR)rev.c
+MOTREVOBJ = $(MOTPDIR)$(OBJSDIR)rev.o
+
+$(MOTAPURIFY): $(MKLNK) $(MOTPOBJS) $(MKREV)
+	-$(MKREV) $(MOTREVSRC) @$(MOTPDIR)$(OBJSDIR)linkfile
+	$(CC) $(CFLAGS) -o $@ $(MOTREVSRC) @$(MOTPDIR)$(OBJSDIR)linkfile -DVNUM="$(VERSION)"
+	$(CP) $@ bin/MOT-APurify
+
+$(MOTPDIR)$(OBJSDIR)%.o: $(MOTPDIR)%.c
+	$(MKLNK) $(MOTPDIR)$(OBJSDIR)linkfile "\n" $@
+	$(CC) $(CFLAGS) -I$(MOTPDIR) -c -o $@ $<
+
+mot-parse_clean: 
+	-$(RM) $(MOTPDIR)$(OBJSDIR)#?
+
+#
+# runtime library
+#
+LMODS += APmalloc APserv
+
+LOBJS = $(LMODS:%=$(LDIR)$(OBJSDIR)%.o)
+
+$(APLIB): $(LOBJS)
+	$(AR) $@ $(LOBJS)
+	$(CP) $@ DLIB:
+
+$(LDIR)$(OBJSDIR)%.o: $(LDIR)%.c
+	$(CC) $(CFLAGS) -c -I$(LDIR) $< -o $@
+
+$(LDIR)$(OBJSDIR)%.o: $(LDIR)%.a
+	$(CC) $(CFLAGS) -c $< -o $@
+
+lib_clean: 
+	-$(RM) $(LDIR)$(OBJSDIR)#?
+
+#
+# frontend
+#
+APFSRCS = $(APFMODS:%=$(APFDIR)%.c)
+APFOBJS = $(APFMODS:%=$(APFDIR)$(OBJSDIR)%.o)
+
+APFREVSRC = $(APFDIR)rev.c
+APFREVOBJ = $(APFDIR)$(OBJSDIR)rev.o
+
+$(APF): $(APFOBJS) $(MKREV)
+	-$(MKREV) $(APFREVSRC) @$(APFDIR)$(OBJSDIR)linkfile
+	$(CC) $(CFLAGS) -o $@ $(APFREVSRC) @$(APFDIR)$(OBJSDIR)linkfile -DVNUM="$(VERSION)"
+
+$(APFDIR)$(OBJSDIR)%.o: $(APFDIR)%.c
+	$(MKLNK) $(APFDIR)$(OBJSDIR)linkfile "\n" $@
+	$(CC) $(CFLAGS) -I$(APFDIR) -c -o $@ $<
+
+apf_clean: 
+	-$(RM) $(APFDIR)$(OBJSDIR)#?
+
+#
+# test
+#
+$(TEST): $(TDIR)test.c $(MOTAPURIFY) $(APLIB) $(APF)
+	$(APF) -v -sl -motparser $(MOTAPURIFY) $(CC) $(CFLAGS) $(TDIR)test.c -o $@
